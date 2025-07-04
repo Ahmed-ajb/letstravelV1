@@ -1,0 +1,117 @@
+{% extends "planner/base.html" %}
+{% load static %}
+
+{% block title %}Chatbot IA - Planificateur de Voyage Maroc{% endblock %}
+
+{% block head_extra %}
+<style>
+    /* Le CSS reste identique à la version précédente */
+    #chat-container { max-width: 800px; margin: 20px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; height: 75vh; background-color: #fff; border: 1px solid #e0e0e0; }
+    #chat-header { background-color: #343a40; color: white; padding: 1rem; text-align: center; font-size: 1.25rem; font-weight: bold; border-bottom: 1px solid #454d55; }
+    #chat-messages { flex-grow: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; background-color: #f8f9fa; }
+    .chat-message { padding: 0.75rem 1.25rem; border-radius: 18px; max-width: 75%; line-height: 1.5; opacity: 0; transform: translateY(20px); animation: fadeIn 0.5s forwards; }
+    .user-message { background-color: #007bff; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .ai-message { background-color: #e9ecef; color: #333; align-self: flex-start; border-bottom-left-radius: 4px; }
+    #chat-form-container { padding: 1rem; border-top: 1px solid #dee2e6; background-color: #fff; }
+    #chat-form { display: flex; gap: 10px; }
+    #chat-input { flex-grow: 1; border-radius: 20px; border: 1px solid #ced4da; padding: 0.5rem 1rem; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s; }
+    #chat-input:focus { outline: none; border-color: #80bdff; box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); }
+    #chat-submit { border-radius: 50%; width: 45px; height: 45px; border: none; background-color: #007bff; color: white; font-size: 1.2rem; cursor: pointer; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center; }
+    #chat-submit:hover { background-color: #0056b3; }
+    .spinner { align-self: flex-start; display: flex; align-items: center; gap: 10px; }
+    .spinner .dot { width: 10px; height: 10px; background-color: #adb5bd; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+    .spinner .dot:nth-child(1) { animation-delay: -0.32s; }
+    .spinner .dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+    @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="chat-container">
+    <div id="chat-header">🇲🇦 MarocGuide Chat</div>
+    <div id="chat-messages">
+        <!-- MODIFICATION : Boucle pour afficher l'historique -->
+        {% for message in chat_history %}
+            <div class="chat-message {% if message.is_from_user %}user-message{% else %}ai-message{% endif %}">
+                {{ message.message|linebreaksbr }}
+            </div>
+        {% empty %}
+            <!-- Ce message ne s'affiche que si l'historique est vide -->
+            <div class="chat-message ai-message">
+                Bonjour ! Je suis MarocGuide. Posez-moi une question sur votre futur voyage au Maroc !
+            </div>
+        {% endfor %}
+    </div>
+    <div id="chat-form-container">
+        <form id="chat-form">
+            <input type="text" id="chat-input" placeholder="Posez votre question ici..." autocomplete="off" required>
+            <button type="submit" id="chat-submit" aria-label="Envoyer">➤</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- Le JavaScript reste identique à la version précédente -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    // Auto-scroll to the bottom on page load
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    chatForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const userMessage = chatInput.value.trim();
+        if (!userMessage) return;
+
+        appendMessage(userMessage, 'user');
+        chatInput.value = '';
+        const spinner = showSpinner();
+
+        try {
+            const response = await fetch("{% url 'planner:chatbot_api' %}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userMessage })
+            });
+            hideSpinner(spinner);
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP ${response.status}`);
+            }
+            const data = await response.json();
+            appendMessage(data.reply || "Je n'ai pas de réponse.", 'ai');
+        } catch (error) {
+            hideSpinner(spinner);
+            appendMessage("Désolé, une erreur est survenue.", 'ai');
+        }
+    });
+
+    function appendMessage(message, type) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', `${type}-message`);
+        messageElement.innerHTML = message.replace(/\n/g, '<br>');
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showSpinner() {
+        const spinnerElement = document.createElement('div');
+        spinnerElement.classList.add('chat-message', 'ai-message', 'spinner');
+        spinnerElement.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+        chatMessages.appendChild(spinnerElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return spinnerElement;
+    }
+
+    function hideSpinner(spinnerElement) {
+        if (spinnerElement && spinnerElement.parentNode === chatMessages) {
+            chatMessages.removeChild(spinnerElement);
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "planner/base.html" %}
+
+{% block title %}{{ voyage.title }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    .voyage-banner {
+        height: 60vh; background-size: cover; background-position: center; position: relative;
+        display: flex; align-items: center; justify-content: center; text-align: center;
+        color: white; margin-bottom: 3rem;
+    }
+    .voyage-banner::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+    }
+    .voyage-banner-content {
+        position: relative; z-index: 2; padding: 2rem; background: rgba(0,0,0,0.2);
+        backdrop-filter: blur(5px); border-radius: 15px;
+    }
+    .voyage-title { font-size: 3.5rem; font-weight: 700; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); }
+    .voyage-author { font-size: 1.2rem; font-style: italic; }
+    .voyage-actions { margin-top: 1.5rem; }
+    .voyage-actions .btn { border-radius: 50px; font-weight: 600; transition: all 0.3s ease; }
+    .journal-entry {
+        background: #FFFFFF; padding: 2rem; border-radius: 8px; margin-bottom: 3rem;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.05); border-left: 5px solid #E67E22;
+    }
+    .journal-entry-title { font-size: 2rem; font-weight: 600; }
+    .journal-story { font-family: 'Georgia', serif; font-size: 1.1rem; line-height: 1.7; color: #333; }
+    .comment-section { background-color: #f8f9fa; padding: 2rem; border-radius: 8px; }
+</style>
+{% endblock %}
+
+{% block page_wrapper %}
+<div>
+    <header class="voyage-banner" style="background-image: url('{% if voyage.cover_image %}{{ voyage.cover_image.url }}{% else %}/static/planner/default_banner.jpg{% endif %}');">
+        <div class="voyage-banner-content">
+            <h1 class="voyage-title">{{ voyage.title }}</h1>
+            <p class="voyage-author">Par <strong>{{ voyage.author.username }}</strong></p>
+            <div class="voyage-actions">
+                <a href="{% url 'planner:like_voyage' voyage.id %}" class="btn {% if is_liked %}btn-danger{% else %}btn-outline-light{% endif %}">
+                    ♥ {{ like_count }}
+                </a>
+                {% if voyage.author == user %}
+                    <a href="{% url 'planner:voyage_edit_dashboard' voyage.id %}" class="btn btn-warning">Modifier</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        {% for entry in journal_entries %}
+        <section class="journal-entry">
+            <h2 class="journal-entry-title">Jour {{ entry.day_number }}: {{ entry.title }}</h2>
+            <hr>
+            <div class="journal-story">
+                {{ entry.story|linebreaks }}
+            </div>
+            {% if entry.media.all %}
+            <div class="mt-4">
+                <h5>Galerie du jour</h5>
+                <div class="row">
+                    {% for media in entry.media.all %}
+                    <div class="col-md-4">
+                        <img src="{{ media.media_file.url }}" class="img-fluid img-thumbnail" alt="{{ media.caption }}">
+                        <p class="text-center"><small>{{ media.caption }}</small></p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </section>
+        {% endfor %}
+
+        <section class="comment-section">
+            <h3>Commentaires</h3>
+            {% if user.is_authenticated %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+                </form>
+            {% else %}
+                <p><a href="{% url 'login' %}">Connectez-vous</a> pour laisser un commentaire.</p>
+            {% endif %}
+            <hr>
+            <div class="mt-4">
+                {% for comment in comments %}
+                    <p><strong>{{ comment.author.username }}</strong>: {{ comment.body }}</p>
+                {% empty %}
+                    <p>Soyez le premier à commenter !</p>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock page_wrapper %}

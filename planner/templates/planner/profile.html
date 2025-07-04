@@ -1,0 +1,60 @@
+{% extends "planner/base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+    <div class="profile-container">
+        <h2 class="section-title"><span>{{ page_title }}</span></h2>
+
+        {# This is the main form for the entire profile update #}
+        <form method="POST" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
+
+            <div class="profile-layout">
+                <!-- Section for Picture and Username -->
+                <aside class="profile-sidebar">
+                    <img src="{{ user.profile.profile_picture.url }}" alt="Photo de profil de {{ user.username }}" class="profile-picture-large">
+                    <div class="profile-username">@{{ user.username }}</div>
+                    <div class="profile-file-upload">
+                        <label for="id_profile_picture">Changer de photo</label>
+                        {{ p_form.profile_picture }} {# This is the actual file input #}
+                    </div>
+                </aside>
+
+                <!-- Section for Form Fields -->
+                <main class="profile-main-content">
+                    <fieldset class="form-fieldset">
+                        <legend>Informations Personnelles</legend>
+                        <div class="form-group">
+                            <label for="{{ u_form.first_name.id_for_label }}">Prénom</label>
+                            {{ u_form.first_name }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ u_form.last_name.id_for_label }}">Nom de famille</label>
+                            {{ u_form.last_name }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ u_form.email.id_for_label }}">Email</label>
+                            {{ u_form.email }}
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-fieldset">
+                        <legend>Détails du Voyageur</legend>
+                        <div class="form-group">
+                            <label for="{{ p_form.bio.id_for_label }}">Ma Biographie</label>
+                            {{ p_form.bio }}
+                        </div>
+                         <div class="form-group">
+                            <label for="{{ p_form.travel_style.id_for_label }}">Mon Style de Voyage</label>
+                            {{ p_form.travel_style }}
+                        </div>
+                    </fieldset>
+                    
+                    <button type="submit" class="btn btn-primary" style="margin-top: 20px; width: 100%;">Mettre à Jour le Profil</button>
+                </main>
+            </div>
+        </form>
+    </div>
+{% endblock %}

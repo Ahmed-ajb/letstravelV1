@@ -1,0 +1,75 @@
+{% extends "planner/base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title|default:"Détails du Voyage" }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>{{ trip.name }}</h2>
+        <a href="{% url 'planner:my_trips' %}" class="btn btn-outline-secondary">← Retour à Mes Voyages</a>
+    </div>
+    
+    <hr>
+
+    <div class="card bg-light my-4">
+        <div class="card-body text-center p-4">
+            <h5 class="card-title">Racontez votre expérience !</h5>
+            <p class="card-text">Transformez ce plan en un carnet de voyage pour y ajouter vos photos, vos notes audio et vos souvenirs.</p>
+            
+            {% if not trip.published_voyage %}
+                <a href="{% url 'planner:publish_trip' trip.id %}" class="btn btn-success">
+                    ✍️ Publier un Carnet de Voyage
+                </a>
+            {% else %}
+                <a href="{% url 'planner:voyage_edit_dashboard' trip.published_voyage.id %}" class="btn btn-info">
+                    ✏️ Modifier votre Carnet de Voyage
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <h3 class="mt-5">Itinéraire Détaillé du Plan</h3>
+
+    {% for day_data in days_with_items %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-header">
+                <strong>Jour {{ day_data.day_obj.day_number }}:</strong> {{ day_data.day_obj.city_name }}
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for item_data in day_data.items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            {% if item_data.db_item.item_type == 'hotel' %}
+                                🏨
+                            {% else %}
+                                🎯
+                            {% endif %}
+                            <strong>{{ item_data.db_item.name }}</strong>
+                            
+                            {% if item_data.db_item.activity_type_name %}
+                                <span class="badge bg-secondary fw-normal">{{ item_data.db_item.activity_type_name }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="ms-auto ps-3 text-end" style="min-width: 150px;">
+                            {% if item_data.db_item.item_type == 'activity' %}
+                                {% if item_data.user_has_rated %}
+                                    <span class="text-warning">★ {{ item_data.user_rating }}/5</span>
+                                    <a href="{% url 'planner:rate_item' item_data.db_item.id %}" class="btn btn-outline-secondary btn-sm ms-2">Modifier</a>
+                                {% else %}
+                                    <a href="{% url 'planner:rate_item' item_data.db_item.id %}" class="btn btn-primary btn-sm">Noter</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">
+            <p>Aucun détail jour par jour n'a été sauvegardé pour ce plan de voyage.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

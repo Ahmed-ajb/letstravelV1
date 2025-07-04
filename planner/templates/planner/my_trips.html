@@ -1,0 +1,114 @@
+{% extends "planner/base.html" %}
+{% load static %}
+
+{% block title %}Mes Voyages{% endblock %}
+
+{% block extra_head %}
+<style>
+    .voyages-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    .voyage-card {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #e9ecef;
+    }
+    .voyage-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    .voyage-card-header {
+        padding: 1.5rem;
+        border-bottom: 4px solid;
+    }
+    .voyage-card-header.plan {
+        /* Un bleu pour les plans */
+        border-image: linear-gradient(45deg, #007bff, #00c6ff) 1;
+    }
+    .voyage-card-header.published {
+        /* Un vert pour les carnets publiés */
+        border-image: linear-gradient(45deg, #28a745, #20c997) 1;
+    }
+    .voyage-card-title {
+        font-weight: 700;
+        font-size: 1.25rem;
+        margin: 0;
+        color: #212529;
+    }
+    .voyage-card-meta {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+    .voyage-card-body {
+        padding: 1.5rem;
+        flex-grow: 1;
+        font-size: 0.95rem;
+        color: #495057;
+    }
+    .voyage-card-footer {
+        padding: 1rem 1.5rem;
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.5rem;
+        border-top: 1px solid #e9ecef;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="section-title"><span>Mes Voyages</span></h2>
+<p style="text-align: center; max-width: 600px; margin: 0 auto 2rem auto;">
+    Retrouvez ici vos plans de voyage sauvegardés et vos carnets de voyage privés.
+</p>
+
+<div class="voyages-grid">
+    {% for trip in user_trips %}
+    <div class="voyage-card">
+        {% with voyage=trip.published_voyage %}
+            {% if voyage %}
+                <div class="voyage-card-header published">
+                    <h3 class="voyage-card-title">{{ voyage.title }}</h3>
+                    <p class="voyage-card-meta">Carnet Publié le {{ voyage.created_at|date:"d M Y" }}</p>
+                </div>
+                <div class="voyage-card-body">
+                    <p>Votre récit de voyage est prêt. Modifiez-le, revivez vos souvenirs ou téléchargez votre rapport.</p>
+                </div>
+                <div class="voyage-card-footer">
+                    <a href="{% url 'planner:download_voyage_pdf' voyage.id %}" class="btn btn-sm btn-info">Rapport PDF</a>
+                    <a href="{% url 'planner:voyage_edit_dashboard' voyage.id %}" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                    <a href="{{ voyage.get_absolute_url }}" class="btn btn-sm btn-primary">Voir</a>
+                </div>
+            {% else %}
+                <div class="voyage-card-header plan">
+                    <h3 class="voyage-card-title">{{ trip.name }}</h3>
+                    <p class="voyage-card-meta">Plan créé le {{ trip.created_at|date:"d M Y" }}</p>
+                </div>
+                <div class="voyage-card-body">
+                    <p>Ce plan est prêt à être transformé en un magnifique carnet de voyage que vous seul pourrez voir.</p>
+                </div>
+                <div class="voyage-card-footer">
+                    <a href="{% url 'planner:trip_detail' trip.id %}" class="btn btn-sm btn-outline-secondary">Détails du Plan</a>
+                    <a href="{% url 'planner:publish_trip' trip.id %}" class="btn btn-sm btn-success">✍️ Publier</a>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+    {% empty %}
+    <div class="no-activities" style="grid-column: 1 / -1; text-align: center;">
+        <p>Vous n'avez pas encore de voyages.</p>
+        <p><a href="{% url 'planner:plan_trip' %}" class="btn btn-cta">Planifiez votre premier voyage !</a></p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

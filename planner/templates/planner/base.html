@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Planificateur de Voyage Maroc{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'planner/style.css' %}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <header class="main-header">
+        <h1><a href="{% url 'planner:home_showcase' %}">Let's Travel</a></h1>
+    </header>
+
+    <nav class="main-nav">
+        <a href="{% url 'planner:home_showcase' %}" {% if request.resolver_match.url_name == 'home_showcase' %}class="active"{% endif %}>Accueil</a>
+        <a href="{% url 'planner:plan_trip' %}" {% if request.resolver_match.url_name == 'plan_trip' %}class="active"{% endif %}>Planifier</a>
+        
+        <!-- CORRECTION APPLIQUÉE ICI -->
+        <a href="{% url 'planner:chat_interface' %}" {% if request.resolver_match.url_name == 'chat_interface' %}class="active"{% endif %}>Chatbot IA</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'planner:my_trips' %}" {% if 'my_trips' in request.resolver_match.url_name or 'trip_detail' in request.resolver_match.url_name or 'rate_item' in request.resolver_match.url_name %}class="active"{% endif %}>Mes Voyages</a>
+            <a href="{% url 'planner:profile' %}" {% if request.resolver_match.url_name == 'profile' %}class="active"{% endif %}>Mon Profil</a>
+            
+            <span class="user-greeting">| Bonjour, {{ user.profile.user.first_name|default:user.username }} !</span>
+            <a href="{% url 'password_change' %}">Changer MDP</a>
+            <form method="post" action="{% url 'logout' %}" class="logout-form-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn-link-style">Déconnexion</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}" {% if request.resolver_match.url_name == 'login' %}class="active"{% endif %}>Connexion</a>
+            <a href="{% url 'planner:signup' %}" {% if request.resolver_match.url_name == 'signup' %}class="active"{% endif %}>Inscription</a>
+        {% endif %}
+    </nav>
+
+    {% block page_wrapper %}
+        <div class="container">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% block content %}
+            <!-- Le contenu spécifique de chaque page sera inséré ici -->
+            {% endblock %}
+        </div>
+    {% endblock page_wrapper %}
+
+    <footer class="main-footer">
+        <p>© {% now "Y" %} - Votre Aventure Marocaine. Tous droits réservés.</p>
+        <p><a href="#">Mentions Légales</a> | <a href="#">Politique de confidentialité</a></p>
+    </footer>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

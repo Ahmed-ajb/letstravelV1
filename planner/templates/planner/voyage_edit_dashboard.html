@@ -1,0 +1,56 @@
+{% extends "planner/base.html" %}
+
+{% block title %}Édition: {{ voyage.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Tableau de bord d'édition</h2>
+        <a href="{{ voyage.get_absolute_url }}" class="btn btn-outline-secondary">&larr; Voir le carnet</a>
+    </div>
+    <p class="text-muted">Modifiez les informations générales de votre carnet ou sélectionnez une journée pour raconter votre histoire et ajouter des médias.</p>
+    <hr>
+
+    <div class="row g-5">
+        <div class="col-md-4">
+            <h4>Informations Générales</h4>
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success mt-3">Enregistrer les informations</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <h4>Récits Journaliers</h4>
+            <div class="list-group">
+                {% for entry in journal_entries %}
+                    <a href="{% url 'planner:journal_entry_edit' voyage_id=voyage.id day_number=entry.day_number %}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Jour {{ entry.day_number }}: {{ entry.title }}</h5>
+                            <small class="text-muted">Modifier →</small>
+                        </div>
+                        <p class="mb-1 text-muted">
+                            {% if entry.story %}
+                                {{ entry.story|truncatechars:120 }}
+                            {% else %}
+                                <em>Aucun récit pour cette journée. Cliquez pour en ajouter un.</em>
+                            {% endif %}
+                        </p>
+                    </a>
+                {% empty %}
+                    <div class="list-group-item">
+                        <p class="mb-1">Aucune journée n'a été trouvée pour ce carnet.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,165 @@
+{% extends "planner/base.html" %}
+
+{% block title %}Édition du Jour {{ journal_entry.day_number }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    .recorder-container {
+        border: 1px solid #dee2e6;
+        padding: 1.5rem;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+    }
+    .recorder-status {
+        font-style: italic;
+        color: #6c757d;
+        min-height: 24px;
+    }
+    .recorder-controls button {
+        margin-right: 10px;
+    }
+    #audio-playback {
+        width: 100%;
+        margin-top: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <p>
+        <a href="{% url 'planner:voyage_edit_dashboard' voyage_id=voyage.id %}" class="btn btn-sm btn-outline-secondary">&larr; Retour au tableau de bord</a>
+    </p>
+    
+    <h2>Édition du Jour {{ journal_entry.day_number }}</h2>
+    <hr>
+
+    <div class="row g-5">
+        <div class="col-md-7">
+            <h4>Mon Récit</h4>
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-grid">
+                            <button type="submit" name="save_story" class="btn btn-primary mt-3">Enregistrer le récit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <h4>Enregistrer une note vocale</h4>
+            <div class="recorder-container">
+                <div class="recorder-controls">
+                    <button id="recordButton" class="btn btn-danger">Enregistrer</button>
+                    <button id="stopButton" class="btn btn-secondary" disabled>Arrêter</button>
+                </div>
+                <p id="recorderStatus" class="recorder-status mt-2"></p>
+                <audio id="audioPlayback" controls class="mt-2" style="display:none;"></audio>
+                
+                <hr>
+                <form id="audioForm" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="caption" id="audioCaption" value="Note vocale du jour {{ journal_entry.day_number }}">
+                    <button type="submit" name="add_media" id="uploadButton" class="btn btn-success" disabled>Envoyer l'enregistrement</button>
+                </form>
+            </div>
+
+            <hr class="my-4">
+
+            <h4>Ajouter un Média (Fichier)</h4>
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ media_form.as_p }}
+                        <div class="d-grid">
+                            <button type="submit" name="add_media" class="btn btn-secondary mt-3">Ajouter le Fichier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+
+            <h5>Médias de la journée</h5>
+            </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const recordButton = document.getElementById('recordButton');
+    const stopButton = document.getElementById('stopButton');
+    const uploadButton = document.getElementById('uploadButton');
+    const audioPlayback = document.getElementById('audioPlayback');
+    const recorderStatus = document.getElementById('recorderStatus');
+    const audioForm = document.getElementById('audioForm');
+
+    let mediaRecorder;
+    let audioChunks = [];
+
+    async function startRecording() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                audioPlayback.src = audioUrl;
+                audioPlayback.style.display = 'block';
+
+                // Préparer le formulaire pour l'envoi
+                const audioFile = new File([audioBlob], 'recording.webm', { type: 'audio/webm' });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(audioFile);
+                
+                // Créer un input de type file pour le formulaire
+                let fileInput = audioForm.querySelector('input[type="file"]');
+                if (!fileInput) {
+                    fileInput = document.createElement('input');
+                    fileInput.type = 'file';
+                    fileInput.name = 'media_file';
+                    fileInput.style.display = 'none';
+                    audioForm.appendChild(fileInput);
+                }
+                fileInput.files = dataTransfer.files;
+                
+                audioChunks = []; // Réinitialiser pour le prochain enregistrement
+            };
+
+            mediaRecorder.start();
+            recorderStatus.textContent = "Enregistrement en cours...";
+            recordButton.disabled = true;
+            stopButton.disabled = false;
+            uploadButton.disabled = true;
+
+        } catch (err) {
+            recorderStatus.textContent = "Erreur : Impossible d'accéder au microphone.";
+            console.error("Erreur d'accès au micro : ", err);
+        }
+    }
+
+    function stopRecording() {
+        mediaRecorder.stop();
+        recorderStatus.textContent = "Enregistrement terminé. Prêt à envoyer.";
+        recordButton.disabled = false;
+        stopButton.disabled = true;
+        uploadButton.disabled = false;
+    }
+
+    recordButton.addEventListener('click', startRecording);
+    stopButton.addEventListener('click', stopRecording);
+});
+</script>
+{% endblock %}

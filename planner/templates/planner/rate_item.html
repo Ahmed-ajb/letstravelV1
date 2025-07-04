@@ -1,0 +1,75 @@
+{% extends "planner/base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title|default:"Noter l'Élément" }}{% endblock %}
+
+{% block extra_head %}
+<!-- CSS FINAL ET CORRECT -->
+<style>
+    .star-rating-container {
+        display: flex; flex-direction: row-reverse;
+        justify-content: center; gap: 5px; padding: 10px 0;
+    }
+    .star-rating-container input[type="radio"] { display: none; }
+    .star-rating-container label {
+        font-size: 2.5rem; color: #e0e0e0; cursor: pointer;
+        transition: color 0.2s ease-in-out, transform 0.15s ease-out;
+    }
+    .star-rating-container label:hover,
+    .star-rating-container label:hover ~ label { color: #ffc107; }
+    .star-rating-container input[type="radio"]:checked ~ label { color: #ffc107; }
+    .star-rating-container label:hover { transform: scale(1.2); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light text-center">
+                    <h4>{{ page_title|default:"Noter l'Élément" }}</h4>
+                    <p class="mb-0 text-muted">Pour : <strong>{{ item_to_rate.name }}</strong></p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" class="rating-form">
+                        {% csrf_token %}
+                        <fieldset class="text-center">
+                            <legend class="sr-only">Votre Évaluation</legend>
+                            <div class="star-rating-container">
+                                {% for radio in form.rating reversed %}
+                                    {{ radio.tag }}
+                                    <label for="{{ radio.id_for_label }}">★</label>
+                                {% endfor %}
+                            </div>
+                            {% if form.rating.errors %}
+                                <div class="text-danger mt-2"><small>{{ form.rating.errors|first }}</small></div>
+                            {% endif %}
+                        </fieldset>
+
+                        <div class="form-group mt-4">
+                            {{ form.comment.label_tag }}
+                            {{ form.comment }}
+                            {% if form.comment.errors %}
+                                <div class="text-danger mt-1"><small>{{ form.comment.errors|first }}</small></div>
+                            {% endif %}
+                        </div>
+
+                        <!-- SECTION DES BOUTONS CORRIGÉE -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                Soumettre la Note
+                            </button>
+                            <span style="display: inline-block; width: 10px;"></span>
+                            <a href="{% url 'planner:trip_detail' item_to_rate.trip_day.trip.id %}" class="btn btn-secondary">
+                                Annuler
+                            </a>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
