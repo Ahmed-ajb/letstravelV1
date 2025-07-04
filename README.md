@@ -1,19 +1,138 @@
-<div align="center"><br /><h1>🇲🇦 MarocPlanner</h1><p><strong>Votre planificateur de voyage intelligent pour le Maroc, avec un guide IA personnel !</strong></p><p>Une application web développée avec Django qui génère des itinéraires de voyage sur mesure et intègre un chatbot, <b>FLOUKY</b>, pour une assistance en temps réel.</p></div><p align="center"><img src="https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python" alt="Python Version"><img src="https://img.shields.io/badge/Django-5.2-green?style=for-the-badge&logo=django" alt="Django Version"><img src="https://img.shields.io/badge/LangChain-Ollama-orange?style=for-the-badge" alt="LangChain"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License: MIT"></p>📋 Table des MatièresÀ Propos du ProjetTechnologies UtiliséesDémarragePrérequisInstallationUtilisationLicence🌟 À Propos du ProjetMarocPlanner est une solution complète pour les voyageurs souhaitant explorer le Maroc. L'application offre deux fonctionnalités principales :Planificateur de Voyage : Un outil puissant qui génère des itinéraires optimisés en fonction des villes choisies, du budget, de la durée du séjour, des préférences d'activités et du rythme souhaité.Chatbot IA "FLOUKY" : Un guide touristique personnel et conversationnel qui répond aux questions, fournit des recommandations et se souvient du contexte de la conversation pour une expérience personnalisée.Ce projet a été développé dans le cadre d'un projet de fin d'études, combinant l'analyse de données, l'optimisation algorithmique et l'intelligence artificielle générative.🛠️ Technologies UtiliséesBackend : Django, Django REST frameworkFrontend : HTML, CSS, JavaScriptBase de Données : SQLite (par défaut pour le développement)Analyse de Données : Pandas, NumPy, Scikit-learnGéospatial : Folium, Geopy, OSMnx, NetworkXIA & Chatbot : LangChain, Ollama (phi3, mistral)Génération de Documents : ReportLab🚀 DémarrageSuivez ces étapes pour obtenir une copie locale du projet et la faire fonctionner.✅ PrérequisAvant de commencer, assurez-vous d'avoir installé les logiciels suivants sur votre machine :Python (version 3.10 ou supérieure)Télécharger PythonGitTélécharger GitOllama (essentiel pour le chatbot)Télécharger Ollama⚙️ InstallationClonez le DépôtOuvrez un terminal et clonez le projet depuis votre dépôt GitHub.git clone https://github.com/Ahmed-ajb/letstravelV1.git
+Voici le fichier prêt à être copié dans un fichier `README.md` :
+
+---
+
+````markdown
+# 🌍 MarocPlanner – Application de Planification de Voyage
+
+Bienvenue sur **MarocPlanner** !  
+Cette application web, développée avec **Django**, permet de générer des itinéraires de voyage personnalisés au **Maroc**, et intègre un **chatbot intelligent** pour assister les utilisateurs.
+
+---
+
+## 🚀 Fonctionnalités principales
+
+- Génération d'itinéraires personnalisés au Maroc
+- Intégration d'un chatbot IA via **Ollama**
+- Interface d’administration Django
+- Configuration simple et rapide
+
+---
+
+## 🛠️ Prérequis
+
+Avant de commencer, assurez-vous d'avoir installé les logiciels suivants :
+
+- 🐍 [Python 3.10+](https://www.python.org/downloads/)
+- 🧰 [Git](https://git-scm.com/downloads)
+- 🤖 [Ollama](https://ollama.com/) (pour le chatbot)
+
+---
+
+## ⚙️ Installation
+
+### 📥 Étape A : Cloner le projet
+
+```bash
+git clone https://github.com/Ahmed-ajb/letstravelV1.git
 cd letstravelV1
-Créez et Activez un Environnement VirtuelC'est une étape cruciale pour isoler les dépendances de votre projet.# Créer l'environnement
+````
+
+### 🧪 Étape B : Créer un environnement virtuel
+
+```bash
+# Créer un environnement virtuel nommé "env"
 python -m venv env
 
-# Activer l'environnement
+# Activer l'environnement virtuel
 # Sur Windows :
 .\env\Scripts\activate
+
 # Sur macOS/Linux :
 source env/bin/activate
-Installez les DépendancesCette commande unique installera toutes les librairies Python nécessaires.pip install -r requirements.txt
-Configurez les Variables d'EnvironnementLe chatbot peut utiliser une clé API pour la recherche web.À la racine du projet, créez un fichier nommé .env.Ouvrez-le et ajoutez la ligne suivante (si vous avez une clé API Tavily) :TAVILY_API_KEY="votre_cle_api_ici"
-Préparez la Base de DonnéesCes commandes créent la base de données locale et appliquent la structure des modèles.python manage.py makemigrations
+```
+
+### 📦 Étape C : Installer les dépendances
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🔧 Configuration
+
+### 🔑 Étape A : Variables d’environnement
+
+Créez un fichier `.env` à la racine du projet et ajoutez votre clé API :
+
+```env
+TAVILY_API_KEY="votre_cle_api_ici"
+```
+
+### 🗃️ Étape B : Préparer la base de données
+
+```bash
+python manage.py makemigrations
 python manage.py migrate
-Créez un Super-utilisateurPour accéder à l'interface d'administration de Django (/admin/).python manage.py createsuperuser
-Suivez les instructions pour définir votre nom d'utilisateur et votre mot de passe.▶️ UtilisationPour que l'application soit pleinement fonctionnelle, vous devez lancer le serveur Ollama (pour l'IA) et le serveur Django (pour le site).Lancez le Serveur OllamaAssurez-vous que l'application Ollama est en cours d'exécution.Ouvrez un nouveau terminal et téléchargez les modèles d'IA (si ce n'est pas déjà fait) :ollama pull phi3
+```
+
+### 👤 Étape C : Créer un super-utilisateur
+
+```bash
+python manage.py createsuperuser
+```
+
+Suivez les instructions pour choisir un nom d'utilisateur, une adresse e-mail et un mot de passe.
+
+---
+
+## 💡 Lancer l'application
+
+### 🤖 Étape A : Démarrer Ollama
+
+Assurez-vous que **Ollama** est installé et fonctionne, puis téléchargez les modèles nécessaires :
+
+```bash
+ollama pull phi3
 ollama pull mistral
-Lancez le Serveur DjangoRevenez au premier terminal (celui où votre environnement virtuel est activé).Lancez le serveur de développement :python manage.py runserver
-Accédez à l'ApplicationOuvrez votre navigateur web et allez à l'adresse : http://127.0.0.1:8000/Votre application est maintenant lancée et prête à être explorée !📄 LicenceDistribué sous la licence MIT. Voir LICENSE.txt pour plus d'informations.
+```
+
+### 🌐 Étape B : Démarrer le serveur Django
+
+```bash
+python manage.py runserver
+```
+
+Ensuite, ouvrez votre navigateur et allez à l'adresse :
+
+👉 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+---
+
+## ✅ Félicitations !
+
+Votre application **MarocPlanner** est maintenant **prête à l’emploi** ! Bon voyage ! ✈️🇲🇦
+
+---
+
+## 📂 Structure du projet *(optionnel)*
+
+```
+letstravelV1/
+├── manage.py
+├── env/
+├── requirements.txt
+├── .env
+├── app/              # Application principale
+├── templates/
+├── static/
+└── ...
+```
+
+```
+
+---
+
+Tu peux maintenant copier ce contenu dans ton fichier `README.md`. Si tu veux aussi une version en anglais ou une version PDF stylisée, je peux te le préparer !
+```
