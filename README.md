@@ -130,9 +130,3 @@ letstravelV1/
 └── ...
 ```
 
-```
-
----
-
-Tu peux maintenant copier ce contenu dans ton fichier `README.md`. Si tu veux aussi une version en anglais ou une version PDF stylisée, je peux te le préparer !
-```
