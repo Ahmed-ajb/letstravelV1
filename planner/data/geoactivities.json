@@ -11,8 +11,8 @@
                 "duree_estimee": "Demi-journée à journée complète",
                 "image_url": "planner/images/activities/Jmaalefna.jpg",
                 "rating": 9.0,
-                "latitude": 31.63416,
-                "longitude": -7.99994
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion dans le désert d'Agafay",
@@ -23,8 +23,8 @@
                 "duree_estimee": "Demi-journée à 2 jours",
                 "image_url": "planner/images/activities/Admirer le lever ou coucher de soleil sur Erg Chebbi.jpg",
                 "rating": 8.6,
-                "latitude": 31.63416,
-                "longitude": -7.99994
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Cours de cuisine marocaine",
@@ -35,8 +35,8 @@
                 "duree_estimee": "3-4 heures",
                 "image_url": "planner/images/activities/Cours de cuisine marocaine.jpg",
                 "rating": 8.1,
-                "latitude": 31.63416,
-                "longitude": -7.99994
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Jardin Majorelle et Musée Yves Saint Laurent",
@@ -47,8 +47,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Jardin Majorelle et Musée Yves Saint Laurent.jpg",
                 "rating": 8.3,
-                "latitude": 31.63416,
-                "longitude": -7.99994
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Palais de la Bahia",
@@ -71,8 +71,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Balade en calèche autour des remparts.jpg",
                 "rating": 8.2,
-                "latitude": 31.6258257,
-                "longitude": -7.9891608
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Trekking dans le Haut Atlas",
@@ -83,8 +83,8 @@
                 "duree_estimee": "Journée complète ou plusieurs jours",
                 "image_url": "planner/images/activities/Trekking dans le Haut Atlas.jpeg",
                 "rating": 6.3,
-                "latitude": 31.6258257,
-                "longitude": -7.9891608
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Expérience Hammam traditionnel",
@@ -95,8 +95,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Expérience Hammam traditionnel.jpg",
                 "rating": 7.9,
-                "latitude": 31.5125089,
-                "longitude": -9.7658939
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Shopping dans les Souks de Marrakech",
@@ -107,8 +107,8 @@
                 "duree_estimee": "2-4 heures",
                 "image_url": "planner/images/activities/Shopping dans les Souks de Marrakech.jpg",
                 "rating": 8.0,
-                "latitude": 31.6245581,
-                "longitude": -7.9852794
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à Ouarzazate et Aït Ben Haddou",
@@ -119,8 +119,8 @@
                 "duree_estimee": "Journée complète (longue)",
                 "image_url": "planner/images/activities/Excursion à Ouarzazate et Aït Ben Haddou.jpg",
                 "rating": 8.7,
-                "latitude": 31.63416,
-                "longitude": -7.99994
+                "latitude": null,
+                "longitude": null
             }
         ]
     },
@@ -136,8 +136,8 @@
                 "duree_estimee": "Journée complète recommandée",
                 "image_url": "planner/images/activities/Visite de la médina de Fès el-Bali.webp",
                 "rating": 6.1,
-                "latitude": 34.03715,
-                "longitude": -4.9998
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Atelier de poterie ou céramique Fassi",
@@ -148,8 +148,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Atelier de poterie ou céramique Fassi.jpg",
                 "rating": 8.2,
-                "latitude": 34.03715,
-                "longitude": -4.9998
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion aux ruines romaines de Volubilis",
@@ -160,8 +160,8 @@
                 "duree_estimee": "Demi-journée (souvent combinée avec Meknès/Moulay Idriss)",
                 "image_url": "planner/images/activities/Excursion aux ruines romaines de Volubilis.jpg",
                 "rating": 7.1,
-                "latitude": 34.03715,
-                "longitude": -4.9998
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Mausolée de Moulay Idriss II",
@@ -172,8 +172,8 @@
                 "duree_estimee": "30 min - 1 heure",
                 "image_url": "planner/images/activities/Mausolée de Moulay Idriss II.jpg",
                 "rating": 6.4,
-                "latitude": 34.0648419,
-                "longitude": -4.9746763
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Musée Nejjarine des Arts et Métiers du Bois",
@@ -184,8 +184,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Musée Nejjarine des Arts et Métiers du Bois.webp",
                 "rating": 8.2,
-                "latitude": 34.03715,
-                "longitude": -4.9998
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Exploration des tanneries (ex: Chouara)",
@@ -196,8 +196,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Exploration des tanneries.jpg",
                 "rating": 6.3,
-                "latitude": 34.03715,
-                "longitude": -4.9998
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Dégustation de thé à la menthe dans un Riad",
@@ -208,8 +208,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Dégustation de thé à la menthe dans un Riad.jpg",
                 "rating": 7.9,
-                "latitude": 34.03715,
-                "longitude": -4.9998
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Jardin Jnan Sbil",
@@ -220,8 +220,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Jardin Jnan Sbil.jpg",
                 "rating": 7.3,
-                "latitude": 34.03715,
-                "longitude": -4.9998
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à Ifrane et la forêt de cèdres",
@@ -232,8 +232,8 @@
                 "duree_estimee": "Demi-journée à journée complète",
                 "image_url": "planner/images/activities/Excursion à Ifrane et la forêt de cèdres.jpg",
                 "rating": 8.0,
-                "latitude": 34.03715,
-                "longitude": -4.9998
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite d'une Médersa (ex: Bou Inania, Al-Attarine)",
@@ -244,8 +244,8 @@
                 "duree_estimee": "1 heure par médersa",
                 "image_url": "planner/images/activities/Visite d'une Médersa.webp",
                 "rating": 6.1,
-                "latitude": 34.03715,
-                "longitude": -4.9998
+                "latitude": null,
+                "longitude": null
             }
         ]
     },
@@ -261,8 +261,8 @@
                 "duree_estimee": "1.5-2 heures (visite guidée obligatoire pour non-musulmans)",
                 "image_url": "planner/images/activities/Visite guidée de la Mosquée Hassan II.jpg",
                 "rating": 7.4,
-                "latitude": 33.58831,
-                "longitude": -7.61138
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Promenade sur la Corniche d'Ain Diab",
@@ -273,8 +273,8 @@
                 "duree_estimee": "1-3 heures",
                 "image_url": "planner/images/activities/Promenade sur la Corniche d'Ain Diab.jpeg",
                 "rating": 7.8,
-                "latitude": 33.58831,
-                "longitude": -7.61138
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Dégustation de fruits de mer au Marché Central ou Port",
@@ -285,8 +285,8 @@
                 "duree_estimee": "1-2 heures (repas)",
                 "image_url": "planner/images/activities/Dégustation de fruits de mer au Marché Central ou Port.jpg",
                 "rating": 8.5,
-                "latitude": 33.5945144,
-                "longitude": -7.6200284
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Détente au Parc de la Ligue Arabe",
@@ -297,8 +297,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Détente au Parc de la Ligue Arabe.jpg",
                 "rating": 6.3,
-                "latitude": 33.58831,
-                "longitude": -7.61138
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite de la Villa des Arts",
@@ -309,8 +309,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Visite de la Villa des Arts.jpeg",
                 "rating": 7.0,
-                "latitude": 33.5864207,
-                "longitude": -7.6295534
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Exploration du Quartier Habous (Nouvelle Médina)",
@@ -321,8 +321,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Exploration du Quartier Habous (Nouvelle Médina).jpg",
                 "rating": 7.4,
-                "latitude": 33.58831,
-                "longitude": -7.61138
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à El Jadida et sa Cité Portugaise",
@@ -333,8 +333,8 @@
                 "duree_estimee": "Journée complète",
                 "image_url": "planner/images/activities/Excursion à El Jadida et sa Cité Portugaise.jpg",
                 "rating": 8.1,
-                "latitude": 33.58831,
-                "longitude": -7.61138
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Shopping et divertissement au Morocco Mall",
@@ -345,8 +345,8 @@
                 "duree_estimee": "2-4 heures ou plus",
                 "image_url": "planner/images/activities/Shopping et divertissement au Morocco Mall.jpg",
                 "rating": 7.4,
-                "latitude": 33.58831,
-                "longitude": -7.61138
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Surf ou détente sur la Plage de Ain Diab",
@@ -357,8 +357,8 @@
                 "duree_estimee": "Variable",
                 "image_url": "planner/images/activities/Surf ou détente sur la Plage de Ain Diab.jpg",
                 "rating": 7.8,
-                "latitude": 33.58831,
-                "longitude": -7.61138
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Découverte de l'architecture Art Déco du centre-ville",
@@ -369,8 +369,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Découverte de l'architecture Art Déco du centre-ville.jpg",
                 "rating": 8.2,
-                "latitude": 33.58831,
-                "longitude": -7.61138
+                "latitude": null,
+                "longitude": null
             }
         ]
     },
@@ -386,8 +386,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Visite du Mausolée de Moulay Ismaïl.jpg",
                 "rating": 7.4,
-                "latitude": 32.16667,
-                "longitude": -4.8
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite de Heri es-Souani (Greniers et Ecuries Royales)",
@@ -398,8 +398,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Visite de Heri es-Souani.jpg",
                 "rating": 6.0,
-                "latitude": 32.16667,
-                "longitude": -4.8
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à Moulay Idriss Zerhoun",
@@ -410,8 +410,8 @@
                 "duree_estimee": "2-3 heures (souvent combinée avec Volubilis)",
                 "image_url": "planner/images/activities/Excursion à Moulay Idriss Zerhoun.jpg",
                 "rating": 8.5,
-                "latitude": 34.055188,
-                "longitude": -5.525518
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Musée Dar Jamaï (Musée des Arts Marocains)",
@@ -422,8 +422,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Musée Dar Jamaï.jpg",
                 "rating": 6.9,
-                "latitude": 32.16667,
-                "longitude": -4.8
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Flânerie sur la Place El Hedim et Souk",
@@ -434,8 +434,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Flânerie sur la Place El Hedim.jpg",
                 "rating": 7.4,
-                "latitude": 32.16667,
-                "longitude": -4.8
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Admirer la Porte Bab Mansour el Aleuj",
@@ -446,8 +446,8 @@
                 "duree_estimee": "30 minutes (observation/photos)",
                 "image_url": "planner/images/activities/la Porte Bab Mansour el Aleuj.jpg",
                 "rating": 7.8,
-                "latitude": 32.16667,
-                "longitude": -4.8
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Dégustation d'olives et produits locaux",
@@ -458,8 +458,8 @@
                 "duree_estimee": "30 min - 1 heure",
                 "image_url": "planner/images/activities/Dégustation d'olives et produits locaux.jpg",
                 "rating": 7.1,
-                "latitude": 32.16667,
-                "longitude": -4.8
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite de la médina de Meknès",
@@ -470,8 +470,8 @@
                 "duree_estimee": "Demi-journée",
                 "image_url": "planner/images/activities/Visite de la médina de Meknès.jpg",
                 "rating": 8.4,
-                "latitude": 33.8994156,
-                "longitude": -5.5495139
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion aux ruines romaines de Volubilis",
@@ -482,8 +482,8 @@
                 "duree_estimee": "Demi-journée",
                 "image_url": "planner/images/activities/Excursion aux ruines romaines de Volubilis.jpg",
                 "rating": 6.2,
-                "latitude": 34.0737,
-                "longitude": -5.55703
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Bassin de l'Agdal",
@@ -511,8 +511,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Visite de la Tour Hassan et Mausolée Mohammed V.jpg",
                 "rating": 8.9,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Promenade dans la Kasbah des Oudayas",
@@ -523,8 +523,8 @@
                 "duree_estimee": "1.5-2.5 heures",
                 "image_url": "planner/images/activities/Promenade dans la Kasbah des Oudayas.jpg",
                 "rating": 8.7,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite du Musée Mohammed VI d'Art Moderne et Contemporain (MMVI)",
@@ -535,8 +535,8 @@
                 "duree_estimee": "1.5-2 heures",
                 "image_url": "planner/images/activities/Visite du Musée Mohammed VI d'Art Moderne et Contemporain (MMVI).jpg",
                 "rating": 8.8,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Dégustation de spécialités marocaines dans la Médina",
@@ -547,8 +547,8 @@
                 "duree_estimee": "1-2 heures (repas)",
                 "image_url": "planner/images/activities/Dégustation de spécialités marocaines dans la Médina.jpg",
                 "rating": 6.5,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à la plage (ex: Plage des Nations, Skhirat)",
@@ -559,8 +559,8 @@
                 "duree_estimee": "Demi-journée",
                 "image_url": "planner/images/activities/Balade dans la médina bleue.jpg",
                 "rating": 8.8,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite de la Nécropole de Chellah",
@@ -571,8 +571,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Visite de la Nécropole de Chellah.jpg",
                 "rating": 7.6,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Balade le long du fleuve Bouregreg et Marina",
@@ -583,8 +583,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Balade le long du fleuve Bouregreg et Marina.jpg",
                 "rating": 8.7,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Shopping dans la Médina et Rue des Consuls",
@@ -595,8 +595,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Shopping dans la Médina et Rue des Consuls.jpg",
                 "rating": 7.1,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Détente au Jardin d'Essais Botaniques",
@@ -607,8 +607,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Détente au Jardin d'Essais Botaniques.jpg",
                 "rating": 7.2,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Traversée en barque vers Salé",
@@ -619,8 +619,8 @@
                 "duree_estimee": "2-4 heures (traversée et visite)",
                 "image_url": "planner/images/activities/Observation des oiseaux au Lac Dayet Srji (en saison).jpg",
                 "rating": 6.2,
-                "latitude": 34.01325,
-                "longitude": -6.83255
+                "latitude": null,
+                "longitude": null
             }
         ]
     },
@@ -636,8 +636,8 @@
                 "duree_estimee": "Variable (quelques heures à journée complète)",
                 "image_url": "planner/images/activities/Détente et activités sur la plage d'Agadir.jpg",
                 "rating": 7.1,
-                "latitude": 30.42018,
-                "longitude": -9.59815
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à Paradise Valley",
@@ -648,8 +648,8 @@
                 "duree_estimee": "Demi-journée à journée complète",
                 "image_url": "planner/images/activities/Excursion à Paradise Valley.jpg",
                 "rating": 7.4,
-                "latitude": 30.5876109,
-                "longitude": -9.531045
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite du Souk El Had",
@@ -660,8 +660,8 @@
                 "duree_estimee": "2-4 heures",
                 "image_url": "planner/images/activities/Visite du Souk El Had.jpg",
                 "rating": 8.4,
-                "latitude": 30.42018,
-                "longitude": -9.59815
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Observation des oiseaux au Parc National de Souss-Massa",
@@ -672,8 +672,8 @@
                 "duree_estimee": "Demi-journée à journée complète",
                 "image_url": "planner/images/activities/Observation des oiseaux au Parc National de Souss-Massa.jpg",
                 "rating": 8.2,
-                "latitude": 30.42018,
-                "longitude": -9.59815
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à Taroudant, la 'Petite Marrakech'",
@@ -684,8 +684,8 @@
                 "duree_estimee": "Journée complète",
                 "image_url": "planner/images/activities/Excursion à Taroudant, la 'Petite Marrakech.jpg",
                 "rating": 8.6,
-                "latitude": 30.42018,
-                "longitude": -9.59815
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite du Musée du Patrimoine Amazigh",
@@ -696,8 +696,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Visite du Musée du Patrimoine Amazigh.jpg",
                 "rating": 6.4,
-                "latitude": 30.42018,
-                "longitude": -9.59815
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Balade en quad ou buggy dans l'arrière-pays",
@@ -708,8 +708,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Balade en quad ou buggy dans l'arrière-pays.jpg",
                 "rating": 7.0,
-                "latitude": 30.4205162,
-                "longitude": -9.5838532
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion en bateau le long de la côte",
@@ -720,8 +720,8 @@
                 "duree_estimee": "Demi-journée",
                 "image_url": "planner/images/activities/Excursion en bateau le long de la côte.jpg",
                 "rating": 7.8,
-                "latitude": 30.42018,
-                "longitude": -9.59815
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Montée à la Kasbah d'Agadir Oufella",
@@ -732,8 +732,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Montée à la Kasbah d'Agadir Oufella.jpg",
                 "rating": 8.5,
-                "latitude": 30.42018,
-                "longitude": -9.59815
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite de Crocoparc",
@@ -744,8 +744,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Visite de Crocoparc.jpg",
                 "rating": 8.8,
-                "latitude": 30.42018,
-                "longitude": -9.59815
+                "latitude": null,
+                "longitude": null
             }
         ]
     },
@@ -761,8 +761,8 @@
                 "duree_estimee": "2-4 heures ou plus",
                 "image_url": "planner/images/activities/Balade dans la médina bleue.jpg",
                 "rating": 7.0,
-                "latitude": 35.0,
-                "longitude": -5.08333
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Randonnée dans les montagnes du Rif (Parc Talassemtane)",
@@ -773,8 +773,8 @@
                 "duree_estimee": "Demi-journée à plusieurs jours",
                 "image_url": "planner/images/activities/Randonnée dans les montagnes du Rif (Parc Talassemtane).jpg",
                 "rating": 6.9,
-                "latitude": 35.1700832,
-                "longitude": -5.2766583
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite de la Kasbah et Musée Ethnographique",
@@ -785,8 +785,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Visite de la Kasbah et Musée Ethnographique.jpg",
                 "rating": 7.5,
-                "latitude": 35.0,
-                "longitude": -5.08333
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion aux Cascades d'Akchour",
@@ -797,8 +797,8 @@
                 "duree_estimee": "Demi-journée à journée complète",
                 "image_url": "planner/images/activities/Excursion aux Cascades d'Akchour.jpg",
                 "rating": 7.4,
-                "latitude": 35.0,
-                "longitude": -5.08333
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Shopping d'artisanat local (laine, cuir, pigments)",
@@ -809,8 +809,8 @@
                 "duree_estimee": "1-3 heures",
                 "image_url": "planner/images/activities/Shopping d'artisanat local (laine, cuir, pigments).jpg",
                 "rating": 8.2,
-                "latitude": 35.0,
-                "longitude": -5.08333
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Détente sur la Place Outa el Hammam",
@@ -821,8 +821,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Détente sur la Place Outa el Hammam.jpg",
                 "rating": 6.9,
-                "latitude": 35.0,
-                "longitude": -5.08333
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Dégustation de spécialités locales (fromage de chèvre)",
@@ -833,8 +833,8 @@
                 "duree_estimee": "1 heure (repas ou dégustation)",
                 "image_url": "planner/images/activities/Dégustation de spécialités locales (fromage de chèvre).jpg",
                 "rating": 8.3,
-                "latitude": 35.0,
-                "longitude": -5.08333
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Coucher de soleil depuis la Mosquée Espagnole (Bouzafer)",
@@ -845,8 +845,8 @@
                 "duree_estimee": "1.5-2 heures (montée et observation)",
                 "image_url": "planner/images/activities/Coucher de soleil depuis la Mosquée Espagnole (Bouzafer).jpg",
                 "rating": 8.2,
-                "latitude": 35.0,
-                "longitude": -5.08333
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite de la source Ras El Maa",
@@ -857,8 +857,8 @@
                 "duree_estimee": "30 min - 1 heure",
                 "image_url": "planner/images/activities/Visite de la source Ras El Maa.jpg",
                 "rating": 8.2,
-                "latitude": 35.0,
-                "longitude": -5.08333
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Atelier de peinture ou de tissage",
@@ -869,8 +869,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Atelier de peinture ou de tissage.jpg",
                 "rating": 6.9,
-                "latitude": 35.0,
-                "longitude": -5.08333
+                "latitude": null,
+                "longitude": null
             }
         ]
     },
@@ -886,8 +886,8 @@
                 "duree_estimee": "Demi-journée",
                 "image_url": "planner/images/activities/Flânerie dans la Médina (UNESCO).jpg",
                 "rating": 8.9,
-                "latitude": 31.5125,
-                "longitude": -9.77
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Promenade sur les Remparts et Skala de la Ville",
@@ -898,8 +898,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Promenade sur les Remparts et Skala de la Ville.jpg",
                 "rating": 6.8,
-                "latitude": 31.5125,
-                "longitude": -9.77
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite du Port de Pêche animé",
@@ -910,8 +910,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Visite du Port de Pêche animé.jpg",
                 "rating": 8.1,
-                "latitude": 31.5125,
-                "longitude": -9.77
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Activités sur la Plage (Windsurf, Kitesurf, Balade)",
@@ -922,8 +922,8 @@
                 "duree_estimee": "Variable (cours env. 2-3h)",
                 "image_url": "planner/images/activities/Activités sur la Plage (Windsurf, Kitesurf, Balade).jpg",
                 "rating": 7.7,
-                "latitude": 31.5125,
-                "longitude": -9.77
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Découverte de la musique Gnaoua",
@@ -934,8 +934,8 @@
                 "duree_estimee": "Soirée",
                 "image_url": "planner/images/activities/Découverte de la musique Gnaoua.jpg",
                 "rating": 7.2,
-                "latitude": 31.5125,
-                "longitude": -9.77
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite des Galeries d'Art et Ateliers d'Artistes",
@@ -946,8 +946,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Visite des Galeries d'Art et Ateliers d'Artistes.jpg",
                 "rating": 7.7,
-                "latitude": 31.5125,
-                "longitude": -9.77
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Dégustation de poissons grillés au port",
@@ -958,8 +958,8 @@
                 "duree_estimee": "1-1.5 heures (repas)",
                 "image_url": "planner/images/activities/Dégustation de poissons grillés au port.jpg",
                 "rating": 7.2,
-                "latitude": 31.5125,
-                "longitude": -9.77
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Découverte de l'artisanat en bois de Thuya",
@@ -970,8 +970,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Découverte de l'artisanat en bois de Thuya.jpg",
                 "rating": 7.4,
-                "latitude": 31.5125,
-                "longitude": -9.77
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à l'Île de Mogador (observation d'oiseaux)",
@@ -982,8 +982,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Excursion à l'Île de Mogador (observation d'oiseaux).jpg",
                 "rating": 8.8,
-                "latitude": 31.5125,
-                "longitude": -9.77
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Cours de surf à Sidi Kaouki",
@@ -994,8 +994,8 @@
                 "duree_estimee": "Demi-journée (incluant trajet)",
                 "image_url": "planner/images/activities/Cours de surf à Sidi Kaouki.jpg",
                 "rating": 8.8,
-                "latitude": 31.39299,
-                "longitude": -9.73657
+                "latitude": null,
+                "longitude": null
             }
         ]
     },
@@ -1011,8 +1011,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Visite de la Kasbah de Taourirt.png",
                 "rating": 8.1,
-                "latitude": 31.0999935,
-                "longitude": -6.5577641
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite des Studios de Cinéma (Atlas ou CLA)",
@@ -1023,8 +1023,8 @@
                 "duree_estimee": "1.5-2 heures par studio",
                 "image_url": "planner/images/activities/Visite des Studios de Cinéma (Atlas ou CLA).jpg",
                 "rating": 6.1,
-                "latitude": 30.91894,
-                "longitude": -6.89341
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Musée du Cinéma",
@@ -1035,8 +1035,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Musée du Cinéma.jpg",
                 "rating": 6.5,
-                "latitude": 30.91894,
-                "longitude": -6.89341
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à l'Oasis de Fint",
@@ -1047,8 +1047,8 @@
                 "duree_estimee": "Demi-journée",
                 "image_url": "planner/images/activities/Excursion à l'Oasis de Fint.jpg",
                 "rating": 8.5,
-                "latitude": 30.8394947,
-                "longitude": -7.0346462
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite de la Kasbah Tifoultoute",
@@ -1059,8 +1059,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Visite de la Kasbah Tifoultoute.jpg",
                 "rating": 8.8,
-                "latitude": 30.9265954,
-                "longitude": -6.9904213
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Exploration du Marché Central",
@@ -1071,8 +1071,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Exploration du Marché Central.jpg",
                 "rating": 6.7,
-                "latitude": 30.91894,
-                "longitude": -6.89341
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion dans la Vallée du Drâa",
@@ -1083,8 +1083,8 @@
                 "duree_estimee": "Journée complète",
                 "image_url": "planner/images/activities/Excursion dans la Vallée du Drâa.jpg",
                 "rating": 6.2,
-                "latitude": 30.91894,
-                "longitude": -6.89341
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à Aït Ben Haddou (UNESCO)",
@@ -1095,8 +1095,8 @@
                 "duree_estimee": "Demi-journée",
                 "image_url": "planner/images/activities/Excursion à Asilah.jpg",
                 "rating": 8.1,
-                "latitude": 30.91894,
-                "longitude": -6.89341
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Découverte du Lac El Mansour Eddahbi",
@@ -1107,8 +1107,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Découverte du Lac El Mansour Eddahbi.jpg",
                 "rating": 7.7,
-                "latitude": 30.91894,
-                "longitude": -6.89341
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Dégustation de dattes et produits locaux",
@@ -1119,8 +1119,8 @@
                 "duree_estimee": "30 minutes",
                 "image_url": "planner/images/activities/Dégustation de dattes et produits locaux.jpg",
                 "rating": 7.7,
-                "latitude": 30.91894,
-                "longitude": -6.89341
+                "latitude": null,
+                "longitude": null
             }
         ]
     },
@@ -1136,8 +1136,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Exploration de la Kasbah et Musée de la Kasbah.jpg",
                 "rating": 7.0,
-                "latitude": 35.7696302,
-                "longitude": -5.8033522
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Balade dans la Médina (Petit Socco et Grand Socco)",
@@ -1148,8 +1148,8 @@
                 "duree_estimee": "2-4 heures",
                 "image_url": "planner/images/activities/Balade dans la Médina (Petit Socco et Grand Socco).jpg",
                 "rating": 7.5,
-                "latitude": 35.76727,
-                "longitude": -5.79975
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite des Grottes d'Hercule",
@@ -1160,8 +1160,8 @@
                 "duree_estimee": "1-1.5 heures (incluant trajet)",
                 "image_url": "planner/images/activities/Visite des Grottes d'Hercule.jpg",
                 "rating": 8.4,
-                "latitude": 35.76727,
-                "longitude": -5.79975
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Découverte du Cap Spartel",
@@ -1172,8 +1172,8 @@
                 "duree_estimee": "1 heure (incluant trajet)",
                 "image_url": "planner/images/activities/Découverte du Cap Spartel.jpg",
                 "rating": 7.4,
-                "latitude": 35.76727,
-                "longitude": -5.79975
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Visite du Musée de la Légation Américaine",
@@ -1184,8 +1184,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Visite du Musée de la Légation Américaine.jpg",
                 "rating": 6.4,
-                "latitude": 35.76727,
-                "longitude": -5.79975
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Promenade sur la Corniche de Tanger",
@@ -1196,8 +1196,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Promenade sur la Corniche de Tanger.jpeg",
                 "rating": 8.1,
-                "latitude": 35.76727,
-                "longitude": -5.79975
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Pause thé au Café Hafa",
@@ -1208,8 +1208,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Pause thé au Café Hafa.png",
                 "rating": 6.2,
-                "latitude": 35.76727,
-                "longitude": -5.79975
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Admirer l'architecture du Théâtre Cervantes (extérieur)",
@@ -1220,8 +1220,8 @@
                 "duree_estimee": "15-30 minutes",
                 "image_url": "planner/images/activities/l'architecture du Théâtre Cervantes (extérieur).jpg",
                 "rating": 7.0,
-                "latitude": 35.76727,
-                "longitude": -5.79975
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion à Asilah",
@@ -1232,8 +1232,8 @@
                 "duree_estimee": "Demi-journée à journée complète",
                 "image_url": "planner/images/activities/Excursion à Asilah.jpg",
                 "rating": 8.5,
-                "latitude": 35.461928,
-                "longitude": -6.036545
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Déguster une Bissara",
@@ -1244,8 +1244,8 @@
                 "duree_estimee": "30 minutes (collation/repas léger)",
                 "image_url": "planner/images/activities/Déguster une Bissara.jpg",
                 "rating": 6.1,
-                "latitude": 35.76727,
-                "longitude": -5.79975
+                "latitude": null,
+                "longitude": null
             }
         ]
     },
@@ -1261,8 +1261,8 @@
                 "duree_estimee": "1.5-2 heures (pour coucher/lever soleil)",
                 "image_url": "planner/images/activities/Balade à dos de dromadaire dans les dunes.jpg",
                 "rating": 6.6,
-                "latitude": 31.10175,
-                "longitude": -4.01365
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Nuit en bivouac berbère sous les étoiles",
@@ -1273,8 +1273,8 @@
                 "duree_estimee": "Nuit complète (incluant dîner/petit-déj)",
                 "image_url": "planner/images/activities/Nuit en bivouac berbère sous les étoiles.jpg",
                 "rating": 8.8,
-                "latitude": 31.10175,
-                "longitude": -4.01365
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Admirer le lever et/ou coucher de soleil sur Erg Chebbi",
@@ -1285,8 +1285,8 @@
                 "duree_estimee": "1-1.5 heures par événement",
                 "image_url": "planner/images/activities/Admirer le lever ou coucher de soleil sur Erg Chebbi.jpg",
                 "rating": 8.9,
-                "latitude": 61.28016,
-                "longitude": 108.01535
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Excursion en 4x4 autour des dunes",
@@ -1297,8 +1297,8 @@
                 "duree_estimee": "Demi-journée à journée complète",
                 "image_url": "planner/images/activities/Excursion en 4x4 autour des dunes.jpg",
                 "rating": 8.1,
-                "latitude": 31.10175,
-                "longitude": -4.01365
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Sandboarding sur les dunes",
@@ -1309,8 +1309,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Sandboarding sur les dunes.jpg",
                 "rating": 6.1,
-                "latitude": 31.10175,
-                "longitude": -4.01365
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Écouter la musique Gnaoua à Khamlia",
@@ -1321,8 +1321,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Écouter la musique Gnaoua à Khamlia.jpg",
                 "rating": 7.5,
-                "latitude": 31.10175,
-                "longitude": -4.01365
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Observation des oiseaux au Lac Dayet Srji (en saison)",
@@ -1333,8 +1333,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Observation des oiseaux au Lac Dayet Srji (en saison).jpg",
                 "rating": 8.5,
-                "latitude": 32.0,
-                "longitude": -6.0
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Balade en Quad ou Buggy dans les dunes",
@@ -1345,8 +1345,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Balade en quad ou buggy dans l'arrière-pays.jpg",
                 "rating": 7.8,
-                "latitude": 31.10175,
-                "longitude": -4.01365
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Bain de sable thérapeutique (en été)",
@@ -1357,8 +1357,8 @@
                 "duree_estimee": "30 minutes (bain) + repos",
                 "image_url": "planner/images/activities/Bain de sable thérapeutique (en été).jpg",
                 "rating": 8.5,
-                "latitude": 32.0,
-                "longitude": -6.0
+                "latitude": null,
+                "longitude": null
             }
         ]
     }

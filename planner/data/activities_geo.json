@@ -71,8 +71,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Balade en calèche autour des remparts.jpg",
                 "rating": 8.2,
-                "latitude": 31.6258257,
-                "longitude": -7.9891608
+                "latitude": 31.63416,
+                "longitude": -7.99994
             },
             {
                 "nom": "Trekking dans le Haut Atlas",
@@ -83,8 +83,8 @@
                 "duree_estimee": "Journée complète ou plusieurs jours",
                 "image_url": "planner/images/activities/Trekking dans le Haut Atlas.jpeg",
                 "rating": 6.3,
-                "latitude": 31.6258257,
-                "longitude": -7.9891608
+                "latitude": 31.63416,
+                "longitude": -7.99994
             },
             {
                 "nom": "Expérience Hammam traditionnel",
@@ -95,8 +95,8 @@
                 "duree_estimee": "1-2 heures",
                 "image_url": "planner/images/activities/Expérience Hammam traditionnel.jpg",
                 "rating": 7.9,
-                "latitude": 31.5125089,
-                "longitude": -9.7658939
+                "latitude": 31.63416,
+                "longitude": -7.99994
             },
             {
                 "nom": "Shopping dans les Souks de Marrakech",
@@ -107,8 +107,8 @@
                 "duree_estimee": "2-4 heures",
                 "image_url": "planner/images/activities/Shopping dans les Souks de Marrakech.jpg",
                 "rating": 8.0,
-                "latitude": 31.6245581,
-                "longitude": -7.9852794
+                "latitude": 31.63623,
+                "longitude": -8.01041
             },
             {
                 "nom": "Excursion à Ouarzazate et Aït Ben Haddou",
@@ -285,8 +285,8 @@
                 "duree_estimee": "1-2 heures (repas)",
                 "image_url": "planner/images/activities/Dégustation de fruits de mer au Marché Central ou Port.jpg",
                 "rating": 8.5,
-                "latitude": 33.5945144,
-                "longitude": -7.6200284
+                "latitude": null,
+                "longitude": null
             },
             {
                 "nom": "Détente au Parc de la Ligue Arabe",
@@ -309,8 +309,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Visite de la Villa des Arts.jpeg",
                 "rating": 7.0,
-                "latitude": 33.5864207,
-                "longitude": -7.6295534
+                "latitude": 33.58831,
+                "longitude": -7.61138
             },
             {
                 "nom": "Exploration du Quartier Habous (Nouvelle Médina)",
@@ -410,8 +410,8 @@
                 "duree_estimee": "2-3 heures (souvent combinée avec Volubilis)",
                 "image_url": "planner/images/activities/Excursion à Moulay Idriss Zerhoun.jpg",
                 "rating": 8.5,
-                "latitude": 34.055188,
-                "longitude": -5.525518
+                "latitude": 34.17303,
+                "longitude": -5.35433
             },
             {
                 "nom": "Musée Dar Jamaï (Musée des Arts Marocains)",
@@ -470,8 +470,8 @@
                 "duree_estimee": "Demi-journée",
                 "image_url": "planner/images/activities/Visite de la médina de Meknès.jpg",
                 "rating": 8.4,
-                "latitude": 33.8994156,
-                "longitude": -5.5495139
+                "latitude": 32.16667,
+                "longitude": -4.8
             },
             {
                 "nom": "Excursion aux ruines romaines de Volubilis",
@@ -648,8 +648,8 @@
                 "duree_estimee": "Demi-journée à journée complète",
                 "image_url": "planner/images/activities/Excursion à Paradise Valley.jpg",
                 "rating": 7.4,
-                "latitude": 30.5876109,
-                "longitude": -9.531045
+                "latitude": 30.42018,
+                "longitude": -9.59815
             },
             {
                 "nom": "Visite du Souk El Had",
@@ -708,8 +708,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Balade en quad ou buggy dans l'arrière-pays.jpg",
                 "rating": 7.0,
-                "latitude": 30.4205162,
-                "longitude": -9.5838532
+                "latitude": 30.42018,
+                "longitude": -9.59815
             },
             {
                 "nom": "Excursion en bateau le long de la côte",
@@ -773,8 +773,8 @@
                 "duree_estimee": "Demi-journée à plusieurs jours",
                 "image_url": "planner/images/activities/Randonnée dans les montagnes du Rif (Parc Talassemtane).jpg",
                 "rating": 6.9,
-                "latitude": 35.1700832,
-                "longitude": -5.2766583
+                "latitude": 35.0,
+                "longitude": -5.08333
             },
             {
                 "nom": "Visite de la Kasbah et Musée Ethnographique",
@@ -1011,8 +1011,8 @@
                 "duree_estimee": "1-1.5 heures",
                 "image_url": "planner/images/activities/Visite de la Kasbah de Taourirt.png",
                 "rating": 8.1,
-                "latitude": 31.0999935,
-                "longitude": -6.5577641
+                "latitude": 30.91894,
+                "longitude": -6.89341
             },
             {
                 "nom": "Visite des Studios de Cinéma (Atlas ou CLA)",
@@ -1047,8 +1047,8 @@
                 "duree_estimee": "Demi-journée",
                 "image_url": "planner/images/activities/Excursion à l'Oasis de Fint.jpg",
                 "rating": 8.5,
-                "latitude": 30.8394947,
-                "longitude": -7.0346462
+                "latitude": 30.91894,
+                "longitude": -6.89341
             },
             {
                 "nom": "Visite de la Kasbah Tifoultoute",
@@ -1059,8 +1059,8 @@
                 "duree_estimee": "1 heure",
                 "image_url": "planner/images/activities/Visite de la Kasbah Tifoultoute.jpg",
                 "rating": 8.8,
-                "latitude": 30.9265954,
-                "longitude": -6.9904213
+                "latitude": 30.91894,
+                "longitude": -6.89341
             },
             {
                 "nom": "Exploration du Marché Central",
@@ -1136,8 +1136,8 @@
                 "duree_estimee": "2-3 heures",
                 "image_url": "planner/images/activities/Exploration de la Kasbah et Musée de la Kasbah.jpg",
                 "rating": 7.0,
-                "latitude": 35.7696302,
-                "longitude": -5.8033522
+                "latitude": 35.76727,
+                "longitude": -5.79975
             },
             {
                 "nom": "Balade dans la Médina (Petit Socco et Grand Socco)",
@@ -1232,8 +1232,8 @@
                 "duree_estimee": "Demi-journée à journée complète",
                 "image_url": "planner/images/activities/Excursion à Asilah.jpg",
                 "rating": 8.5,
-                "latitude": 35.461928,
-                "longitude": -6.036545
+                "latitude": 35.76727,
+                "longitude": -5.79975
             },
             {
                 "nom": "Déguster une Bissara",
