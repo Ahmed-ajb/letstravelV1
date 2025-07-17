@@ -116,23 +116,3 @@ Votre application **MarocPlanner** est maintenant **prête à l’emploi** ! Bon
 
 ---
 
-## 📂 Structure du projet *(optionnel)*
-
-```
-letstravelV1/
-├── manage.py
-├── env/
-├── requirements.txt
-├── .env
-├── app/              # Application principale
-├── templates/
-├── static/
-└── ...
-```
-
-```
-
----
-
-Tu peux maintenant copier ce contenu dans ton fichier `README.md`. Si tu veux aussi une version en anglais ou une version PDF stylisée, je peux te le préparer !
-```
