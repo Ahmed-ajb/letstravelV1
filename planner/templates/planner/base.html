@@ -17,7 +17,6 @@
         <a href="{% url 'planner:home_showcase' %}" {% if request.resolver_match.url_name == 'home_showcase' %}class="active"{% endif %}>Accueil</a>
         <a href="{% url 'planner:plan_trip' %}" {% if request.resolver_match.url_name == 'plan_trip' %}class="active"{% endif %}>Planifier</a>
         
-        <!-- CORRECTION APPLIQUÉE ICI -->
         <a href="{% url 'planner:chat_interface' %}" {% if request.resolver_match.url_name == 'chat_interface' %}class="active"{% endif %}>Chatbot IA</a>
 
         {% if user.is_authenticated %}

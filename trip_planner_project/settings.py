@@ -1,13 +1,20 @@
 # trip_planner_project/trip_planner_project/settings.py
 from pathlib import Path
 import os
+from dotenv import load_dotenv # <-- NOUVEAU : Importe load_dotenv
+
+load_dotenv() # <-- NOUVEAU : Charge les variables d'environnement du fichier .env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Chemins pour les données et caches (utilisés par planner/utils.py)
+# Utilisation de Path pour la robustesse et la clarté
 DATA_DIR = BASE_DIR / 'planner' / 'data'
-MODEL_CACHE_DIR_DJANGO = BASE_DIR / "recommender_models_cache_django"
+# Ces répertoires sont utilisés par utils.py et peuvent être différents de ceux que vous aviez.
+# Assurez-vous que le chemin 'planner/data' correspond bien à l'emplacement de vos fichiers JSON.
+# GRAPHS_CACHE_DIR_DJANGO est le plus pertinent pour les API et OSMnx.
 GRAPHS_CACHE_DIR_DJANGO = BASE_DIR / "city_graphs_cache_django"
+
 
 SECRET_KEY = 'django-insecure-!!REMPLACEZ-MOI-AVEC-UNE-VRAIE-CLE-SECRETE!!'
 DEBUG = True
@@ -23,7 +30,7 @@ INSTALLED_APPS = [
     'planner',
      # Third-party applications
     'crispy_forms',
-    'crispy_bootstrap5', # Or the bootstrap version you are usi
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -71,7 +78,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'fr-fr'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC' # Laissez UTC pour la base de données, ajustez l'affichage en frontend
 USE_I18N = True
 USE_TZ = True
 
@@ -119,16 +126,38 @@ LOGGING = {
         },
         'planner': { # Logger spécifique pour votre application planner
             'handlers': ['console'],
-            'level': 'DEBUG', # Permet de voir les messages logger.debug() de votre app
+            'level': 'DEBUG', # NOUVEAU : Niveau de log DEBUG pour votre app
             'propagate': True, # Laisse les messages remonter au root logger aussi
         },
     },
 }
 
-# settings.py
-
-# ... at the end of the file
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# --- CONFIGURATIONS POUR LES CLÉS API ET VÉRIFICATION DES RÉPERTOIRES ---
+
+# Clés API : Il est crucial de les gérer via des variables d'environnement en production.
+# En développement, vous pouvez les définir ici directement pour les tests, mais NE PAS faire cela en production.
+# Exemple pour le développement (à remplacer par vos vraies clés) :
+# TAVILY_API_KEY = "VOTRE_CLE_TAVILY_ICI"
+# SERPAPI_API_KEY = "VOTRE_CLE_SERPAPI_ICI"
+
+# Utilisation des variables d'environnement (méthode préférée) :
+# Si les variables d'environnement ne sont pas définies, elles recevront None ou une chaîne vide.
+# Il est ensuite de la responsabilité de votre code (e.g., dans utils.py) de vérifier leur présence.
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY")
+
+# Assurez-vous que les répertoires nécessaires existent au démarrage
+# Ils sont définis au début du fichier et ici on s'assure de leur existence.
+if not DATA_DIR.exists():
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    print(f"Création du répertoire DATA_DIR: {DATA_DIR}")
+
+if not GRAPHS_CACHE_DIR_DJANGO.exists():
+    GRAPHS_CACHE_DIR_DJANGO.mkdir(parents=True, exist_ok=True)
+    print(f"Création du répertoire GRAPHS_CACHE_DIR_DJANGO: {GRAPHS_CACHE_DIR_DJANGO}")
+
+if hasattr(os, 'W_OK') and not os.access(GRAPHS_CACHE_DIR_DJANGO, os.W_OK):
+    print(f"AVERTISSEMENT: Le répertoire de cache des graphes {GRAPHS_CACHE_DIR_DJANGO} n'est pas accessible en écriture pour le processus Django.")

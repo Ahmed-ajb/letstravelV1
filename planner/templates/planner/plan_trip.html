@@ -7,10 +7,15 @@
     <div class="plan-trip-layout">
         <aside class="plan-trip-sidebar">
             <h2>Vos Préférences</h2>
-            <form method="post">
+            <form method="post" id="trip-planner-form"> {# Ajout d'un ID au formulaire #}
                 {% csrf_token %}
                 {% for field in form %}
-                    <div class="form-group">
+                    {# NOUVEAU : Contrôle de la visibilité des groupes de champs via JS #}
+                    <div class="form-group 
+                        {% if field.name == 'start_city_choice' or field.name == 'start_gps_coords' %}
+                            hidden-field {# Masqué par défaut, JS gérera l'affichage #}
+                        {% endif %}" 
+                        id="form-group-{{ field.name }}"> 
                         {{ field.label_tag }}
                         {{ field }}
                         {% if field.help_text %}
@@ -38,7 +43,7 @@
                      </p>
                 {% endif %}
                 <hr style="margin: 25px 0;">
-                <a href="{% url 'planner:download_pdf' %}" class="btn btn-secondary" style="width: 100%; box-sizing: border-box;">
+                <a href="{% url 'planner:download_pdf' %}" class="btn btn-secondary" style="width:100%; box-sizing: border-box;">
                     📥 Télécharger le Plan PDF
                 </a>
             {% endif %}
@@ -75,28 +80,81 @@
                     {% if city_plan.jours_alloues > 0 %}
                         <h3 class="city-plan-title">📍 {{ city_plan.ville|default:"Ville Inconnue" }} ({{ city_plan.jours_alloues }} jour{{ city_plan.jours_alloues|pluralize:"s" }})</h3>
 
-                        <details class="city-details">
-                             <summary>🏨 Hôtel Suggéré</summary>
+                        {# Section Top Hôtels #}
+                        <details class="city-details" open>
+                             <summary>🏨 Top Hôtels Suggérés</summary>
                              <div class="details-content hotel-details">
-                                {% with hotel_list=city_plan.hotel %}
-                                    {% if hotel_list and hotel_list.0 %}
-                                        {% with hotel=hotel_list.0 %}
-                                            <p><strong>{{ hotel.name|default:"Nom d'hôtel non disponible" }}</strong>
-                                                {% if hotel.rating is not None %}(⭐ {{ hotel.rating|floatformat:1 }}){% endif %}
-                                            </p>
-                                            {% if hotel.price_per_night is not None %}
-                                                <p><small>Prix approx.: {{ hotel.price_per_night|floatformat:0 }} MAD/nuit</small></p>
+                                {% if city_plan.top_5_hotels %}
+                                    <ul class="itinerary-list">
+                                        {% for hotel in city_plan.top_5_hotels %}
+                                        <li class="itinerary-point">
+                                            <strong>{{ forloop.counter }}. {{ hotel.nom|default:"Nom d'hôtel non disponible" }}</strong> 
+                                            {% if hotel.rating is not None %}(⭐ {{ hotel.rating|floatformat:1 }}/10){% endif %}
+                                            {% if hotel.budget_estime is not None %}
+                                                <br><small>Prix approx.: {{ hotel.budget_estime|floatformat:0 }} MAD/nuit</small>
                                             {% endif %}
                                             {% if hotel.booking_link and hotel.booking_link != "N/A" %}
                                                 <p><a href="{{ hotel.booking_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">Voir les offres</a></p>
                                             {% endif %}
-                                        {% endwith %}
-                                    {% else %}
-                                        <p>Aucun hôtel spécifique suggéré pour cette ville ou ce budget.</p>
-                                    {% endif %}
-                                {% endwith %}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>Aucun hôtel bien noté trouvé pour cette ville ou selon vos critères.</p>
+                                {% endif %}
                              </div>
                         </details>
+
+                        {# Section Top Restaurants #}
+                        <details class="city-details" open>
+                             <summary>🍽️ Top Restaurants à Essayer</summary>
+                             <div class="details-content restaurant-details">
+                                {% if city_plan.top_2_restaurants %}
+                                    <ul class="itinerary-list">
+                                        {% for restaurant in city_plan.top_2_restaurants %}
+                                        <li class="itinerary-point">
+                                            <strong>{{ forloop.counter }}. {{ restaurant.nom|default:"Nom de restaurant non disponible" }}</strong> 
+                                            {% if restaurant.rating is not None %}(⭐ {{ restaurant.rating|floatformat:1 }}/10){% endif %}
+                                            {% if restaurant.budget_estime is not None %}
+                                                <br><small>Budget estimé: {{ restaurant.budget_estime|floatformat:0 }} MAD</small>
+                                            {% endif %}
+                                            {% if restaurant.booking_link and restaurant.booking_link != "N/A" %}
+                                                <p><a href="{{ restaurant.booking_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">Voir plus</a></p>
+                                            {% endif %}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>Aucun restaurant bien noté trouvé pour cette ville.</p>
+                                {% endif %}
+                             </div>
+                        </details>
+
+                        {# Section Top Cafés #}
+                        <details class="city-details" open>
+                             <summary>☕ Top Cafés à Essayer</summary>
+                             <div class="details-content cafe-details">
+                                {% if city_plan.top_2_cafes %}
+                                    <ul class="itinerary-list">
+                                        {% for cafe in city_plan.top_2_cafes %}
+                                        <li class="itinerary-point">
+                                            <strong>{{ forloop.counter }}. {{ cafe.nom|default:"Nom de café non disponible" }}</strong> 
+                                            {% if cafe.rating is not None %}(⭐ {{ cafe.rating|floatformat:1 }}/10){% endif %}
+                                            {% if cafe.budget_estime is not None %}
+                                                <br><small>Budget estimé: {{ cafe.budget_estime|floatformat:0 }} MAD</small>
+                                            {% endif %}
+                                            {% if cafe.booking_link and cafe.booking_link != "N/A" %}
+                                                <p><a href="{{ cafe.booking_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">Voir plus</a></p>
+                                            {% endif %}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>Aucun café bien noté trouvé pour cette ville.</p>
+                                {% endif %}
+                             </div>
+                        </details>
+
 
                         {% for daily_points_list in city_plan.activites_par_jour_optimisees %}
                             <details class="daily-itinerary-details">
@@ -108,10 +166,10 @@
                                             <li class="itinerary-point">
                                                 <strong>{{ forloop.counter }}. {{ point.nom|default:"Point d'intérêt" }}</strong>
 
-                                                {% if point.price_per_night is not None or point.type == "hotel" or point.item_type == "hotel" %}
+                                                {% if point.type == "hotel" %}
                                                     <span class="item-type-badge">(🏨 Hôtel)</span>
-                                                    {% if point.price_per_night is not None %}
-                                                        <br><small>Prix: {{ point.price_per_night|floatformat:0 }} MAD</small>
+                                                    {% if point.budget_estime is not None %}
+                                                        <br><small>Prix: {{ point.budget_estime|floatformat:0 }} MAD</small>
                                                     {% endif %}
                                                 {% else %}
                                                     <span class="item-type-badge">(🎯 {{ point.type|default:"Activité" }})</span>
@@ -146,7 +204,7 @@
                     <details class="schedule-details">
                         <summary>Voir l'emploi du temps</summary>
                         <div class="details-content" style="white-space: pre-wrap; font-family: monospace, monospace; font-size:0.9em; line-height:1.5;">
-                            {{ schedule_md|safe }} {# Utilisez |safe si schedule_md contient du HTML formaté, sinon linebreaksbr si c'est du texte simple #}
+                            {{ schedule_md|safe }} 
                         </div>
                     </details>
                 {% endif %}
@@ -155,12 +213,71 @@
                  {% if not request.POST %}
                     <div style="text-align: center; padding: 2em 0;">
                         <h2 class="section-title" style="margin-bottom:1em;"><span>Prêt à explorer le Maroc ?</span></h2>
-                        {# Exemple d'image SVG décorative. Placez-la dans static/planner/images/decor/camel_silhouette.svg #}
-                        {# <img src="{% static 'planner/images/decor/camel_silhouette.svg' %}" alt="Silhouette de chameau" style="width:150px; margin-bottom:1em; opacity:0.7;"> #}
                         <p style="font-size:1.1em; color:var(--text-medium);">Utilisez le formulaire sur la gauche pour définir vos préférences et laissez-nous composer votre itinéraire idéal !</p>
                     </div>
                  {% endif %}
             {% endif %}
         </main>
     </div>
-{% endblock %}
+
+    <style>
+        .hidden-field {
+            display: none;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const locationStatusRadios = document.querySelectorAll('input[name="location_status_choice"]');
+            const startCityChoiceGroup = document.getElementById('form-group-start_city_choice'); 
+            const gpsCoordsGroup = document.getElementById('form-group-start_gps_coords');
+            const startGpsInput = document.getElementById('id_start_gps_coords');
+            const startCityChoiceSelect = document.getElementById('id_start_city_choice');
+
+            function toggleLocationFields() {
+                const selectedStatus = document.querySelector('input[name="location_status_choice"]:checked').value;
+                
+                if (startCityChoiceGroup) startCityChoiceGroup.style.display = 'none';
+                if (gpsCoordsGroup) gpsCoordsGroup.style.display = 'none';
+
+                if (startGpsInput) startGpsInput.removeAttribute('required');
+                if (startCityChoiceSelect) startCityChoiceSelect.removeAttribute('required');
+                if (startGpsInput) startGpsInput.value = ''; 
+                if (startCityChoiceSelect) startCityChoiceSelect.value = ''; 
+
+                if (selectedStatus === 'in_morocco') {
+                    if (gpsCoordsGroup) gpsCoordsGroup.style.display = 'block';
+                    if (startGpsInput) startGpsInput.setAttribute('required', 'required');
+                    
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            const lat = position.coords.latitude;
+                            const lon = position.coords.longitude;
+                            if (startGpsInput) startGpsInput.value = `${lat},${lon}`;
+                        }, function(error) {
+                            console.error("Erreur de géolocalisation: ", error);
+                            alert("Impossible d'obtenir votre position GPS. Veuillez entrer les coordonnées manuellement.");
+                        });
+                    } else {
+                        alert("La géolocalisation n'est pas supportée par votre navigateur. Veuillez entrer les coordonnées manuellement.");
+                    }
+                } else if (selectedStatus === 'not_in_morocco') {
+                    if (startCityChoiceGroup) startCityChoiceGroup.style.display = 'block';
+                    if (startCityChoiceSelect) startCityChoiceSelect.setAttribute('required', 'required');
+                }
+            }
+
+            locationStatusRadios.forEach(radio => {
+                radio.addEventListener('change', toggleLocationFields);
+            });
+
+            const initialCheckedRadio = document.querySelector('input[name="location_status_choice"]:checked');
+            if (initialCheckedRadio) {
+                toggleLocationFields(); 
+            } else if (locationStatusRadios.length > 0) {
+                locationStatusRadios[0].checked = true;
+                toggleLocationFields();
+            }
+        });
+    </script>
+{% endblock %}```

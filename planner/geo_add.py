@@ -1,98 +1,96 @@
-import os
 import json
-import time
-import re
-from opencage.geocoder import OpenCageGeocode
-from dotenv import load_dotenv
+from serpapi import GoogleSearch
+import os
 
-# --- CONFIGURATION ---
-load_dotenv()
-API_KEY = os.getenv("OPENCAGE_API_KEY") or "21fae24d64ea4ac0b1122cae14a27463"
-ACTIVITIES_FILE_PATH = "E:/PFE MASTER/application streamlit/trip_planner_project/planner/data/activities.json"
+# --- Remplacez par votre VRAIE clé API SerpAPI ---
+# Assurez-vous que cette clé est la même que dans votre settings.py
+SERPAPI_API_KEY = "bc8f7f649098b04ab862462cf737563c9acc62dd85553e4cd74107893ff6999c" 
 
-if not API_KEY:
-    print("❌ ERREUR : Clé API manquante.")
-    exit()
+# --- Requêtes de test ---
+TEST_CITY = "Marrakech" # Ou toute autre ville que vous voulez tester
 
-geocoder = OpenCageGeocode(API_KEY)
-city_coords_cache = {}
+print(f"--- Test de l'API SerpAPI pour {TEST_CITY} ---")
 
-# --- FONCTION POUR EXTRAIRE LE NOM D'ACTIVITÉ CIBLE ---
-def extraire_mot_cle(nom):
-    # Expressions communes à supprimer
-    stopwords = [
-        r"visite de la ", r"excursion (dans|à) ", r"cours de ", r"atelier de ", r"balade (en|autour).*", 
-        r"expérience ", r"shopping dans les ", r"découverte de la ", r"exploration de .*", r"randonnée .*",
-        r"dans le désert .*", r"lever ou coucher de soleil .*", r"trekking .*", r"bivouac .*"
-    ]
-    clean = nom.lower()
-    for pattern in stopwords:
-        clean = re.sub(pattern, "", clean)
-    return clean.strip()
-
-# --- CHARGEMENT DU FICHIER JSON ---
+# --- Test 1: Hôtels avec engine="Google Hotels" ---
+print("\nTentative de récupération d'HÔTELS via engine='Google Hotels'...")
+hotel_params = {
+    "api_key": SERPAPI_API_KEY,
+    "engine": "Google Hotels", # C'est le nom du moteur que vous devez utiliser
+    "q": f"hotels in {TEST_CITY}, Morocco",
+    "type": "search",
+    "hl": "fr",
+    "num": 5
+}
 try:
-    with open(ACTIVITIES_FILE_PATH, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    Google Hotels = GoogleSearch(hotel_params)
+    results_hotels = Google Hotels.get_dict()
+    print("Réponse brute de l'API pour les HÔTELS :")
+    print(json.dumps(results_hotels, indent=2))
+    if "hotels_results" in results_hotels:
+        print(f"--> Succès : {len(results_hotels['hotels_results'])} hôtels trouvés.")
+        for i, hotel in enumerate(results_hotels["hotels_results"][:3]): # Afficher les 3 premiers
+            name = hotel.get("name") or hotel.get("title", "Nom non trouvé")
+            rating = hotel.get("rating")
+            print(f"    {i+1}. Nom: {name}, Note: {rating}")
+    elif "error" in results_hotels:
+        print(f"--- ERREUR API pour les HÔTELS : {results_hotels['error']}")
+    else:
+        print("--- AVERTISSEMENT : La recherche d'hôtels n'a pas renvoyé 'hotels_results'.")
 except Exception as e:
-    print(f"❌ Erreur : {e}")
-    exit()
+    print(f"--- ERREUR LORS DE L'APPEL API pour les HÔTELS : {e}")
 
-print("🔍 Mise à jour des coordonnées...\n")
+# --- Test 2: Restaurants avec engine="Maps" ---
+print("\nTentative de récupération de RESTAURANTS via engine='Maps'...")
+restaurant_params = {
+    "api_key": SERPAPI_API_KEY,
+    "engine": "Maps", # C'est le nom du moteur que vous devez utiliser pour les lieux
+    "q": f"restaurants in {TEST_CITY}, Morocco",
+    "type": "search",
+    "hl": "fr",
+    "num": 5
+}
+try:
+    search_restaurants = GoogleSearch(restaurant_params)
+    results_restaurants = search_restaurants.get_dict()
+    print("Réponse brute de l'API pour les RESTAURANTS :")
+    print(json.dumps(results_restaurants, indent=2))
+    if "local_results" in results_restaurants:
+        print(f"--> Succès : {len(results_restaurants['local_results'])} restaurants trouvés.")
+        for i, restaurant in enumerate(results_restaurants["local_results"][:3]):
+            name = restaurant.get("title") or restaurant.get("name", "Nom non trouvé")
+            rating = restaurant.get("rating")
+            print(f"    {i+1}. Nom: {name}, Note: {rating}")
+    elif "error" in results_restaurants:
+        print(f"--- ERREUR API pour les RESTAURANTS : {results_restaurants['error']}")
+    else:
+        print("--- AVERTISSEMENT : La recherche de restaurants n'a pas renvoyé 'local_results'.")
+except Exception as e:
+    print(f"--- ERREUR LORS DE L'APPEL API pour les RESTAURANTS : {e}")
 
-for city_block in data:
-    city_name = city_block.get("ville")
-    if not city_name or 'activites' not in city_block:
-        continue
-
-    for activity in city_block['activites']:
-        if activity.get('latitude') is not None and activity.get('longitude') is not None:
-            continue
-
-        activity_name = activity.get("nom")
-        mot_cle = extraire_mot_cle(activity_name)
-        print(f"🔎 Recherche : '{mot_cle}, {city_name}'")
-
-        found = False
-        try:
-            # Recherche ciblée dans la ville
-            query = f"{mot_cle}, {city_name}, Maroc"
-            results = geocoder.geocode(query, language='fr', no_annotations=1)
-
-            if results:
-                lat = results[0]['geometry']['lat']
-                lng = results[0]['geometry']['lng']
-                activity['latitude'] = lat
-                activity['longitude'] = lng
-                print(f"✅ Coordonnées précises : ({lat:.4f}, {lng:.4f})")
-                found = True
-        except Exception as e:
-            print(f"❗ Erreur : {e}")
-
-        # Fallback à la ville si non trouvé
-        if not found:
-            if city_name not in city_coords_cache:
-                print(f"📍 Recherche fallback pour la ville : {city_name}")
-                city_results = geocoder.geocode(f"{city_name}, Maroc", language='fr', no_annotations=1)
-                if city_results:
-                    city_lat = city_results[0]['geometry']['lat']
-                    city_lng = city_results[0]['geometry']['lng']
-                    city_coords_cache[city_name] = (city_lat, city_lng)
-                    print(f"🏙️  Coordonnées ville : ({city_lat:.4f}, {city_lng:.4f})")
-                else:
-                    city_coords_cache[city_name] = (None, None)
-            lat, lng = city_coords_cache[city_name]
-            activity['latitude'] = lat
-            activity['longitude'] = lng
-            if lat:
-                print(f"➕ Coordonnées fallback ville utilisées : ({lat:.4f}, {lng:.4f})")
-            else:
-                print("🚫 Aucun point trouvé.")
-
-        time.sleep(1.1)
-
-# --- SAUVEGARDE DU FICHIER ---
-with open(ACTIVITIES_FILE_PATH, 'w', encoding='utf-8') as f:
-    json.dump(data, f, ensure_ascii=False, indent=4)
-
-print("\n✅ Mise à jour terminée.")
+# --- Test 3: Cafés avec engine="Maps" ---
+print("\nTentative de récupération de CAFÉS via engine='Maps'...")
+cafe_params = {
+    "api_key": SERPAPI_API_KEY,
+    "engine": "Maps", # C'est le nom du moteur que vous devez utiliser pour les lieux
+    "q": f"cafes in {TEST_CITY}, Morocco",
+    "type": "search",
+    "hl": "fr",
+    "num": 5
+}
+try:
+    search_cafes = GoogleSearch(cafe_params)
+    results_cafes = search_cafes.get_dict()
+    print("Réponse brute de l'API pour les CAFÉS :")
+    print(json.dumps(results_cafes, indent=2))
+    if "local_results" in results_cafes:
+        print(f"--> Succès : {len(results_cafes['local_results'])} cafés trouvés.")
+        for i, cafe in enumerate(results_cafes["local_results"][:3]):
+            name = cafe.get("title") or cafe.get("name", "Nom non trouvé")
+            rating = cafe.get("rating")
+            print(f"    {i+1}. Nom: {name}, Note: {rating}")
+    elif "error" in results_cafes:
+        print(f"--- ERREUR API pour les CAFÉS : {results_cafes['error']}")
+    else:
+        print("--- AVERTISSEMENT : La recherche de cafés n'a pas renvoyé 'local_results'.")
+except Exception as e:
+    print(f"--- ERREUR LORS DE L'APPEL API pour les CAFÉS : {e}")

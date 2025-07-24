@@ -2,24 +2,76 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+import logging 
 
 from .models import (
     Profile, ActivityRating, Voyage, VoyageMedia, JournalEntry, Comment
 )
-from .utils import load_and_preprocess_data
+# Assurez-vous que le chemin est correct si utils.py est dans le même dossier
+from .utils import load_and_preprocess_data, MANUAL_CITY_COORDINATES 
+
+logger = logging.getLogger(__name__)
 
 # Logique pour charger les choix de villes et d'activités
 try:
-    activities_df_form, _, _ = load_and_preprocess_data()
+    # Pour le chargement initial du formulaire, nous ne ciblons pas de villes spécifiques pour l'API
+    # ni n'activons le mode temps réel.
+    activities_df_form, _, _, _ = load_and_preprocess_data(use_realtime_api=False, target_cities_for_api=[]) 
+    
     if activities_df_form is not None and not activities_df_form.empty:
+        logger.debug(f"forms.py: activities_df_form chargé avec {activities_df_form.shape[0]} lignes.")
+        
         unique_cities = sorted(list(set(c for c in activities_df_form["ville_normalisee"].unique() if c)))
         ALL_AVAILABLE_CITIES_CHOICES = [(city, city) for city in unique_cities]
-        activity_types = sorted(list(set(t for t in activities_df_form["type"].unique() if t)))
+        activity_types = sorted(list(set(t for t in activities_df_form["type"].unique() if t)) if "type" in activities_df_form.columns else [])
         ACTIVITY_TYPE_CHOICES = [(atype, atype) for atype in activity_types]
+        
+        logger.info(f"forms.py: {len(ALL_AVAILABLE_CITIES_CHOICES)} villes chargées pour le formulaire.")
+        logger.info(f"forms.py: Villes disponibles: {', '.join([c[0] for c in ALL_AVAILABLE_CITIES_CHOICES])}")
+        logger.info(f"forms.py: {len(ACTIVITY_TYPE_CHOICES)} types d'activités chargés pour le formulaire.")
+        logger.info(f"forms.py: Types d'activités disponibles: {', '.join([c[0] for c in ACTIVITY_TYPE_CHOICES])}")
     else:
+        logger.warning("forms.py: activities_df_form est vide lors du chargement de forms.py. Les choix de villes/activités seront vides.")
         ALL_AVAILABLE_CITIES_CHOICES, ACTIVITY_TYPE_CHOICES = [], []
-except Exception:
+except Exception as e:
+    logger.error(f"forms.py: Erreur CRITIQUE lors du chargement des données initiales pour les choix de formulaire: {e}", exc_info=True)
     ALL_AVAILABLE_CITIES_CHOICES, ACTIVITY_TYPE_CHOICES = [], []
+
+logger.debug(f"forms.py: MANUAL_CITY_COORDINATES (keys): {list(MANUAL_CITY_COORDINATES.keys())}")
+logger.debug(f"forms.py: MANUAL_CITY_COORDINATES (full): {MANUAL_CITY_COORDINATES}")
+
+
+AIRPORT_CITY_CHOICES = [
+    ('Casablanca (CMN)', 'Casablanca (Aéroport Mohammed V)'),
+    ('Marrakech (RAK)', 'Marrakech (Aéroport Menara)'),
+    ('Agadir (AGA)', 'Agadir (Aéroport Al Massira)'),
+    ('Tangier (TNG)', 'Tanger (Aéroport Ibn Battouta)'),
+    ('Fès (FEZ)', 'Fès (Aéroport Fès–Saïs)'),
+    ('Rabat (RBA)', 'Rabat (Aéroport Rabat–Salé)'),
+    ('Oujda (OUD)', 'Oujda (Aéroport Angads)'),
+    ('Essaouira (ESU)', 'Essaouira (Aéroport Essaouira-Mogador)'),
+]
+
+temp_airport_city_choices = list(AIRPORT_CITY_CHOICES) 
+# Ajouter les villes normales aussi comme options de départ
+for city, coords in MANUAL_CITY_COORDINATES.items():
+    is_airport_already_listed = False
+    for airport_tuple in temp_airport_city_choices:
+        if airport_tuple[0] == city:
+            is_airport_already_listed = True
+            break
+    
+    if not is_airport_already_listed: 
+        temp_airport_city_choices.append((city, city)) 
+        logger.debug(f"forms.py: Ajout de la ville '{city}' aux choix de départ.")
+    else:
+        logger.debug(f"forms.py: La ville '{city}' est déjà listée comme aéroport, pas d'ajout en double.")
+
+AIRPORT_CITY_CHOICES = sorted(temp_airport_city_choices, key=lambda x: x[1]) 
+
+logger.info(f"forms.py: {len(AIRPORT_CITY_CHOICES)} aéroports/villes de départ chargés au total.")
+logger.debug(f"forms.py: Aéroports/Villes de départ disponibles (final): {AIRPORT_CITY_CHOICES}")
+
 
 class TripPlannerForm(forms.Form):
     target_cities = forms.MultipleChoiceField(
@@ -30,7 +82,6 @@ class TripPlannerForm(forms.Form):
     )
     num_days = forms.IntegerField(label="Nombre de jours ?", min_value=1, initial=3)
     
-    # Champ pour que l'utilisateur choisisse le rythme de son voyage
     activity_intensity = forms.ChoiceField(
         label="Quel rythme pour vos journées ?",
         choices=[
@@ -52,11 +103,46 @@ class TripPlannerForm(forms.Form):
         widget=forms.CheckboxSelectMultiple, 
         required=False
     )
+    # use_astar_routes_planning reste pour activer/désactiver les calculs OSMnx
     use_astar_routes_planning = forms.BooleanField(
-        label="Calculer les itinéraires réels (plus lent)", 
+        label="Calculer les itinéraires détaillés (A*)", 
         required=False, 
-        initial=False
+        initial=True
     )
+
+    # REMOVED: calculate_driving_routes et calculate_walking_routes sont gérés en interne par la carte maintenant.
+    # Ils n'apparaissent plus dans le formulaire.
+
+    use_realtime_api = forms.BooleanField(
+        label="Rechercher des données en temps réel (API externe)",
+        required=False,
+        initial=False,
+        help_text="Activez pour obtenir les hôtels, restaurants et activités les plus récents via une API de recherche (ex: Google Places via SerpAPI). Note: Cette option peut être plus lente et dépend de la disponibilité de l'API."
+    )
+
+    location_status_choice = forms.ChoiceField(
+        label="Où vous situez-vous pour le départ de votre voyage ?",
+        choices=[
+            ('not_in_morocco', 'Je ne suis pas encore au Maroc (je vais arriver par avion)'),
+            ('in_morocco', 'Je suis déjà au Maroc'),
+        ],
+        initial='not_in_morocco', 
+        widget=forms.RadioSelect,
+        required=True
+    )
+
+    start_city_choice = forms.ChoiceField(
+        label="Sélectionner un aéroport/ville de départ :",
+        choices=[('', '---------')] + AIRPORT_CITY_CHOICES, 
+        required=False 
+    )
+
+    start_gps_coords = forms.CharField(
+        label="Coordonnées GPS (Latitude,Longitude)",
+        required=False, 
+        help_text="Sera rempli automatiquement si GPS activé."
+    )
+
 
 # --- Autres formulaires (inchangés) ---
 class UserUpdateForm(forms.ModelForm):

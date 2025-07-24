@@ -12,7 +12,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
-# Imports explicites pour une meilleure lisibilité
+import pandas as pd
+
 from .models import (
     Trip, TripDay, DailyActivityItem, ActivityRating, Voyage, JournalEntry,
     VoyageMedia, Like, Comment, ChatMessage
@@ -21,12 +22,10 @@ from .forms import (
     TripPlannerForm, UserUpdateForm, ProfileUpdateForm, RatingForm, SignUpForm,
     VoyageForm, JournalEntryForm, VoyageMediaForm, CommentForm
 )
-from .utils import plan_trip_django, load_and_preprocess_data, OSMNX_AVAILABLE
-from .folium_utils import generate_trip_map_folium_django
+from .utils import plan_trip_django, load_and_preprocess_data, OSMNX_AVAILABLE 
 from .reportlab_utils import generate_trip_pdf_django, generate_voyage_pdf_django, generate_schedule_content_objects_django
 from .chatbot_logic import process_user_query
 
-# Configuration centralisée pour la page d'accueil
 NUM_FEATURED_CITIES = 3
 NUM_ACTIVITIES_PER_CITY = 3
 
@@ -39,16 +38,15 @@ def home_showcase_view(request):
     """
     showcase_context = {}
     try:
-        activities_df, _, _ = load_and_preprocess_data()
+        # Ici, on passe target_cities_for_api=[] pour que load_and_preprocess_data charge toutes les données statiques
+        activities_df, _, _, _ = load_and_preprocess_data(use_realtime_api=False, target_cities_for_api=[])
         if not activities_df.empty and 'ville_normalisee' in activities_df.columns:
 
             featured_cities = []
-            # La logique principale est de trier par note.
             if 'rating' in activities_df.columns:
                 city_scores = activities_df.groupby('ville_normalisee')['rating'].mean()
                 featured_cities = city_scores.sort_values(ascending=False).head(NUM_FEATURED_CITIES).index.tolist()
 
-            # Plan de secours si le tri échoue ou si les données sont incomplètes
             if not featured_cities:
                 logger.info("Fallback : Impossible de trier les villes par note, sélection des premières villes disponibles.")
                 unique_cities = activities_df['ville_normalisee'].dropna().unique()
@@ -58,7 +56,6 @@ def home_showcase_view(request):
             for city in featured_cities:
                 city_activities_df = activities_df[activities_df['ville_normalisee'] == city]
                 if not city_activities_df.empty:
-                    # Tri par note, car la colonne est maintenant censée exister
                     sorted_activities = city_activities_df.sort_values(by='rating', ascending=False)
                     showcase_activities[city] = sorted_activities.head(NUM_ACTIVITIES_PER_CITY).to_dict('records')
 
@@ -77,19 +74,92 @@ def home_showcase_view(request):
 @login_required
 def plan_trip_view(request):
     """Gère la planification et affiche les résultats sur la même page."""
+    # Initialiser les variables pour le contexte de rendu, même si le formulaire n'est pas encore soumis
+    folium_map_html = None 
+    schedule_md = None 
+    trip_plan_result = None
+    trip_params = {}
+    
     if request.method == 'POST':
         form = TripPlannerForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            activities_df, hotels_df, city_coords_map = load_and_preprocess_data()
+            
+            use_realtime = data.get('use_realtime_api', False)
+            target_cities = data['target_cities']
 
-            if activities_df.empty:
-                messages.error(request, "Impossible de charger les données des activités. Le fichier est peut-être vide ou mal formaté.")
-                return render(request, 'planner/plan_trip.html', {'form': form})
+            location_status_choice = data.get('location_status_choice')
+            start_city_choice = data.get('start_city_choice')
+            start_gps_coords = data.get('start_gps_coords')
+
+            final_start_location_type = None
+            final_start_location_value = None
+
+            if location_status_choice == 'in_morocco':
+                final_start_location_type = 'current_gps'
+                final_start_location_value = start_gps_coords
+                if not final_start_location_value:
+                    messages.error(request, "Veuillez autoriser la géolocalisation ou entrer vos coordonnées GPS si vous êtes au Maroc.")
+                    return render(request, 'planner/plan_trip.html', {
+                        'form': form, 
+                        'folium_map_html': folium_map_html, 
+                        'schedule_md': schedule_md, 
+                        'trip_plan_result': trip_plan_result, 
+                        'trip_params': trip_params
+                    })
+            elif location_status_choice == 'not_in_morocco':
+                final_start_location_type = 'choose_city'
+                final_start_location_value = start_city_choice
+                if not final_start_location_value:
+                    messages.error(request, "Veuillez sélectionner votre aéroport/ville d'arrivée si vous n'êtes pas encore au Maroc.")
+                    return render(request, 'planner/plan_trip.html', {
+                        'form': form, 
+                        'folium_map_html': folium_map_html, 
+                        'schedule_md': schedule_md, 
+                        'trip_plan_result': trip_plan_result, 
+                        'trip_params': trip_params
+                    })
+            
+            activities_df, hotels_df, api_restaurants_cafes_df, city_coords_map = pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), {}
+            
+            logger.debug(f"plan_trip_view: Tentative de chargement des données. use_realtime={use_realtime}, target_cities={target_cities}")
+
+            if use_realtime:
+                try:
+                    activities_df, hotels_df, api_restaurants_cafes_df, city_coords_map = load_and_preprocess_data(
+                        use_realtime_api=True,
+                        target_cities_for_api=target_cities
+                    )
+                    logger.debug(f"plan_trip_view: Après tentative API. activities_df.shape={activities_df.shape}, hotels_df.shape={hotels_df.shape}, api_restaurants_cafes_df.shape={api_restaurants_cafes_df.shape}")
+                    
+                    if activities_df.empty or hotels_df.empty:
+                        messages.warning(request, "L'API n'a pas pu récupérer suffisamment de données en temps réel pour les villes sélectionnées. Essai avec les données statiques.")
+                        logger.warning("plan_trip_view: API a retourné des DataFrames vides (ou le fallback statique initial n'a rien donné).")
+                        activities_df, hotels_df, api_restaurants_cafes_df, city_coords_map = load_and_preprocess_data(use_realtime_api=False, target_cities_for_api=[])
+                except Exception as e:
+                    logger.error(f"plan_trip_view: Erreur lors de la récupération des données en temps réel: {e}", exc_info=True)
+                    messages.error(request, "Une erreur est survenue lors de la tentative de récupération des données en temps réel. Essai avec les données statiques.")
+                    activities_df, hotels_df, api_restaurants_cafes_df, city_coords_map = load_and_preprocess_data(use_realtime_api=False, target_cities_for_api=[])
+            else:
+                activities_df, hotels_df, api_restaurants_cafes_df, city_coords_map = load_and_preprocess_data(use_realtime_api=False, target_cities_for_api=[])
+
+
+            if activities_df.empty or hotels_df.empty:
+                logger.error(f"plan_trip_view: DataFrames d'activités ou d'hôtels sont vides après toutes les tentatives. Activités: {activities_df.shape}, Hôtels: {hotels_df.shape}")
+                messages.error(request, "Impossible de charger les données des activités ou des hôtels. Les fichiers statiques sont peut-être vides, mal formatés ou l'API n'a rien renvoyé de valable.")
+                return render(request, 'planner/plan_trip.html', {
+                    'form': form, 
+                    'folium_map_html': folium_map_html, 
+                    'schedule_md': schedule_md, 
+                    'trip_plan_result': trip_plan_result, 
+                    'trip_params': trip_params
+                })
+
+            logger.debug("plan_trip_view: Données activités et hôtels chargées avec succès (non vides).")
 
             use_astar = data.get('use_astar_routes_planning', False)
 
-            trip_plan, params, cities = plan_trip_django(
+            trip_data_dict = plan_trip_django(
                 target_cities_list=data['target_cities'],
                 total_budget_str=str(data['total_budget']),
                 num_days_str=str(data['num_days']),
@@ -99,43 +169,74 @@ def plan_trip_view(request):
                 activity_intensity=data['activity_intensity'],
                 activities_df_global=activities_df,
                 hotels_df_global=hotels_df,
+                api_restaurants_cafes_df_global=api_restaurants_cafes_df, 
                 city_coords_map_global=city_coords_map,
-                use_astar_for_planning=use_astar
+                use_astar_for_planning=use_astar,
+                start_location_type=final_start_location_type, 
+                start_location_value=final_start_location_value
             )
+            
+            trip_plan_result = trip_data_dict.get('trip_plan_result')
+            trip_params = trip_data_dict.get('params')
+            cities = trip_data_dict.get('ordered_cities_with_start')
+            folium_map_html = trip_data_dict.get('folium_map_html')
+            schedule_md = trip_data_dict.get('schedule_md')
 
-            if trip_plan:
-                new_trip = Trip.objects.create(user=request.user, name=f"Plan pour {', '.join(cities)}", num_persons=data['num_persons'])
+
+            if trip_plan_result:
+                new_trip = Trip.objects.create(
+                    user=request.user, 
+                    name=f"Plan pour {', '.join(cities) if cities else 'voyage sans ville'}",
+                    num_persons=data['num_persons'],
+                    target_cities_input_str=", ".join(data['target_cities']),
+                    num_days_str=str(data['num_days'])
+                )
                 day_counter = 0
-                for city_data in trip_plan:
+                for city_data in trip_plan_result:
                     for daily_plan in city_data.get('activites_par_jour_optimisees', []):
                         day_counter += 1
-                        trip_day = TripDay.objects.create(trip=new_trip, day_number=day_counter, city_name=city_data['ville'])
+                        trip_day = TripDay.objects.create(trip=new_trip, day_number=day_counter, city_name=city_data.get('ville', 'Ville inconnue'))
                         for i, item in enumerate(daily_plan):
-                            # S'assurer que 'nom' ou 'name' existe avant de l'utiliser
                             item_name = item.get('nom') or item.get('name', 'Activité non nommée')
+                            activity_type_name = item.get('type', 'N/A')
+                            
+                            item_type_for_db = 'activity'
+                            if item.get('type') == 'hotel' or item.get('is_hotel_stop'): 
+                                item_type_for_db = 'hotel'
+                            elif item.get('type') == 'Gastronomique':
+                                item_type_for_db = 'restaurant' 
+                            elif item.get('type') == 'Gastronomique/Café':
+                                item_type_for_db = 'cafe' 
+                            
                             DailyActivityItem.objects.create(
                                 trip_day=trip_day,
                                 order_in_day=i,
-                                item_type='hotel' if item.get('type') == 'hotel' else 'activity',
-                                name=item_name
+                                item_type=item_type_for_db, 
+                                name=item_name,
+                                activity_type_name=activity_type_name
                             )
                 messages.success(request, "Voyage planifié et sauvegardé !")
-                request.session['trip_plan_result_for_pdf'] = trip_plan
-                request.session['trip_params_for_pdf'] = params
-                folium_map = generate_trip_map_folium_django(cities, trip_plan, city_coords_map, int(data['num_days']), use_astar, OSMNX_AVAILABLE)
-                schedule_md, _ = generate_schedule_content_objects_django(trip_plan, int(data['num_days']))
+                request.session['trip_plan_result_for_pdf'] = trip_plan_result
+                request.session['trip_params_for_pdf'] = trip_params
+                
                 return render(request, 'planner/plan_trip.html', {
                     'form': form,
-                    'trip_plan_result': trip_plan,
-                    'trip_params': params,
-                    'folium_map_html': folium_map._repr_html_() if folium_map else None,
+                    'trip_plan_result': trip_plan_result,
+                    'trip_params': trip_params,
+                    'folium_map_html': folium_map_html, 
                     'schedule_md': schedule_md
                 })
             else:
                 messages.warning(request, "Impossible de générer un plan avec les critères fournis. Essayez d'ajuster vos préférences ou votre budget.")
 
     form = TripPlannerForm()
-    return render(request, 'planner/plan_trip.html', {'form': form})
+    return render(request, 'planner/plan_trip.html', {
+        'form': form, 
+        'folium_map_html': folium_map_html, 
+        'schedule_md': schedule_md, 
+        'trip_plan_result': trip_plan_result, 
+        'trip_params': trip_params
+    })
 
 
 @login_required
@@ -298,7 +399,9 @@ def download_plan_pdf_view(request):
         return redirect('planner:plan_trip')
     
     buffer = BytesIO()
-    num_days = int(trip_params.get("Durée du voyage", "0").split()[0])
+    num_days_str = trip_params.get("Durée du voyage", "0").split()[0]
+    num_days = int(num_days_str) if num_days_str.isdigit() else 0
+
     _, schedule = generate_schedule_content_objects_django(trip_plan, num_days)
     generate_trip_pdf_django(buffer, trip_plan, trip_params, schedule)
     

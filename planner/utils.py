@@ -4,12 +4,17 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from itertools import permutations
 from geopy.distance import geodesic
+import requests
+from serpapi import GoogleSearch
 import os
 import pickle
 import logging
 from django.conf import settings
 import re
 import math
+from datetime import datetime, timedelta, date
+import folium
+from folium.plugins import MarkerCluster
 
 logger = logging.getLogger(__name__)
 
@@ -34,10 +39,51 @@ if OSMNX_AVAILABLE and not os.path.exists(GRAPHS_CACHE_DIR_DJANGO):
     except OSError as e:
         logger.error(f"Impossible de créer le dossier de cache {GRAPHS_CACHE_DIR_DJANGO}: {e}")
 
-CITY_NAME_MAPPING = { "Marrakech": ["marakech", "marrakesh"], "Fès": ["fez", "fes", "fes el bali", "fès el bali"], "Casablanca": ["casa"], "Meknès": ["meknes", "meknès el bali"], "Rabat": [], "Agadir": [], "Chefchaouen": ["chefchaouene", "chaouen"], "Essaouira": ["mogador"], "Ouarzazate": [], "Tangier": ["tanger", "tanger-assilah"], "Merzouga (Erg Chebbi)": ["merzouga", "erg chebbi"] }
-MANUAL_CITY_COORDINATES = { "Marrakech": {"latitude": 31.6295, "longitude": -7.9811}, "Fès": {"latitude": 34.0181, "longitude": -5.0078}, "Casablanca": {"latitude": 33.5731, "longitude": -7.5898}, "Meknès": {"latitude": 33.8935, "longitude": -5.5473}, "Rabat": {"latitude": 34.0209, "longitude": -6.8417}, "Agadir": {"latitude": 30.4202, "longitude": -9.5981}, "Chefchaouen": {"latitude": 35.1688, "longitude": -5.2636}, "Essaouira": {"latitude": 31.5085, "longitude": -9.7595}, "Ouarzazate": {"latitude": 30.9189, "longitude": -6.8934}, "Tangier": {"latitude": 35.7595, "longitude": -5.8330}, "Merzouga (Erg Chebbi)": {"latitude": 31.0983, "longitude": -4.0119} }
+CITY_NAME_MAPPING = {
+    "Marrakech": ["marakech", "marrakesh"],
+    "Fès": ["fez", "fes", "fes el bali", "fès el bali"],
+    "Casablanca": ["casa"],
+    "Meknès": ["meknes", "meknès el bali"],
+    "Rabat": [], "Agadir": [], "Chefchaouen": ["chefchaouene", "chaouen"],
+    "Essaouira": ["mogador"], "Ouarzazate": [], "Tangier": ["tanger", "tanger-assilah"],
+    "Merzouga (Erg Chebbi)": ["merzouga", "erg chebbi"],
+    "Casablanca (CMN)": ["cmn", "mohammed v international airport"],
+    "Marrakech (RAK)": ["rak", "marrakech menara airport"],
+    "Agadir (AGA)": ["aga", "al massira airport"],
+    "Tangier (TNG)": ["tng", "tangier ibn battouta airport"],
+    "Fès (FEZ)": ["fez", "fes saïs airport"],
+    "Oujda (OUD)": ["oud", "angads airport"],
+    "Rabat (RBA)": ["rba", "rabat salé airport"],
+    "Essaouira (ESU)": ["esu", "essaouira-mogador airport"]
+}
+MANUAL_CITY_COORDINATES = {
+    "Marrakech": {"latitude": 31.6295, "longitude": -7.9811},
+    "Fès": {"latitude": 34.0181, "longitude": -5.0078},
+    "Casablanca": {"latitude": 33.5731, "longitude": -7.5898},
+    "Meknès": {"latitude": 33.8935, "longitude": -5.5473},
+    "Rabat": {"latitude": 34.0209, "longitude": -6.8417},
+    "Agadir": {"latitude": 30.4202, "longitude": -9.5981},
+    "Chefchaouen": {"latitude": 35.1688, "longitude": -5.2636},
+    "Essaouira": {"latitude": 31.5085, "longitude": -9.7595},
+    "Ouarzazate": {"latitude": 30.9189, "longitude": -6.8934},
+    "Tangier": {"latitude": 35.7595, "longitude": -5.8330},
+    "Merzouga (Erg Chebbi)": {"latitude": 31.0983, "longitude": -4.0119},
+    "Casablanca (CMN)": {"latitude": 33.3675, "longitude": -7.5899},
+    "Marrakech (RAK)": {"latitude": 31.6069, "longitude": -8.0363},
+    "Agadir (AGA)": {"latitude": 30.3250, "longitude": -9.4130},
+    "Tangier (TNG)": {"latitude": 35.7260, "longitude": -9.2890},
+    "Fès (FEZ)": {"latitude": 33.9306, "longitude": -4.9774},
+    "Oujda (OUD)": {"latitude": 34.7892, "longitude": -1.9234},
+    "Rabat (RBA)": {"latitude": 34.0514, "longitude": -6.7515},
+    "Essaouira (ESU)": {"latitude": 31.3952, "longitude": -9.6816}
+}
 
-# --- Fonctions Utilitaires de Prétraitement ---
+TAVILY_API_KEY = settings.TAVILY_API_KEY if hasattr(settings, 'TAVILY_API_KEY') else None
+SERPAPI_API_KEY = settings.SERPAPI_API_KEY if hasattr(settings, 'SERPAPI_API_KEY') else None
+MAX_API_RESULTS_PER_CATEGORY = 20
+DEFAULT_RADIUS_KM = 15
+
+# --- Fonctions Utilitaires ---
 def normalize_city_name(city_name, city_mapping):
     if not city_name or pd.isna(city_name): return None
     city_name_lower = str(city_name).strip().lower()
@@ -53,251 +99,393 @@ def extract_city_from_hotel_location(location_str, canonical_activity_cities_lis
         if city_canonical in city_name_mapping:
             for variation in city_name_mapping[city_canonical]:
                 if f" {variation.lower()} " in f" {location_lower} ": return city_canonical
-    for city_canonical in canonical_activity_cities_list:
-        if city_canonical.lower() in location_lower: return city_canonical
-        if city_canonical in city_name_mapping:
-            for variation in city_name_mapping[city_canonical]:
-                if variation.lower() in location_lower: return city_canonical
     return None
 
-_CACHED_PREPROCESSED_DATA = None
-def load_and_preprocess_data():
-    global _CACHED_PREPROCESSED_DATA
-    if _CACHED_PREPROCESSED_DATA is not None: return _CACHED_PREPROCESSED_DATA
-    try:
-        with open(ACTIVITIES_JSON_PATH, 'r', encoding='utf-8') as f: activities_data_raw = json.load(f)
-        with open(HOTELS_JSON_PATH, 'r', encoding='utf-8') as f: hotels_data_raw_list = json.load(f).get("hotels", [])
+def parse_price_string(price_str):
+    if not isinstance(price_str, str): return None
+    numeric_price = re.sub(r'[^\d\.,]+', '', price_str).replace(',', '.')
+    try: return float(numeric_price)
+    except ValueError: return None
+
+# --- Fonctions API ---
+def _call_serpapi(query, engine, api_key=SERPAPI_API_KEY, **kwargs):
+    if not api_key:
+        logger.error("SERPAPI_API_KEY non configurée.")
+        return {"error": "API key is missing"}
+    params = {"api_key": api_key, "engine": engine, "q": query, "hl": "fr", "num": MAX_API_RESULTS_PER_CATEGORY}
+    params.update(kwargs)
+    try: return GoogleSearch(params).get_dict()
     except Exception as e:
-        logger.error(f"Erreur chargement des fichiers JSON: {e}", exc_info=True); return pd.DataFrame(), pd.DataFrame(), {}
+        logger.error(f"Erreur lors de l'appel à SerpApi pour '{query}': {e}", exc_info=True)
+        return {"error": str(e)}
 
-    activities_list = [ {**activity, "ville_normalisee": normalize_city_name(city_data_act.get("ville"), CITY_NAME_MAPPING)} for city_data_act in activities_data_raw if isinstance(city_data_act, dict) for activity in city_data_act.get("activites", []) if isinstance(activity, dict) ]
+def _process_serpapi_places_results(results_json, item_type, city_name):
+    processed_items = []
+    if results_json is None or results_json.get("error"): return processed_items
+    results_list = results_json.get("hotels_results") or results_json.get("local_results", [])
+    for item in results_list:
+        name = item.get("title") or item.get("name")
+        if not name: continue
+        gps_coords = item.get("gps_coordinates", {})
+        latitude, longitude = gps_coords.get("latitude"), gps_coords.get("longitude")
+        if not latitude or not longitude: continue
+        rating = item.get("rating")
+        data = {
+            "nom": name, "latitude": latitude, "longitude": longitude, "coordonnees": (latitude, longitude),
+            "ville_normalisee": city_name, "booking_link": item.get("link") or item.get("website"),
+            "description": item.get("description") or item.get("address"), "rating": (rating * 2 if rating else 7.0)
+        }
+        if "hotel" in item_type:
+            data.update({"type": "hotel", "duree_estimee": "24h", "budget_estime": parse_price_string(item.get("price")) or 150.0})
+        else:
+            price_range = item.get("price", "")
+            budget_map = {"$": 20, "$$": 50, "$$$": 100, "$$$$": 200}
+            data.update({"duree_estimee": "1.5h", "budget_estime": budget_map.get(price_range, 50.0)})
+            category = item.get("type", "")
+            if "Restaurant" in category: data["type"] = "Gastronomique"
+            elif "Cafe" in category: data["type"] = "Gastronomique/Café"
+            else: data["type"] = item_type
+        processed_items.append(data)
+    return processed_items
 
-    activities_df = pd.DataFrame(activities_list)
-    if not activities_df.empty:
-        # Fiabilisation des données des activités
-        for col, default in [('rating', 3.5), ('budget_estime', 50.0), ('latitude', 0.0), ('longitude', 0.0)]:
-            if col not in activities_df.columns:
-                activities_df[col] = default
-            activities_df[col] = pd.to_numeric(activities_df[col], errors='coerce')
-            activities_df[col] = activities_df[col].fillna(default)
+def get_realtime_data_for_city(city_name, city_coords_map):
+    check_in_date = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+    check_out_date = (datetime.now() + timedelta(days=2)).strftime('%Y-%m-%d')
+    hotel_results = _call_serpapi(f"hotels in {city_name}, Morocco", "google_hotels", check_in_date=check_in_date, check_out_date=check_out_date)
+    restaurant_results = _call_serpapi(f"restaurants in {city_name}, Morocco", "google_maps")
+    cafe_results = _call_serpapi(f"cafes in {city_name}, Morocco", "google_maps")
+    hotels_list = _process_serpapi_places_results(hotel_results, "hotel", city_name)
+    restaurants_cafes_list = _process_serpapi_places_results(restaurant_results, "Gastronomique", city_name)
+    restaurants_cafes_list.extend(_process_serpapi_places_results(cafe_results, "Gastronomique/Café", city_name))
+    return pd.DataFrame(hotels_list), pd.DataFrame(restaurants_cafes_list)
 
-    hotels_df = pd.DataFrame(hotels_data_raw_list)
-    if not hotels_df.empty:
-        canonical_cities_with_activities = sorted(activities_df["ville_normalisee"].dropna().unique().tolist()) if not activities_df.empty else []
-        hotels_df['ville_normalisee'] = hotels_df['location'].apply(lambda x: extract_city_from_hotel_location(x, canonical_cities_with_activities, CITY_NAME_MAPPING))
-        
-        # Fiabilisation des données des hôtels
-        for col, default in [('rating', 7.0), ('price_per_night', 150.0), ('latitude', 0.0), ('longitude', 0.0)]:
-             if col not in hotels_df.columns:
-                hotels_df[col] = default
-             hotels_df[col] = pd.to_numeric(hotels_df[col], errors='coerce')
-             hotels_df[col] = hotels_df[col].fillna(default)
+# --- Chargement et Cache des Données ---
+_CACHED_STATIC_DATA, _CACHED_API_DATA = {}, {}
+def load_and_preprocess_data(use_realtime_api=False, target_cities_for_api=None):
+    global _CACHED_STATIC_DATA, _CACHED_API_DATA
+    if not _CACHED_STATIC_DATA:
+        try:
+            with open(ACTIVITIES_JSON_PATH, 'r', encoding='utf-8') as f:
+                activities_list = [{**act, "ville_normalisee": normalize_city_name(city.get("ville"), CITY_NAME_MAPPING)} for city in json.load(f) for act in city.get("activites", [])]
+            static_activities_df = pd.DataFrame(activities_list)
+            with open(HOTELS_JSON_PATH, 'r', encoding='utf-8') as f:
+                hotels_list = json.load(f).get("hotels", [])
+            static_hotels_df = pd.DataFrame(hotels_list)
+            if not static_hotels_df.empty:
+                if 'name' in static_hotels_df.columns: static_hotels_df.rename(columns={'name': 'nom'}, inplace=True)
+                cities = sorted(static_activities_df["ville_normalisee"].dropna().unique()) if not static_activities_df.empty else []
+                static_hotels_df['ville_normalisee'] = static_hotels_df['location'].apply(lambda x: extract_city_from_hotel_location(x, cities, CITY_NAME_MAPPING))
+            _CACHED_STATIC_DATA = {'activities_df': static_activities_df, 'hotels_df': static_hotels_df, 'city_coords_map_global': MANUAL_CITY_COORDINATES}
+        except Exception as e:
+            logger.error(f"Erreur CRITIQUE lors du chargement des fichiers JSON: {e}", exc_info=True)
+            return pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), {}
+    
+    final_activities_df = _CACHED_STATIC_DATA['activities_df'].copy()
+    final_hotels_df = _CACHED_STATIC_DATA['hotels_df'].copy()
+    api_rc_df_combined = pd.DataFrame()
 
-    _CACHED_PREPROCESSED_DATA = (activities_df, hotels_df, MANUAL_CITY_COORDINATES)
-    return activities_df, hotels_df, MANUAL_CITY_COORDINATES
+    if use_realtime_api and target_cities_for_api:
+        api_hotels_dfs, api_rc_dfs = [], []
+        for city in target_cities_for_api:
+            if city in _CACHED_API_DATA and _CACHED_API_DATA[city]['date'] == date.today():
+                hotels_df, rc_df = _CACHED_API_DATA[city]['data']
+            else:
+                hotels_df, rc_df = get_realtime_data_for_city(city, _CACHED_STATIC_DATA['city_coords_map_global'])
+                _CACHED_API_DATA[city] = {'date': date.today(), 'data': (hotels_df, rc_df)}
+            if not hotels_df.empty: api_hotels_dfs.append(hotels_df)
+            if not rc_df.empty: api_rc_dfs.append(rc_df)
+        if api_hotels_dfs: final_hotels_df = pd.concat(api_hotels_dfs, ignore_index=True)
+        if api_rc_dfs: api_rc_df_combined = pd.concat(api_rc_dfs, ignore_index=True)
 
+    for df in [final_activities_df, final_hotels_df, api_rc_df_combined]:
+        if not df.empty:
+            df['coordonnees'] = df.apply(lambda r: (r.get('latitude'), r.get('longitude')) if pd.notna(r.get('latitude')) else None, axis=1)
+            df.dropna(subset=['coordonnees'], inplace=True)
+    return final_activities_df, final_hotels_df, api_rc_df_combined, _CACHED_STATIC_DATA['city_coords_map_global']
 
+# --- Fonctions de Calcul d'Itinéraire ---
 def parse_duration_to_hours(duration_str):
-    if pd.isna(duration_str) or not isinstance(duration_str, str): return 1.5
-    duration_str_lower = str(duration_str).lower()
-    if "journée" in duration_str_lower and "demi" not in duration_str_lower: return 6.0
-    if "demi-journée" in duration_str_lower: return 3.5
+    if pd.isna(duration_str): return 1.5
     try:
-        if '-' in duration_str_lower:
-            parts = re.findall(r'\d+\.?\d*', duration_str_lower)
-            return (float(parts[0]) + float(parts[1])) / 2.0 if len(parts) >= 2 else 1.5
+        duration_str_lower = str(duration_str).lower()
+        if "journée" in duration_str_lower and "demi" not in duration_str_lower: return 6.0
+        if "demi-journée" in duration_str_lower: return 3.5
         hours_match = re.search(r'(\d+\.?\d*)\s?h', duration_str_lower)
-        minutes_match = re.search(r'(\d+)\s?min', duration_str_lower)
-        hours = float(hours_match.group(1)) if hours_match else 0
-        minutes = int(minutes_match.group(1)) if minutes_match else 0
-        total_hours = hours + (minutes / 60.0)
-        return total_hours if total_hours > 0 else 1.5
-    except Exception: return 1.5
+        if hours_match: return float(hours_match.group(1))
+        return 1.5
+    except: return 1.5
 
 def calculate_daily_routes_osmnx(daily_points, city_name, network_type='drive'):
-    if not OSMNX_AVAILABLE or len(daily_points) < 2:
-        return []
-
-    graph_path = GRAPHS_CACHE_DIR_DJANGO / f"{city_name.replace(' ', '_')}_{network_type}.graphml"
+    valid_points = [p for p in daily_points if p.get('coordonnees') and all(pd.notna(c) for c in p['coordonnees'])]
+    if not OSMNX_AVAILABLE or len(valid_points) < 2: return []
     try:
-        if os.path.exists(graph_path):
-            G = ox.load_graphml(graph_path)
-        else:
-            G = ox.graph_from_place(f"{city_name}, Morocco", network_type=network_type)
-            ox.save_graphml(G, graph_path)
+        graph_path = GRAPHS_CACHE_DIR_DJANGO / f"{city_name.replace(' ', '_')}_{network_type}.graphml"
+        G = ox.load_graphml(graph_path) if os.path.exists(graph_path) else ox.graph_from_place(f"{city_name}, Morocco", network_type=network_type, buffer=2000)
+        if not os.path.exists(graph_path): ox.save_graphml(G, graph_path)
     except Exception as e:
-        logger.error(f"Impossible de charger/créer le graphe pour {city_name} ({network_type}): {e}")
+        logger.error(f"OSMNX: Erreur de graphe pour {city_name}: {e}")
         return []
-
     segments = []
-    for i in range(len(daily_points) - 1):
+    for i in range(len(valid_points) - 1):
         try:
-            start_point = daily_points[i]
-            end_point = daily_points[i+1]
-            start_node = ox.nearest_nodes(G, start_point['longitude'], start_point['latitude'])
-            end_node = ox.nearest_nodes(G, end_point['longitude'], end_point['latitude'])
+            start_c, end_c = valid_points[i]['coordonnees'], valid_points[i+1]['coordonnees']
+            start_node, end_node = ox.distance.nearest_nodes(G, start_c[1], start_c[0]), ox.distance.nearest_nodes(G, end_c[1], end_c[0])
             route = nx.shortest_path(G, start_node, end_node, weight='length')
-            route_coords = [(G.nodes[node]['y'], G.nodes[node]['x']) for node in route]
-            segments.append(route_coords)
-        except Exception as e:
-            logger.warning(f"Impossible de calculer le segment d'itinéraire A* dans {city_name}: {e}")
-            segments.append(None)
+            segments.append([(G.nodes[n]['y'], G.nodes[n]['x']) for n in route])
+        except Exception:
+            logger.warning(f"OSMNX: Itinéraire impossible. Ligne directe.")
+            segments.append([start_c, end_c])
     return segments
 
-def find_optimal_path_permutations(cities_to_visit_list, city_coordinates_map):
-    valid_cities = [c for c in cities_to_visit_list if c in city_coordinates_map]
-    if len(valid_cities) <= 1: return valid_cities
-    if len(valid_cities) > 8:
-        start_city = valid_cities[0]; other_cities = valid_cities[1:]
-        return find_optimal_path_greedy(start_city, other_cities, city_coordinates_map)
-    best_path, min_dist = list(valid_cities), float('inf')
-    for p in permutations(valid_cities):
-        dist = calculate_total_distance(p, city_coordinates_map)
-        if dist < min_dist: min_dist, best_path = dist, list(p)
-    return best_path
+def find_optimal_path_permutations(cities_to_visit_list, city_coordinates_map, start_point_name=None, start_point_coords=None):
+    if start_point_name and start_point_coords:
+        city_coordinates_map[start_point_name] = start_point_coords
+    locations = [start_point_name] + list(cities_to_visit_list) if start_point_name else list(cities_to_visit_list)
+    if len(locations) <= 1: return locations
+    start_city = locations[0]
+    other_cities = locations[1:]
+    if len(other_cities) > 8:
+        path, remaining = [start_city], set(other_cities)
+        while remaining:
+            last_city = path[-1]
+            next_city = min(remaining, key=lambda city: geodesic((city_coordinates_map[last_city]['latitude'], city_coordinates_map[last_city]['longitude']), (city_coordinates_map[city]['latitude'], city_coordinates_map[city]['longitude'])).km)
+            path.append(next_city)
+            remaining.remove(next_city)
+        return path
+    else:
+        min_dist, best_path = float('inf'), []
+        for p in permutations(other_cities):
+            current_path = [start_city] + list(p)
+            dist = sum(geodesic((city_coordinates_map[current_path[i]]['latitude'], city_coordinates_map[current_path[i]]['longitude']), (city_coordinates_map[current_path[i+1]]['latitude'], city_coordinates_map[current_path[i+1]]['longitude'])).km for i in range(len(current_path) - 1))
+            if dist < min_dist:
+                min_dist, best_path = dist, current_path
+        return best_path
 
-def calculate_total_distance(path, city_coordinates_map):
-    total_dist = 0
-    for i in range(len(path) - 1):
-        coord1 = city_coordinates_map.get(path[i])
-        coord2 = city_coordinates_map.get(path[i+1])
-        if coord1 and coord2:
-            total_dist += geodesic((coord1['latitude'], coord1['longitude']), (coord2['latitude'], coord2['longitude'])).km
-    return total_dist
-
-def find_optimal_path_greedy(start_city, other_cities_list, city_coordinates_map):
-    path, remaining_cities, current_city = [start_city], list(other_cities_list), start_city
-    while remaining_cities:
-        current_coords = city_coordinates_map.get(current_city)
-        if not current_coords: break
-        next_city = min(remaining_cities, key=lambda city: geodesic((current_coords['latitude'], current_coords['longitude']), (city_coordinates_map.get(city)['latitude'], city_coordinates_map.get(city)['longitude'])).km)
-        path.append(next_city); remaining_cities.remove(next_city); current_city = next_city
+def optimize_daily_path(points):
+    if len(points) <= 1: return points
+    start_point = points[0]
+    other_points = points[1:]
+    path = [start_point]
+    remaining = other_points
+    while remaining:
+        last_point_coords = path[-1]['coordonnees']
+        next_point = min(remaining, key=lambda p: geodesic(last_point_coords, p['coordonnees']).km)
+        path.append(next_point)
+        remaining.remove(next_point)
     return path
 
-def recommend_for_city_django(city_name, hotels_df_global, activities_df_global, budget_activities_for_stay_in_city, min_hotel_rating, activity_preferences, activity_intensity, num_persons=1, num_days_in_city=1, use_astar_for_planning=True):
-    recommendations = {"ville": city_name, "hotel": [], "jours_alloues": num_days_in_city, "activites_par_jour_optimisees": [], "budget_activites_depense": 0}
+# --- Logique de Recommandation ---
+def recommend_for_city_django(city_name, hotels_df_global, activities_df_global, api_restaurants_cafes_df_global, budget_activities_for_stay_in_city, min_hotel_rating, activity_preferences, activity_intensity, num_persons=1, num_days_in_city=1, use_astar_for_planning=True, start_point_coords_for_day_1=None):
+    recommendations = {"ville": city_name, "jours_alloues": num_days_in_city}
     default_day_plan = [{"nom": "Repos / Exploration libre", "type": "Loisir"}]
 
-    if activities_df_global.empty:
-        recommendations["activites_par_jour_optimisees"] = [default_day_plan] * num_days_in_city
-        return recommendations
+    city_hotels = hotels_df_global[(hotels_df_global["ville_normalisee"] == city_name) & (hotels_df_global["rating"] >= min_hotel_rating)]
+    recommendations["top_5_hotels"] = city_hotels.sort_values(by="rating", ascending=False).head(5).to_dict('records')
+    
+    top_restaurants, top_cafes = [], []
+    if not api_restaurants_cafes_df_global.empty:
+        city_rc = api_restaurants_cafes_df_global[api_restaurants_cafes_df_global["ville_normalisee"] == city_name]
+        top_restaurants = city_rc[city_rc['type'] == 'Gastronomique'].sort_values(by='rating', ascending=False).head(num_days_in_city).to_dict('records')
+        top_cafes = city_rc[city_rc['type'] == 'Gastronomique/Café'].sort_values(by='rating', ascending=False).head(num_days_in_city).to_dict('records')
+    recommendations["top_2_restaurants"], recommendations["top_2_cafes"] = top_restaurants, top_cafes
 
     candidate_activities = activities_df_global[activities_df_global["ville_normalisee"] == city_name].copy()
-
+    if activity_preferences and any(p.strip() for p in activity_preferences):
+        candidate_activities = candidate_activities[candidate_activities['type'].isin(activity_preferences)]
+    
     if candidate_activities.empty:
         recommendations["activites_par_jour_optimisees"] = [default_day_plan] * num_days_in_city
-        return recommendations
-
-    if activity_preferences:
-        pref_mask = candidate_activities['type'].isin(activity_preferences)
-        if pref_mask.any(): candidate_activities = candidate_activities[pref_mask]
-
-    if candidate_activities.empty:
-        recommendations["activites_par_jour_optimisees"] = [default_day_plan] * num_days_in_city
+        recommendations.update({'budget_activites_depense': 0, 'itineraire_voiture_segments_par_jour': [], 'itineraire_pieton_segments_par_jour': []})
         return recommendations
 
     candidate_activities['duration_hours'] = candidate_activities['duree_estimee'].apply(parse_duration_to_hours)
-    candidate_activities = candidate_activities[candidate_activities['duration_hours'] > 0].copy()
-
-    if candidate_activities.empty:
-        recommendations["activites_par_jour_optimisees"] = [default_day_plan] * num_days_in_city
-        return recommendations
-
+    for col in ['rating', 'budget_estime']:
+        candidate_activities[col] = pd.to_numeric(candidate_activities[col], errors='coerce').fillna(candidate_activities[col].median())
     scaler = MinMaxScaler()
-    candidate_activities['score'] = scaler.fit_transform(candidate_activities[['rating']].values.reshape(-1, 1)) - scaler.fit_transform(candidate_activities[['budget_estime']].values.reshape(-1, 1))
-    candidate_activities['value_score'] = candidate_activities['score'] / candidate_activities['duration_hours']
+    candidate_activities['score'] = scaler.fit_transform(candidate_activities[['rating']]) - scaler.fit_transform(candidate_activities[['budget_estime']])
+    candidate_activities['value_score'] = candidate_activities['score'] / candidate_activities['duration_hours'].replace(0, 1)
     candidate_activities = candidate_activities.sort_values(by="value_score", ascending=False)
+    
+    intensity_hours = {'relaxed': 4.0, 'moderate': 6.0, 'intense': 8.0}.get(activity_intensity, 6.0)
+    daily_plans, total_spent, used_indices = [], 0, set()
+    used_restaurants, used_cafes = [], []
 
-    intensity_hours_map = {'relaxed': 4.0, 'moderate': 6.0, 'intense': 8.0}
-    daily_time_budget = intensity_hours_map.get(activity_intensity, 6.0)
-
-    total_spent, daily_plans = 0, []
-    for _ in range(num_days_in_city):
-        activities_for_this_day, time_spent_on_day = [], 0.0
-        for idx, activity in candidate_activities.iterrows():
+    for day_num in range(num_days_in_city):
+        points_to_visit_today, day_hours = [], 0.0
+        
+        if day_num == 0 and start_point_coords_for_day_1:
+            points_to_visit_today.append({"nom": "Votre Point de Départ", "type": "Point de départ", "coordonnees": start_point_coords_for_day_1, "duree_estimee": "0h"})
+        elif recommendations.get("top_5_hotels"):
+            points_to_visit_today.append(recommendations["top_5_hotels"][0])
+        
+        selected_activities = []
+        for index, activity in candidate_activities.iterrows():
+            if index in used_indices: continue
             duration, cost = activity['duration_hours'], activity['budget_estime'] * num_persons
-            if (time_spent_on_day + duration) <= daily_time_budget and (total_spent + cost) <= budget_activities_for_stay_in_city:
-                activities_for_this_day.append(activity.to_dict())
-                time_spent_on_day += duration
+            if day_hours + duration <= intensity_hours and total_spent + cost <= budget_activities_for_stay_in_city:
+                selected_activities.append(activity.to_dict())
+                day_hours += duration
                 total_spent += cost
-                candidate_activities = candidate_activities.drop(idx)
-        daily_plans.append(activities_for_this_day if activities_for_this_day else default_day_plan)
+                used_indices.add(index)
+        points_to_visit_today.extend(selected_activities)
+        
+        if top_restaurants and len(used_restaurants) < len(top_restaurants):
+            restaurant = top_restaurants[len(used_restaurants)]
+            points_to_visit_today.append(restaurant)
+            used_restaurants.append(restaurant)
+        if top_cafes and len(used_cafes) < len(top_cafes):
+            cafe = top_cafes[len(used_cafes)]
+            points_to_visit_today.append(cafe)
+            used_cafes.append(cafe)
+        if recommendations.get("top_5_hotels"):
+            points_to_visit_today.extend(recommendations["top_5_hotels"][1:])
 
-    recommendations["activites_par_jour_optimisees"] = daily_plans
-    recommendations["budget_activites_depense"] = total_spent
-
-    if use_astar_for_planning and OSMNX_AVAILABLE:
-        drive_routes, walk_routes = [], []
-        for day_plan in daily_plans:
-            points_with_coords = [p for p in day_plan if p.get('latitude') != 0.0 and p.get('longitude') != 0.0]
-            drive_routes.append(calculate_daily_routes_osmnx(points_with_coords, city_name, 'drive'))
-            walk_routes.append(calculate_daily_routes_osmnx(points_with_coords, city_name, 'walk'))
-        recommendations['itineraire_voiture_segments_par_jour'] = drive_routes
-        recommendations['itineraire_pieton_segments_par_jour'] = walk_routes
-
+        optimized_plan = optimize_daily_path(points_to_visit_today)
+        daily_plans.append(optimized_plan if len(optimized_plan) > 1 else (optimized_plan + default_day_plan))
+        
+    recommendations['activites_par_jour_optimisees'] = daily_plans
+    recommendations['budget_activites_depense'] = total_spent
+    
+    if use_astar_for_planning:
+        all_driving, all_walking = [], []
+        for plan in daily_plans:
+            all_driving.extend(calculate_daily_routes_osmnx(plan, city_name, 'drive'))
+            all_walking.extend(calculate_daily_routes_osmnx(plan, city_name, 'walk'))
+        recommendations['itineraire_voiture_segments_par_jour'] = all_driving
+        recommendations['itineraire_pieton_segments_par_jour'] = all_walking
+    else:
+        recommendations['itineraire_voiture_segments_par_jour'], recommendations['itineraire_pieton_segments_par_jour'] = [], []
+    
     return recommendations
 
-def plan_trip_django(target_cities_list, total_budget_str, num_days_str, num_persons, min_hotel_rating_str, activity_preferences_str, activity_intensity, activities_df_global, hotels_df_global, city_coords_map_global, use_astar_for_planning):
+# --- Fonction Principale d'Orchestration ---
+def plan_trip_django(target_cities_list, total_budget_str, num_days_str, num_persons, min_hotel_rating_str, activity_preferences_str, activity_intensity, activities_df_global, hotels_df_global, api_restaurants_cafes_df_global, city_coords_map_global, use_astar_for_planning, start_location_type=None, start_location_value=None):
     try:
         total_budget, num_days, min_rating = float(total_budget_str), int(num_days_str), float(min_hotel_rating_str)
-        num_persons = int(num_persons)
+        persons = int(num_persons)
     except (ValueError, TypeError):
-        return None, {}, []
+        return {"trip_plan_result": None, "params": {"error": "Paramètres numériques invalides."}}
 
-    ordered_cities = find_optimal_path_permutations(target_cities_list, city_coords_map_global)
-    if not ordered_cities:
-        return None, {"error": "Impossible de déterminer un ordre de visite pour les villes sélectionnées."}, []
+    start_point_name, start_point_coords = None, None
+    if start_location_type == 'current_gps' and start_location_value:
+        try:
+            lat, lon = map(float, start_location_value.split(','))
+            start_point_name, start_point_coords = "Ma position actuelle", {"latitude": lat, "longitude": lon}
+        except (ValueError, IndexError): pass
+    elif start_location_type == 'choose_city' and start_location_value:
+        start_point_name, start_point_coords = start_location_value, city_coords_map_global.get(start_location_value)
 
-    if len(ordered_cities) > 0:
-        days_per_city = [num_days // len(ordered_cities)] * len(ordered_cities)
-        for i in range(num_days % len(ordered_cities)):
-            days_per_city[i] += 1
-    else:
-        days_per_city = []
+    ordered_cities = find_optimal_path_permutations(target_cities_list, city_coords_map_global, start_point_name, start_point_coords)
+    actual_cities_to_visit = [c for c in ordered_cities if c != start_point_name] if start_point_name else ordered_cities
 
-    num_rooms_needed = math.ceil(num_persons / 2.0)
+    if not actual_cities_to_visit:
+        return {"trip_plan_result": None, "params": {"error": "Aucune ville de destination valide trouvée."}}
 
-    total_hotel_cost, preliminary_trip_plan = 0, []
-    temp_daily_hotel_budget_per_room = ((total_budget / num_days) * 0.40) / num_rooms_needed if num_days > 0 else 0
-
-    for i, city in enumerate(ordered_cities):
-        days_in_city = days_per_city[i]
-        if days_in_city == 0: continue
-
-        city_plan = {"ville": city, "hotel": [], "jours_alloues": days_in_city}
-        if not hotels_df_global.empty:
-            hotels_in_city_df = hotels_df_global[
-                (hotels_df_global["ville_normalisee"] == city) &
-                (hotels_df_global["price_per_night"] <= temp_daily_hotel_budget_per_room) &
-                (hotels_df_global["rating"] >= min_rating)
-            ]
-            if not hotels_in_city_df.empty:
-                best_hotel = hotels_in_city_df.sort_values(by="rating", ascending=False).head(1).to_dict('records')[0]
-                city_plan["hotel"] = [best_hotel]
-                total_hotel_cost += best_hotel.get('price_per_night', 0) * num_rooms_needed * days_in_city
-        preliminary_trip_plan.append(city_plan)
-
-    budget_remaining_for_activities = max(0, total_budget - total_hotel_cost)
-    total_days_for_activity_budgetting = sum(p['jours_alloues'] for p in preliminary_trip_plan)
+    days_per_city = [num_days // len(actual_cities_to_visit)] * len(actual_cities_to_visit)
+    for i in range(num_days % len(actual_cities_to_visit)): days_per_city[i] += 1
+    
+    budget_for_activities = total_budget * 0.5
 
     trip_plan_final = []
-    for city_plan in preliminary_trip_plan:
-        city, days_in_city = city_plan['ville'], city_plan['jours_alloues']
-        budget_for_this_city_activities = (budget_remaining_for_activities / total_days_for_activity_budgetting) * days_in_city if total_days_for_activity_budgetting > 0 else 0
-
-        prefs = [p.strip() for p in activity_preferences_str.split(',') if p.strip()]
-
+    for i, city in enumerate(actual_cities_to_visit):
+        start_coords_day1 = (start_point_coords['latitude'], start_point_coords['longitude']) if i == 0 and start_point_coords else None
         city_rec = recommend_for_city_django(
-            city, hotels_df_global, activities_df_global,
-            budget_for_this_city_activities, min_rating, prefs, activity_intensity,
-            num_persons, days_in_city, use_astar_for_planning
+            city, hotels_df_global, activities_df_global, api_restaurants_cafes_df_global,
+            budget_for_activities, min_rating, activity_preferences_str.split(','),
+            activity_intensity, persons, days_per_city[i], use_astar_for_planning, start_coords_day1
         )
-        city_rec['hotel'] = city_plan['hotel']
         trip_plan_final.append(city_rec)
 
-    params = {
-        "Villes demandées": ", ".join(target_cities_list),
-        "Ordre de visite suggéré": ", ".join(ordered_cities),
-        "Durée du voyage": f"{num_days} jours"
+    params = {"Villes demandées": ", ".join(target_cities_list), "Ordre de visite suggéré": ", ".join(ordered_cities), "Durée du voyage": f"{num_days} jours"}
+    
+    folium_map_html = generate_trip_map_folium_v2(trip_plan_final, ordered_cities, city_coords_map_global, start_point_coords, start_point_name)
+    
+    schedule_md = ""
+    try:
+        from .reportlab_utils import generate_schedule_content_objects_django
+        schedule_md, _ = generate_schedule_content_objects_django(trip_plan_final, num_days)
+    except ImportError:
+        schedule_md = "Génération de l'emploi du temps non disponible."
+
+    return {"trip_plan_result": trip_plan_final, "params": params, "ordered_cities_with_start": ordered_cities, "folium_map_html": folium_map_html, "schedule_md": schedule_md}
+
+
+# --- CARTE AMÉLIORÉE AVEC PLUSIEURS THÈMES CLAIRS ---
+def generate_trip_map_folium_v2(trip_plan_result, ordered_cities_list, city_coords_map_global, start_point_coords=None, start_point_name="Point de départ"):
+    all_coords = []
+    def get_coords(item):
+        if item and 'coordonnees' in item and all(pd.notna(c) for c in item['coordonnees']):
+            return item['coordonnees']
+        return None
+
+    if start_point_coords: all_coords.append((start_point_coords['latitude'], start_point_coords['longitude']))
+    for plan in trip_plan_result:
+        for cat in ['top_5_hotels', 'top_2_restaurants', 'top_2_cafes']:
+            for item in plan.get(cat, []):
+                coords = get_coords(item)
+                if coords: all_coords.append(coords)
+        for day in plan.get('activites_par_jour_optimisees', []):
+            for item in day:
+                coords = get_coords(item)
+                if coords: all_coords.append(coords)
+    
+    if not all_coords:
+        return folium.Map(location=[32, -5], zoom_start=6, tiles="CartoDB Positron")._repr_html_()
+
+    center_lat = sum(p[0] for p in all_coords) / len(all_coords)
+    center_lon = sum(p[1] for p in all_coords) / len(all_coords)
+    
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=8, tiles="OpenStreetMap", name="Vue Standard")
+    folium.TileLayer("CartoDB Positron", name="Vue Minimaliste", attr="© <a href='https://carto.com/'>CartoDB</a>").add_to(m)
+    folium.TileLayer("Stamen Terrain", name="Vue Terrain", attr="Map tiles by <a href='http://stamen.com'>Stamen Design</a>, under <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a>. Data by <a href='http://openstreetmap.org'>OpenStreetMap</a>, under <a href='http://www.openstreetmap.org/copyright'>ODbL</a>.").add_to(m)
+    
+    fg_hotels = folium.FeatureGroup(name="🏨 Hôtels", show=True).add_to(m)
+    fg_food = folium.FeatureGroup(name="🍽️ Restaurants & Cafés", show=True).add_to(m)
+    fg_activities = folium.FeatureGroup(name="🎯 Activités", show=True).add_to(m)
+    fg_driving = folium.FeatureGroup(name="🚗 Itinéraires (Voiture)", show=True).add_to(m)
+    fg_walking = folium.FeatureGroup(name="🚶 Itinéraires (Piéton)", show=False).add_to(m)
+    
+    icon_map = {
+        'Culturel': {'icon': 'landmark', 'color': 'blue'}, 'Nature': {'icon': 'seedling', 'color': 'green'},
+        'Aventure': {'icon': 'mountain', 'color': 'red'}, 'Plage': {'icon': 'umbrella-beach', 'color': 'purple'},
+        'Musée': {'icon': 'palette', 'color': 'orange'}, 'Loisir': {'icon': 'martini-glass', 'color': 'pink'},
+        'default': {'icon': 'info-sign', 'color': 'gray'}
     }
-    return trip_plan_final, params, ordered_cities
+
+    if start_point_coords:
+        folium.Marker((start_point_coords['latitude'], start_point_coords['longitude']),
+            popup=f"📍 <b>{start_point_name}</b>",
+            icon=folium.Icon(color='black', icon='plane', prefix='fa')).add_to(m)
+
+    for plan in trip_plan_result:
+        for hotel in plan.get('top_5_hotels', []):
+            coords = get_coords(hotel)
+            if coords: folium.Marker(coords, popup=f"🏨 <b>{hotel.get('nom')}</b><br>Note: {hotel.get('rating', 'N/A')}/10", icon=folium.Icon(color='red', icon='bed', prefix='fa')).add_to(fg_hotels)
+        for restaurant in plan.get('top_2_restaurants', []):
+            coords = get_coords(restaurant)
+            if coords: folium.Marker(coords, popup=f"🍽️ <b>{restaurant.get('nom')}</b><br>Note: {restaurant.get('rating', 'N/A')}/10", icon=folium.Icon(color='green', icon='utensils', prefix='fa')).add_to(fg_food)
+        for cafe in plan.get('top_2_cafes', []):
+            coords = get_coords(cafe)
+            if coords: folium.Marker(coords, popup=f"☕ <b>{cafe.get('nom')}</b><br>Note: {cafe.get('rating', 'N/A')}/10", icon=folium.Icon(color='purple', icon='coffee', prefix='fa')).add_to(fg_food)
+        
+        for day in plan.get('activites_par_jour_optimisees', []):
+            for activity in day:
+                coords, act_type = get_coords(activity), activity.get('type')
+                if coords and act_type not in ['hotel', 'Point de départ', 'Gastronomique', 'Gastronomique/Café']:
+                    icon_style = icon_map.get(act_type, icon_map['default'])
+                    folium.Marker(coords, popup=f"<b>{activity.get('nom')}</b><br>Type: {act_type}", icon=folium.Icon(color=icon_style['color'], icon=icon_style['icon'], prefix='fa')).add_to(fg_activities)
+
+    inter_city_coords = [list(city_coords_map_global[c].values()) for c in ordered_cities_list if c in city_coords_map_global]
+    if start_point_coords: inter_city_coords.insert(0, list(start_point_coords.values()))
+    if len(inter_city_coords) > 1:
+        folium.PolyLine(inter_city_coords, color='#8B0000', weight=2.5, opacity=0.8, dash_array='10, 5', tooltip="Trajet Inter-Villes").add_to(m)
+
+    for plan in trip_plan_result:
+        for seg in plan.get('itineraire_voiture_segments_par_jour', []):
+            folium.PolyLine(seg, color='#007BFF', weight=4, opacity=0.8, tooltip="Itinéraire voiture").add_to(fg_driving)
+        for seg in plan.get('itineraire_pieton_segments_par_jour', []):
+            folium.PolyLine(seg, color='#28A745', weight=4, opacity=0.8, tooltip="Itinéraire piéton").add_to(fg_walking)
+            
+    folium.LayerControl(collapsed=False).add_to(m)
+    m.fit_bounds(m.get_bounds(), padding=(20, 20))
+    return m._repr_html_()

@@ -36,7 +36,7 @@ class DailyActivityItem(models.Model):
     order_in_day = models.PositiveIntegerField()
     item_type = models.CharField(max_length=20, choices=[('hotel', 'Hôtel'), ('activity', 'Activité')])
     name = models.CharField(max_length=255)
-    activity_type_name = models.CharField(max_length=100, blank=True, null=True)
+    activity_type_name = models.CharField(max_length=100, blank=True, null=True) # Ce champ est parfait pour stocker le type d'activité de l'API.
 
 class ActivityRating(models.Model):
     RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
