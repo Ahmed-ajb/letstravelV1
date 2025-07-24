@@ -148,6 +148,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 # Il est ensuite de la responsabilité de votre code (e.g., dans utils.py) de vérifier leur présence.
 TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY")
+OPENWEATHERMAP_API_KEY = os.environ.get('OPENWEATHERMAP_API_KEY')
 
 # Assurez-vous que les répertoires nécessaires existent au démarrage
 # Ils sont définis au début du fichier et ici on s'assure de leur existence.

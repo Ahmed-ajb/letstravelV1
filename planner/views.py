@@ -24,7 +24,7 @@ from .forms import (
 )
 from .utils import plan_trip_django, load_and_preprocess_data, OSMNX_AVAILABLE 
 from .reportlab_utils import generate_trip_pdf_django, generate_voyage_pdf_django, generate_schedule_content_objects_django
-from .chatbot_logic import process_user_query
+from .chatbot_logic import process_user_query # Assurez-vous que cette ligne est correcte
 
 NUM_FEATURED_CITIES = 3
 NUM_ACTIVITIES_PER_CITY = 3
@@ -464,22 +464,48 @@ def chat_interface_view(request):
 @csrf_exempt
 @require_POST
 def chatbot_api_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'reply': 'Veuillez vous connecter pour utiliser le chatbot.'}, status=403)
+
     try:
         data = json.loads(request.body)
-        user_message_text = data.get('message')
-        if not user_message_text:
-            return JsonResponse({'error': 'Message manquant.'}, status=400)
-            
-        ChatMessage.objects.create(user=request.user, message=user_message_text, is_from_user=True)
-        history = ChatMessage.objects.filter(user=request.user).order_by('timestamp')
-        user_name = request.user.first_name or request.user.username
-        
-        ai_response_text = process_user_query(user_message_text, user_name, list(history))
-        
-        ChatMessage.objects.create(user=request.user, message=ai_response_text, is_from_user=False)
-        return JsonResponse({'reply': ai_response_text})
+        user_message_text = data.get('message', '')
+        image_base64 = data.get('image_base64', None)
+        gps_coords = data.get('gps_coords', None)
+
+        # Sauvegarder le message de l'utilisateur
+        if user_message_text:
+            ChatMessage.objects.create(
+                user=request.user,
+                message=user_message_text,
+                is_from_user=True
+            )
+        elif image_base64: # Si seulement une image est envoyée, enregistrer un message générique
+             ChatMessage.objects.create(
+                user=request.user,
+                message="[Image envoyée]",
+                is_from_user=True
+            )
+
+        # Appeler la logique du chatbot
+        ai_reply = process_user_query(
+            user_message=user_message_text,
+            user_id=request.user.id,
+            image_base64=image_base64,
+            gps_coords=gps_coords
+        )
+
+        # Sauvegarder la réponse de l'IA
+        ChatMessage.objects.create(
+            user=request.user,
+            message=ai_reply,
+            is_from_user=False
+        )
+
+        return JsonResponse({'reply': ai_reply})
+
     except json.JSONDecodeError:
-        return JsonResponse({'error': 'Format JSON invalide.'}, status=400)
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
     except Exception as e:
-        logger.error(f"Erreur dans l'API du chatbot: {e}", exc_info=True)
-        return JsonResponse({'error': 'Erreur interne du serveur.'}, status=500)
+        logger.error(f"Erreur dans chatbot_api_view: {e}", exc_info=True)
+        return JsonResponse({'error': f'Internal server error: {e}'}, status=500)
