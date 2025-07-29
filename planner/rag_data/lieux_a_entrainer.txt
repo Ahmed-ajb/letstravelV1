@@ -1,0 +1,15 @@
+Médina de Marrakech,Marrakech
+medina de Chefchaouen,chefchaouen
+Place Jemaa el-Fna,Marrakech
+Jardin Majorelle,Marrakech
+Mosquée Koutoubia,Marrakech
+Fès el Bali,Fès
+Tanneries Chouara,Fès
+Bab Bou Jeloud,Fès
+Dunes de l'Erg Chebbi,Merzouga
+Mosquée Hassan II,Casablanca
+Ksar d'Aït Ben Haddou,Ouarzazate
+Médina d'Essaouira,Essaouira
+Kasbah des Oudayas,Rabat
+Tour Hassan,Rabat
+Volubilis,Meknès

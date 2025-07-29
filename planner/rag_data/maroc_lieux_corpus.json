@@ -1,0 +1,107 @@
+[
+    {
+      "id": "medina_de_marrakech",
+      "name": "Médina de Marrakech",
+      "city": "Marrakech",
+      "description": "La Médina de Marrakech est le cœur historique et vibrant de la ville, classée au patrimoine mondial de l'UNESCO. C'est un labyrinthe dense de souks traditionnels, de ruelles animées, de riads cachés et de places historiques. On y trouve des artisans, des épices, des textiles colorés et une vie commerçante foisonnante. C'est le centre névralgique de l'activité culturelle et sociale de Marrakech.",
+      "keywords": ["medina", "marrakech", "souks", "ruelles", "riads", "historique", "unesco", "artisanat", "culture", "traditionnel", "ville"]
+    },
+    {
+      "id": "medina_de_chefchaouen",
+      "name": "Médina de Chefchaouen",
+      "city": "Chefchaouen",
+      "description": "La Médina de Chefchaouen, surnommée la 'Ville Bleue', est célèbre pour ses bâtiments peints dans diverses nuances de bleu azur et de blanc éclatant. Ses ruelles étroites, escarpées et sinueuses, ses portes et ses escaliers sont imprégnés de ces teintes uniques, créant une atmosphère paisible, pittoresque et très photogénique. Nichée au cœur des montagnes du Rif, elle offre des vues imprenables et une architecture distincte.",
+      "keywords": ["medina", "chefchaouen", "ville bleue", "ruelles", "bleu", "blanc", "rif", "montagnes", "pittoresque", "photogenique", "artisanat"]
+    },
+    {
+      "id": "place_jemaa_el_fna",
+      "name": "Place Jemaa el-Fna",
+      "city": "Marrakech",
+      "description": "La Place Jemaa el-Fna est le cœur palpitant de Marrakech, inscrite au patrimoine culturel immatériel de l'UNESCO. En journée, c'est un grand marché, mais elle s'anime véritablement au coucher du soleil avec des conteurs, musiciens, charmeurs de serpents, acrobates et stands de nourriture. C'est une expérience sensorielle unique, pleine de sons, d'odeurs et de couleurs, un véritable théâtre de rue.",
+      "keywords": ["place", "marrakech", "jemaa_el_fna", "unesco", "marche", "spectacle", "conteurs", "musiciens", "nourriture_de_rue", "culturel"]
+    },
+    {
+      "id": "jardin_majorelle",
+      "name": "Jardin Majorelle",
+      "city": "Marrakech",
+      "description": "Le Jardin Majorelle est un jardin botanique et paysager iconique de Marrakech, célèbre pour son 'bleu Majorelle' intense qui colore ses murs, fontaines et bassins. Créé par l'artiste Jacques Majorelle puis restauré par Yves Saint Laurent, il abrite une collection exotique de cactus, palmiers et plantes rares. C'est un havre de paix vibrant et photogénique, offrant un contraste saisissant avec l'agitation de la ville.",
+      "keywords": ["jardin", "botanique", "majorelle", "marrakech", "bleu_majorelle", "cactus", "plantes_exotiques", "oasis", "photogenique", "yves_saint_laurent", "art"]
+    },
+    {
+      "id": "mosquee_koutoubia",
+      "name": "Mosquée Koutoubia",
+      "city": "Marrakech",
+      "description": "Le minaret de la Mosquée Koutoubia est le plus grand de Marrakech et un chef-d'œuvre de l'architecture almohade du XIIe siècle. Sa tour est construite en briques rouges-ocres, ornée de motifs géométriques complexes sculptés et surmontée d'une flèche pointue coiffée de quatre boules de cuivre. Elle domine le paysage urbain et est un point de repère historique majeur visible de loin, souvent entourée de jardins de palmiers luxuriants, symbolisant Marrakech.",
+      "keywords": ["minaret", "mosquee", "koutoubia", "marrakech", "almohade", "xiieme_siecle", "briques_rouges", "ocre", "geometrique", "fleche", "historique", "symbole", "palmiers"]
+    },
+    {
+      "id": "fes_el_bali",
+      "name": "Fès el Bali",
+      "city": "Fès",
+      "description": "Fès el Bali est la plus ancienne et la plus grande médina du monde arabe, classée au patrimoine mondial de l'UNESCO. C'est un labyrinthe médiéval de ruelles étroites, de souks traditionnels, d'écoles coraniques (medersas), de tanneries et d'ateliers d'artisans. La vie y suit un rythme ancien, offrant une immersion culturelle profonde et authentique dans l'histoire du Maroc.",
+      "keywords": ["medina", "fes", "fes_el_bali", "ancienne", "unesco", "souks", "ruelles", "artisanat", "culture", "medieval", "historique"]
+    },
+    {
+      "id": "tanneries_chouara",
+      "name": "Tanneries Chouara",
+      "city": "Fès",
+      "description": "Les Tanneries Chouara de Fès sont les plus grandes et les plus anciennes tanneries traditionnelles du Maroc, offrant un spectacle visuel et olfactif unique. Elles se composent de centaines de fosses en pierre remplies de teintures naturelles colorées (rouge, jaune, marron, vert) où les peaux sont traitées manuellement. C'est un lieu emblématique de l'artisanat du cuir fassi, témoin d'une tradition ancestrale.",
+      "keywords": ["tanneries", "chouara", "fes", "cuir", "artisanal", "couleurs", "traditionnel", "spectacle", "ancestral", "teintures"]
+    },
+    {
+      "id": "bab_bou_jeloud",
+      "name": "Bab Bou Jeloud",
+      "city": "Fès",
+      "description": "Bab Bou Jeloud, ou la 'Porte Bleue', est l'entrée la plus emblématique et ornée de la médina de Fès el Bali. Construite en 1913, elle est célèbre pour ses motifs complexes de zelliges (mosaïques marocaines) bleus profonds à l'extérieur, symbolisant le ciel, et verts vibrants à l'intérieur, représentant l'islam. Elle encadre trois arcs majestueux et est un point de passage animé vers le cœur historique.",
+      "keywords": ["porte", "fes", "bab_bou_jeloud", "bleue", "zelliges", "mosaiques", "medina", "emblematique", "architecture", "historique"]
+    },
+    {
+      "id": "dunes_de_l_erg_chebbi",
+      "name": "Dunes de l'Erg Chebbi",
+      "city": "Merzouga",
+      "description": "Les Dunes de l'Erg Chebbi sont d'immenses et spectaculaires dunes de sable doré situées dans le désert du Sahara, près de Merzouga. Elles peuvent atteindre jusqu'à 150 mètres de hauteur et changent de couleur avec la lumière du soleil, du jaune pâle à l'orange profond. C'est un lieu privilégié pour les promenades à dos de chameau, les bivouacs sous les étoiles et une immersion authentique dans le paysage saharien.",
+      "keywords": ["dunes", "erg_chebbi", "sahara", "desert", "merzouga", "sable_dore", "chameau", "bivouac", "etoiles", "paysage_desertyique", "nature"]
+    },
+    {
+      "id": "mosquee_hassan_ii",
+      "name": "Mosquée Hassan II",
+      "city": "Casablanca",
+      "description": "La Mosquée Hassan II de Casablanca est la plus grande mosquée du Maroc et l'une des plus grandes au monde. Située en partie sur l'océan Atlantique, elle se distingue par son minaret de 210 mètres de haut, le plus haut du monde. Son architecture est somptueuse, combinant des éléments traditionnels marocains avec des technologies modernes. Des marbres sculptés, du bois de cèdre et du granit ornent ses vastes espaces, ouverts aussi aux non-musulmans pour des visites guidées.",
+      "keywords": ["mosquee", "hassan_ii", "casablanca", "minaret", "ocean", "architecture_islamique", "moderne", "symbole", "marbre", "cedre", "grandeur"]
+    },
+    {
+      "id": "ksar_d_ait_ben_haddou",
+      "name": "Ksar d'Aït Ben Haddou",
+      "city": "Ouarzazate",
+      "description": "Le Ksar d'Aït Ben Haddou est un village fortifié traditionnel en pisé (terre crue), classé au patrimoine mondial de l'UNESCO. Situé le long de l'ancienne route des caravanes entre le Sahara et Marrakech, ses casbahs et ses murailles sont un exemple remarquable d'architecture en terre du sud marocain. C'est un décor populaire pour de nombreux films historiques et fantastiques, offrant des teintes ocre et des formes géométriques distinctes.",
+      "keywords": ["ksar", "ait_ben_haddou", "village_fortifie", "pise", "terre_crue", "unesco", "caravanes", "architecture_marocaine", "sud_marocain", "film", "ocres", "casbah"]
+    },
+    {
+      "id": "medina_d_essaouira",
+      "name": "Médina d'Essaouira",
+      "city": "Essaouira",
+      "description": "La Médina d'Essaouira est une ville portuaire fortifiée sur la côte atlantique, classée au patrimoine mondial de l'UNESCO. Elle est connue pour ses remparts ocres et bleus, son port de pêche animé où des bateaux bleus sont amarrés, et son atmosphère décontractée et artistique. Les bâtiments blanchis à la chaux et le vent constant en font un lieu prisé pour la détente et les sports nautiques, avec une ambiance distincte de ville côtière.",
+      "keywords": ["medina", "essaouira", "port", "atlantique", "fortifiee", "unesco", "remparts", "peche", "artistique", "vent", "detente", "ville_cotiere", "bleu", "blanc"]
+    },
+    {
+      "id": "kasbah_des_oudayas",
+      "name": "Kasbah des Oudayas",
+      "city": "Rabat",
+      "description": "La Kasbah des Oudayas à Rabat est un ancien quartier fortifié situé sur une falaise surplombant l'océan Atlantique et l'estuaire du Bouregreg. Elle est célèbre pour ses ruelles étroites aux murs bleus et blancs, ses jardins andalous luxuriants et sa porte monumentale, Bab Oudaia, ornée de motifs sculptés. C'est un lieu paisible, historique et très photogénique offrant de superbes vues sur l'océan.",
+      "keywords": ["kasbah", "oudayas", "rabat", "fortifiee", "ocean", "ruelles_bleues", "jardins_andalous", "bab_oudaia", "historique", "photogenique", "paysage"]
+    },
+    {
+      "id": "tour_hassan",
+      "name": "Tour Hassan",
+      "city": "Rabat",
+      "description": "La Tour Hassan est un minaret inachevé du XIIe siècle, situé à Rabat. Destinée à être la plus grande mosquée du monde à son époque, seuls le minaret de 44 mètres et les débuts des murs ont été construits. Sa structure est en pierre de taille rouge. Elle se dresse fièrement aux côtés du Mausolée Mohammed V, formant un site historique emblématique de la capitale, avec de grandes colonnes et des ruines alentour.",
+      "keywords": ["minaret", "tour_hassan", "rabat", "inachevee", "XIIe_siecle", "mosquee", "historique", "mausolee_mohammed_v", "pierre_rouge", "architecture", "colonnes"]
+    },
+    {
+      "id": "volubilis",
+      "name": "Volubilis",
+      "city": "Meknès",
+      "description": "Volubilis est un site archéologique romain remarquablement bien conservé, classé au patrimoine mondial de l'UNESCO, près de Meknès. Il témoigne de l'ancienne présence romaine au Maroc avec ses ruines imposantes, ses arcs de triomphe, ses villas avec des mosaïques colorées intactes et ses pressoirs à huile d'olive. C'est un site historique majeur offrant des colonnes, des vestiges de temples et des paysages ruraux.",
+      "keywords": ["volubilis", "site_romain", "archeologique", "unesco", "meknes", "ruines", "mosaiques", "histoire", "antiquite", "colonnes", "temples"]
+    }
+  ]
