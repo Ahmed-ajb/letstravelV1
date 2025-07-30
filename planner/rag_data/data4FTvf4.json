@@ -1,0 +1,3852 @@
+[
+  {
+    "id": "conv_médina_de_marrakech_01",
+    "image": "marrakech/médina_de_marrakech_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_02",
+    "image": "marrakech/médina_de_marrakech_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_03",
+    "image": "marrakech/médina_de_marrakech_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Médina de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_04",
+    "image": "marrakech/médina_de_marrakech_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_05",
+    "image": "marrakech/médina_de_marrakech_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Médina de Marrakech dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_07",
+    "image": "marrakech/médina_de_marrakech_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_08",
+    "image": "marrakech/médina_de_marrakech_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_09",
+    "image": "marrakech/médina_de_marrakech_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Médina de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_10",
+    "image": "marrakech/médina_de_marrakech_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_11",
+    "image": "marrakech/médina_de_marrakech_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Médina de Marrakech dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_13",
+    "image": "marrakech/médina_de_marrakech_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_14",
+    "image": "marrakech/médina_de_marrakech_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_15",
+    "image": "marrakech/médina_de_marrakech_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Médina de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_16",
+    "image": "marrakech/médina_de_marrakech_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_17",
+    "image": "marrakech/médina_de_marrakech_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Médina de Marrakech dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_de_marrakech_20",
+    "image": "marrakech/médina_de_marrakech_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina de Marrakech à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_01",
+    "image": "chefchaouen/medina_de_chefchaouen_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_02",
+    "image": "chefchaouen/medina_de_chefchaouen_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_03",
+    "image": "chefchaouen/medina_de_chefchaouen_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, medina de Chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_04",
+    "image": "chefchaouen/medina_de_chefchaouen_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_05",
+    "image": "chefchaouen/medina_de_chefchaouen_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit medina de Chefchaouen dans la ville de chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_06",
+    "image": "chefchaouen/medina_de_chefchaouen_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_07",
+    "image": "chefchaouen/medina_de_chefchaouen_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_09",
+    "image": "chefchaouen/medina_de_chefchaouen_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, medina de Chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_10",
+    "image": "chefchaouen/medina_de_chefchaouen_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_11",
+    "image": "chefchaouen/medina_de_chefchaouen_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit medina de Chefchaouen dans la ville de chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_12",
+    "image": "chefchaouen/medina_de_chefchaouen_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_13",
+    "image": "chefchaouen/medina_de_chefchaouen_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_14",
+    "image": "chefchaouen/medina_de_chefchaouen_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_15",
+    "image": "chefchaouen/medina_de_chefchaouen_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, medina de Chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_16",
+    "image": "chefchaouen/medina_de_chefchaouen_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_17",
+    "image": "chefchaouen/medina_de_chefchaouen_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit medina de Chefchaouen dans la ville de chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_18",
+    "image": "chefchaouen/medina_de_chefchaouen_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_19",
+    "image": "chefchaouen/medina_de_chefchaouen_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_medina_de_chefchaouen_20",
+    "image": "chefchaouen/medina_de_chefchaouen_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est medina de Chefchaouen à chefchaouen."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_01",
+    "image": "marrakech/place_jemaa_el-fna_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_02",
+    "image": "marrakech/place_jemaa_el-fna_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_03",
+    "image": "marrakech/place_jemaa_el-fna_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Place Jemaa el-Fna."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_04",
+    "image": "marrakech/place_jemaa_el-fna_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_05",
+    "image": "marrakech/place_jemaa_el-fna_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Place Jemaa el-Fna dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_06",
+    "image": "marrakech/place_jemaa_el-fna_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_07",
+    "image": "marrakech/place_jemaa_el-fna_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_08",
+    "image": "marrakech/place_jemaa_el-fna_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_09",
+    "image": "marrakech/place_jemaa_el-fna_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Place Jemaa el-Fna."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_10",
+    "image": "marrakech/place_jemaa_el-fna_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_11",
+    "image": "marrakech/place_jemaa_el-fna_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Place Jemaa el-Fna dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_12",
+    "image": "marrakech/place_jemaa_el-fna_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_13",
+    "image": "marrakech/place_jemaa_el-fna_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_14",
+    "image": "marrakech/place_jemaa_el-fna_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_15",
+    "image": "marrakech/place_jemaa_el-fna_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Place Jemaa el-Fna."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_16",
+    "image": "marrakech/place_jemaa_el-fna_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_17",
+    "image": "marrakech/place_jemaa_el-fna_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Place Jemaa el-Fna dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_19",
+    "image": "marrakech/place_jemaa_el-fna_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_place_jemaa_el-fna_20",
+    "image": "marrakech/place_jemaa_el-fna_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Place Jemaa el-Fna à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_01",
+    "image": "marrakech/jardin_majorelle_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_02",
+    "image": "marrakech/jardin_majorelle_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_03",
+    "image": "marrakech/jardin_majorelle_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Jardin Majorelle."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_04",
+    "image": "marrakech/jardin_majorelle_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_05",
+    "image": "marrakech/jardin_majorelle_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Jardin Majorelle dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_06",
+    "image": "marrakech/jardin_majorelle_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_07",
+    "image": "marrakech/jardin_majorelle_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_08",
+    "image": "marrakech/jardin_majorelle_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_09",
+    "image": "marrakech/jardin_majorelle_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Jardin Majorelle."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_10",
+    "image": "marrakech/jardin_majorelle_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_11",
+    "image": "marrakech/jardin_majorelle_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Jardin Majorelle dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_12",
+    "image": "marrakech/jardin_majorelle_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_13",
+    "image": "marrakech/jardin_majorelle_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_14",
+    "image": "marrakech/jardin_majorelle_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_15",
+    "image": "marrakech/jardin_majorelle_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Jardin Majorelle."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_16",
+    "image": "marrakech/jardin_majorelle_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_17",
+    "image": "marrakech/jardin_majorelle_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Jardin Majorelle dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_18",
+    "image": "marrakech/jardin_majorelle_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_jardin_majorelle_20",
+    "image": "marrakech/jardin_majorelle_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Jardin Majorelle à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_01",
+    "image": "marrakech/mosquée_koutoubia_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_02",
+    "image": "marrakech/mosquée_koutoubia_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_03",
+    "image": "marrakech/mosquée_koutoubia_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Mosquée Koutoubia."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_04",
+    "image": "marrakech/mosquée_koutoubia_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_05",
+    "image": "marrakech/mosquée_koutoubia_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Mosquée Koutoubia dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_06",
+    "image": "marrakech/mosquée_koutoubia_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_07",
+    "image": "marrakech/mosquée_koutoubia_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_08",
+    "image": "marrakech/mosquée_koutoubia_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_10",
+    "image": "marrakech/mosquée_koutoubia_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_12",
+    "image": "marrakech/mosquée_koutoubia_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_13",
+    "image": "marrakech/mosquée_koutoubia_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_14",
+    "image": "marrakech/mosquée_koutoubia_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_16",
+    "image": "marrakech/mosquée_koutoubia_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_17",
+    "image": "marrakech/mosquée_koutoubia_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Mosquée Koutoubia dans la ville de Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_19",
+    "image": "marrakech/mosquée_koutoubia_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_koutoubia_20",
+    "image": "marrakech/mosquée_koutoubia_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Koutoubia à Marrakech."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_01",
+    "image": "fès/fès_el_bali_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_02",
+    "image": "fès/fès_el_bali_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_03",
+    "image": "fès/fès_el_bali_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Fès el Bali."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_04",
+    "image": "fès/fès_el_bali_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_05",
+    "image": "fès/fès_el_bali_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Fès el Bali dans la ville de Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_06",
+    "image": "fès/fès_el_bali_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_07",
+    "image": "fès/fès_el_bali_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_09",
+    "image": "fès/fès_el_bali_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Fès el Bali."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_10",
+    "image": "fès/fès_el_bali_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_11",
+    "image": "fès/fès_el_bali_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Fès el Bali dans la ville de Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_12",
+    "image": "fès/fès_el_bali_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_13",
+    "image": "fès/fès_el_bali_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_14",
+    "image": "fès/fès_el_bali_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_15",
+    "image": "fès/fès_el_bali_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Fès el Bali."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_17",
+    "image": "fès/fès_el_bali_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Fès el Bali dans la ville de Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_18",
+    "image": "fès/fès_el_bali_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_19",
+    "image": "fès/fès_el_bali_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_fès_el_bali_20",
+    "image": "fès/fès_el_bali_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Fès el Bali à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_01",
+    "image": "fès/tanneries_chouara_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_02",
+    "image": "fès/tanneries_chouara_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_03",
+    "image": "fès/tanneries_chouara_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Tanneries Chouara."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_04",
+    "image": "fès/tanneries_chouara_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_05",
+    "image": "fès/tanneries_chouara_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Tanneries Chouara dans la ville de Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_06",
+    "image": "fès/tanneries_chouara_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_07",
+    "image": "fès/tanneries_chouara_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_08",
+    "image": "fès/tanneries_chouara_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_09",
+    "image": "fès/tanneries_chouara_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Tanneries Chouara."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_10",
+    "image": "fès/tanneries_chouara_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_11",
+    "image": "fès/tanneries_chouara_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Tanneries Chouara dans la ville de Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_12",
+    "image": "fès/tanneries_chouara_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_13",
+    "image": "fès/tanneries_chouara_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_14",
+    "image": "fès/tanneries_chouara_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_15",
+    "image": "fès/tanneries_chouara_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Tanneries Chouara."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_16",
+    "image": "fès/tanneries_chouara_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_17",
+    "image": "fès/tanneries_chouara_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Tanneries Chouara dans la ville de Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_18",
+    "image": "fès/tanneries_chouara_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_19",
+    "image": "fès/tanneries_chouara_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_tanneries_chouara_20",
+    "image": "fès/tanneries_chouara_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tanneries Chouara à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_01",
+    "image": "fès/bab_bou_jeloud_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_02",
+    "image": "fès/bab_bou_jeloud_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_03",
+    "image": "fès/bab_bou_jeloud_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Bab Bou Jeloud."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_04",
+    "image": "fès/bab_bou_jeloud_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_05",
+    "image": "fès/bab_bou_jeloud_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Bab Bou Jeloud dans la ville de Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_06",
+    "image": "fès/bab_bou_jeloud_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_07",
+    "image": "fès/bab_bou_jeloud_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_08",
+    "image": "fès/bab_bou_jeloud_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_09",
+    "image": "fès/bab_bou_jeloud_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Bab Bou Jeloud."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_10",
+    "image": "fès/bab_bou_jeloud_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_11",
+    "image": "fès/bab_bou_jeloud_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Bab Bou Jeloud dans la ville de Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_12",
+    "image": "fès/bab_bou_jeloud_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_13",
+    "image": "fès/bab_bou_jeloud_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_14",
+    "image": "fès/bab_bou_jeloud_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_15",
+    "image": "fès/bab_bou_jeloud_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Bab Bou Jeloud."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_16",
+    "image": "fès/bab_bou_jeloud_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_17",
+    "image": "fès/bab_bou_jeloud_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Bab Bou Jeloud dans la ville de Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_bab_bou_jeloud_18",
+    "image": "fès/bab_bou_jeloud_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Bab Bou Jeloud à Fès."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_01",
+    "image": "merzouga/dunes_de_lerg_chebbi_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_02",
+    "image": "merzouga/dunes_de_lerg_chebbi_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_03",
+    "image": "merzouga/dunes_de_lerg_chebbi_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Dunes de l'Erg Chebbi."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_04",
+    "image": "merzouga/dunes_de_lerg_chebbi_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_05",
+    "image": "merzouga/dunes_de_lerg_chebbi_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Dunes de l'Erg Chebbi dans la ville de Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_06",
+    "image": "merzouga/dunes_de_lerg_chebbi_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_07",
+    "image": "merzouga/dunes_de_lerg_chebbi_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_08",
+    "image": "merzouga/dunes_de_lerg_chebbi_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_09",
+    "image": "merzouga/dunes_de_lerg_chebbi_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Dunes de l'Erg Chebbi."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_10",
+    "image": "merzouga/dunes_de_lerg_chebbi_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_11",
+    "image": "merzouga/dunes_de_lerg_chebbi_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Dunes de l'Erg Chebbi dans la ville de Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_12",
+    "image": "merzouga/dunes_de_lerg_chebbi_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_13",
+    "image": "merzouga/dunes_de_lerg_chebbi_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_14",
+    "image": "merzouga/dunes_de_lerg_chebbi_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_15",
+    "image": "merzouga/dunes_de_lerg_chebbi_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Dunes de l'Erg Chebbi."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_16",
+    "image": "merzouga/dunes_de_lerg_chebbi_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_17",
+    "image": "merzouga/dunes_de_lerg_chebbi_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Dunes de l'Erg Chebbi dans la ville de Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_18",
+    "image": "merzouga/dunes_de_lerg_chebbi_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_19",
+    "image": "merzouga/dunes_de_lerg_chebbi_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_dunes_de_lerg_chebbi_20",
+    "image": "merzouga/dunes_de_lerg_chebbi_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Dunes de l'Erg Chebbi à Merzouga."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_01",
+    "image": "casablanca/mosquée_hassan_ii_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_02",
+    "image": "casablanca/mosquée_hassan_ii_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_03",
+    "image": "casablanca/mosquée_hassan_ii_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Mosquée Hassan II."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_04",
+    "image": "casablanca/mosquée_hassan_ii_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_05",
+    "image": "casablanca/mosquée_hassan_ii_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Mosquée Hassan II dans la ville de Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_06",
+    "image": "casablanca/mosquée_hassan_ii_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_07",
+    "image": "casablanca/mosquée_hassan_ii_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_08",
+    "image": "casablanca/mosquée_hassan_ii_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_09",
+    "image": "casablanca/mosquée_hassan_ii_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Mosquée Hassan II."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_10",
+    "image": "casablanca/mosquée_hassan_ii_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_11",
+    "image": "casablanca/mosquée_hassan_ii_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Mosquée Hassan II dans la ville de Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_12",
+    "image": "casablanca/mosquée_hassan_ii_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_13",
+    "image": "casablanca/mosquée_hassan_ii_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_14",
+    "image": "casablanca/mosquée_hassan_ii_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_15",
+    "image": "casablanca/mosquée_hassan_ii_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Mosquée Hassan II."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_16",
+    "image": "casablanca/mosquée_hassan_ii_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_17",
+    "image": "casablanca/mosquée_hassan_ii_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Mosquée Hassan II dans la ville de Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_18",
+    "image": "casablanca/mosquée_hassan_ii_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_19",
+    "image": "casablanca/mosquée_hassan_ii_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_mosquée_hassan_ii_20",
+    "image": "casablanca/mosquée_hassan_ii_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Mosquée Hassan II à Casablanca."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_01",
+    "image": "ouarzazate/ksar_daït_ben_haddou_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_02",
+    "image": "ouarzazate/ksar_daït_ben_haddou_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_03",
+    "image": "ouarzazate/ksar_daït_ben_haddou_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Ksar d'Aït Ben Haddou."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_04",
+    "image": "ouarzazate/ksar_daït_ben_haddou_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_05",
+    "image": "ouarzazate/ksar_daït_ben_haddou_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Ksar d'Aït Ben Haddou dans la ville de Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_06",
+    "image": "ouarzazate/ksar_daït_ben_haddou_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_07",
+    "image": "ouarzazate/ksar_daït_ben_haddou_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_08",
+    "image": "ouarzazate/ksar_daït_ben_haddou_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_09",
+    "image": "ouarzazate/ksar_daït_ben_haddou_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Ksar d'Aït Ben Haddou."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_10",
+    "image": "ouarzazate/ksar_daït_ben_haddou_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_11",
+    "image": "ouarzazate/ksar_daït_ben_haddou_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Ksar d'Aït Ben Haddou dans la ville de Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_12",
+    "image": "ouarzazate/ksar_daït_ben_haddou_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_14",
+    "image": "ouarzazate/ksar_daït_ben_haddou_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_15",
+    "image": "ouarzazate/ksar_daït_ben_haddou_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Ksar d'Aït Ben Haddou."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_16",
+    "image": "ouarzazate/ksar_daït_ben_haddou_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_17",
+    "image": "ouarzazate/ksar_daït_ben_haddou_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Ksar d'Aït Ben Haddou dans la ville de Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_18",
+    "image": "ouarzazate/ksar_daït_ben_haddou_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_19",
+    "image": "ouarzazate/ksar_daït_ben_haddou_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_ksar_daït_ben_haddou_20",
+    "image": "ouarzazate/ksar_daït_ben_haddou_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Ksar d'Aït Ben Haddou à Ouarzazate."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_01",
+    "image": "essaouira/médina_dessaouira_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_03",
+    "image": "essaouira/médina_dessaouira_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Médina d'Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_04",
+    "image": "essaouira/médina_dessaouira_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_05",
+    "image": "essaouira/médina_dessaouira_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Médina d'Essaouira dans la ville de Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_06",
+    "image": "essaouira/médina_dessaouira_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_07",
+    "image": "essaouira/médina_dessaouira_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_08",
+    "image": "essaouira/médina_dessaouira_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_09",
+    "image": "essaouira/médina_dessaouira_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Médina d'Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_10",
+    "image": "essaouira/médina_dessaouira_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_11",
+    "image": "essaouira/médina_dessaouira_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Médina d'Essaouira dans la ville de Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_12",
+    "image": "essaouira/médina_dessaouira_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_13",
+    "image": "essaouira/médina_dessaouira_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_14",
+    "image": "essaouira/médina_dessaouira_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_15",
+    "image": "essaouira/médina_dessaouira_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Médina d'Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_17",
+    "image": "essaouira/médina_dessaouira_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Médina d'Essaouira dans la ville de Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_18",
+    "image": "essaouira/médina_dessaouira_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_19",
+    "image": "essaouira/médina_dessaouira_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_médina_dessaouira_20",
+    "image": "essaouira/médina_dessaouira_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Médina d'Essaouira à Essaouira."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_01",
+    "image": "rabat/kasbah_des_oudayas_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_02",
+    "image": "rabat/kasbah_des_oudayas_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_03",
+    "image": "rabat/kasbah_des_oudayas_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Kasbah des Oudayas."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_04",
+    "image": "rabat/kasbah_des_oudayas_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_05",
+    "image": "rabat/kasbah_des_oudayas_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Kasbah des Oudayas dans la ville de Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_06",
+    "image": "rabat/kasbah_des_oudayas_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_07",
+    "image": "rabat/kasbah_des_oudayas_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_08",
+    "image": "rabat/kasbah_des_oudayas_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_09",
+    "image": "rabat/kasbah_des_oudayas_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Kasbah des Oudayas."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_10",
+    "image": "rabat/kasbah_des_oudayas_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_12",
+    "image": "rabat/kasbah_des_oudayas_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_13",
+    "image": "rabat/kasbah_des_oudayas_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_14",
+    "image": "rabat/kasbah_des_oudayas_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_15",
+    "image": "rabat/kasbah_des_oudayas_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Kasbah des Oudayas."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_17",
+    "image": "rabat/kasbah_des_oudayas_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Kasbah des Oudayas dans la ville de Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_18",
+    "image": "rabat/kasbah_des_oudayas_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_19",
+    "image": "rabat/kasbah_des_oudayas_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_kasbah_des_oudayas_20",
+    "image": "rabat/kasbah_des_oudayas_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Kasbah des Oudayas à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_01",
+    "image": "rabat/tour_hassan_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_02",
+    "image": "rabat/tour_hassan_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_03",
+    "image": "rabat/tour_hassan_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Tour Hassan."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_04",
+    "image": "rabat/tour_hassan_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_05",
+    "image": "rabat/tour_hassan_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Tour Hassan dans la ville de Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_06",
+    "image": "rabat/tour_hassan_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_07",
+    "image": "rabat/tour_hassan_07.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_09",
+    "image": "rabat/tour_hassan_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Tour Hassan."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_10",
+    "image": "rabat/tour_hassan_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_11",
+    "image": "rabat/tour_hassan_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Tour Hassan dans la ville de Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_12",
+    "image": "rabat/tour_hassan_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_13",
+    "image": "rabat/tour_hassan_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_14",
+    "image": "rabat/tour_hassan_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_15",
+    "image": "rabat/tour_hassan_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Tour Hassan."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_19",
+    "image": "rabat/tour_hassan_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_tour_hassan_20",
+    "image": "rabat/tour_hassan_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Tour Hassan à Rabat."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_01",
+    "image": "meknès/volubilis_01.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_02",
+    "image": "meknès/volubilis_02.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_03",
+    "image": "meknès/volubilis_03.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Volubilis."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_04",
+    "image": "meknès/volubilis_04.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_05",
+    "image": "meknès/volubilis_05.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Volubilis dans la ville de Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_06",
+    "image": "meknès/volubilis_06.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_08",
+    "image": "meknès/volubilis_08.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_09",
+    "image": "meknès/volubilis_09.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Donne-moi le nom de ce site."
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Volubilis."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_10",
+    "image": "meknès/volubilis_10.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "C'est quel endroit sur l'image ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_11",
+    "image": "meknès/volubilis_11.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Comment s'appelle ce site ?"
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Volubilis dans la ville de Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_12",
+    "image": "meknès/volubilis_12.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est le nom de cet endroit célèbre ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_13",
+    "image": "meknès/volubilis_13.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Quel est ce lieu ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_14",
+    "image": "meknès/volubilis_14.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Peux-tu identifier cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_15",
+    "image": "meknès/volubilis_15.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Où a été prise cette photo ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est un site touristique, Volubilis."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_16",
+    "image": "meknès/volubilis_16.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Qu'est-ce que c'est ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_17",
+    "image": "meknès/volubilis_17.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Identifie ce monument."
+      },
+      {
+        "from": "gpt",
+        "value": "On voit Volubilis dans la ville de Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_18",
+    "image": "meknès/volubilis_18.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Ce bâtiment, c'est quoi ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_19",
+    "image": "meknès/volubilis_19.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "De quel lieu s'agit-il ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  },
+  {
+    "id": "conv_volubilis_20",
+    "image": "meknès/volubilis_20.jpg",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "Reconnais-tu cet endroit ?"
+      },
+      {
+        "from": "gpt",
+        "value": "C'est Volubilis à Meknès."
+      }
+    ]
+  }
+]
