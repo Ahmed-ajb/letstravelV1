@@ -6,8 +6,11 @@ import re
 import logging
 from datetime import datetime
 import pandas as pd
-# from django.conf import settings # Pas nécessaire pour os.environ.get directement
+from io import BytesIO
+import base64
+from PIL import Image as PILImage # Renommer pour éviter conflit avec Image Field
 
+# Importations Langchain / Ollama
 from langchain_community.llms import Ollama
 from langchain.prompts import PromptTemplate, ChatPromptTemplate
 from langchain_community.tools.tavily_search import TavilySearchResults
@@ -17,12 +20,22 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.pydantic_v1 import BaseModel, Field
 from typing import List, Optional
 
-import requests # NOUVEL IMPORT pour les requêtes HTTP
-from dotenv import load_dotenv # NOUVEL IMPORT pour charger les variables d'environnement
+import requests
+from dotenv import load_dotenv
 
+# Importations Django (vérifiez que ces modèles existent dans planner/models.py)
 from .utils import load_and_preprocess_data
 from planner.models import Trip, TripDay, DailyActivityItem, ChatMessage, User
-from django.db.models import Q # Import pour les requêtes OR
+from django.db.models import Q
+
+# --- IMPORTATIONS POUR COMPARAISON D'IMAGES (InceptionV3) ---
+import faiss
+import numpy as np
+import tensorflow as tf
+# Keras est maintenant intégré à TensorFlow 2.x
+from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input 
+from tensorflow.keras.models import Model 
+from tensorflow.keras.preprocessing import image as keras_image_preprocessing 
 
 
 logger = logging.getLogger(__name__)
@@ -33,13 +46,76 @@ load_dotenv()
 # --- Configuration des modèles Ollama ---
 MODEL_PHI3 = "phi3"
 MODEL_MISTRAL = "mistral"
-MODEL_LLAVA = "llava"
-
+MODEL_LLAVA_DESCRIPTION_GENERAL = "llava" 
 llm_phi3 = Ollama(model=MODEL_PHI3, temperature=0.3)
 llm_mistral = Ollama(model=MODEL_MISTRAL, temperature=0.3)
-llm_llava = Ollama(model=MODEL_LLAVA, temperature=0.3)
+llm_llava_description = Ollama(model=MODEL_LLAVA_DESCRIPTION_GENERAL, temperature=0.1)
 
-# --- Outil de recherche web ---
+
+# --- CONFIGURATION POUR LA COMPARAISON D'IMAGES (InceptionV3/FAISS) ---
+# ADAPTEZ CE CHEMIN ABSOLU pour qu'il corresponde à l'emplacement réel de votre dossier 'rag_data'
+# Ce script (chatbot_logic.py) est dans 'votre_projet_django/planner/', donc 'rag_data' est un dossier à côté.
+DATA_RAG_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rag_data')
+FAISS_IMAGE_INDEX_FILE = os.path.join(DATA_RAG_FOLDER, "faiss_image_index_inception.bin") # L'index FAISS des images
+FAISS_IMAGE_IDS_FILE = os.path.join(DATA_RAG_FOLDER, "faiss_image_ids_inception.json") # Les IDs associés aux embeddings
+MAROC_LIEUX_CORPUS_FILE = os.path.join(DATA_RAG_FOLDER, "maroc_lieux_corpus.json") # Votre base de descriptions textuelles de lieux
+
+
+# --- Chargement des Composants de Comparaison d'Images (une seule fois au démarrage de Django) ---
+global inception_feature_extractor_model, faiss_image_index, faiss_image_ids, maroc_lieux_data
+
+inception_feature_extractor_model = None
+faiss_image_index = None
+faiss_image_ids = []
+maroc_lieux_data = {} # Dictionnaire pour un accès rapide aux lieux par ID
+
+def initialize_image_comparison_components():
+    global inception_feature_extractor_model, faiss_image_index, faiss_image_ids, maroc_lieux_data
+    try:
+        # 1. Charger le modèle InceptionV3 pour l'extraction de features
+        logger.info("Chargement du modèle InceptionV3 pour l'extraction de features...")
+        # Inclure_top=False pour ne pas charger la dernière couche de classification
+        base_model_inception = InceptionV3(weights='imagenet', include_top=False)
+        
+        # CORRECTION ICI : Utiliser GlobalAveragePooling2D pour obtenir le vecteur de features.
+        # La sortie de base_model_inception.output est un feature map (e.g., 8x8x2048).
+        # GlobalAveragePooling2D le réduit à un vecteur 1D (2048).
+        x = base_model_inception.output 
+        output = tf.keras.layers.GlobalAveragePooling2D()(x) # APPLIQUÉ LA CORRECTION
+        inception_feature_extractor_model = Model(inputs=base_model_inception.input, outputs=output) 
+        inception_feature_extractor_model.trainable = False # Le modèle n'est pas entraîné ici, juste utilisé pour l'inférence
+        
+        logger.info("Modèle InceptionV3 chargé.")
+
+        # 2. Charger l'index FAISS des images
+        faiss_image_index = faiss.read_index(FAISS_IMAGE_INDEX_FILE)
+        logger.info(f"Index FAISS des images chargé depuis : {FAISS_IMAGE_INDEX_FILE}")
+
+        # 3. Charger les IDs d'images associés à l'index FAISS
+        with open(FAISS_IMAGE_IDS_FILE, "r", encoding="utf-8") as f:
+            faiss_image_ids = json.load(f)
+        logger.info(f"IDs d'images FAISS chargés depuis : {FAISS_IMAGE_IDS_FILE}")
+
+        # 4. Charger la base de données textuelle des lieux (pour les descriptions complètes)
+        with open(MAROC_LIEUX_CORPUS_FILE, "r", encoding="utf-8") as f:
+            corpus_list = json.load(f)
+            maroc_lieux_data = {doc['id']: doc for doc in corpus_list} # Facilite la recherche par ID
+        logger.info(f"Base de données de lieux chargée depuis : {MAROC_LIEUX_CORPUS_FILE}")
+
+        logger.info("Composants de comparaison d'images (InceptionV3/FAISS) chargés avec succès.")
+    except Exception as e:
+        logger.error(f"Erreur lors du chargement des composants de comparaison d'images: {e}", exc_info=True)
+        inception_feature_extractor_model = None
+        faiss_image_index = None
+        faiss_image_ids = []
+        maroc_lieux_data = {}
+        logger.error("La fonctionnalité d'identification d'image par similarité visuelle sera désactivée.")
+
+# Appeler la fonction d'initialisation au démarrage de l'application Django
+initialize_image_comparison_components()
+
+
+# --- Outil de recherche web (Tavily) ---
 tavily_tool = TavilySearchResults(max_results=3)
 
 # --- Clé API OpenWeatherMap ---
@@ -48,7 +124,7 @@ if not OPENWEATHERMAP_API_KEY:
     logger.warning("OPENWEATHERMAP_API_KEY n'est pas configurée dans les variables d'environnement. La fonction météo sera limitée ou désactivée.")
 
 
-# --- Chargement des données statiques (une seule fois au démarrage de l'application) ---
+# --- Chargement des données statiques (activités, hôtels, etc.) ---
 ACTIVITIES_DF, HOTELS_DF, RESTAURANTS_CAFES_DF, CITY_COORDS_MAP = pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), {}
 
 def initialize_data():
@@ -59,7 +135,7 @@ def initialize_data():
         if ACTIVITIES_DF.empty:
             logger.warning("ACTIVITIES_DF est vide après le chargement initial.")
     except Exception as e:
-        logger.error(f"Erreur lors du chargement initial des données statiques pour le chatbot: {e}")
+        logger.error(f"Erreur lors du chargement initial des données statiques pour le chatbot: {e}", exc_info=True)
 
 initialize_data()
 
@@ -138,7 +214,6 @@ def retrieve_touristic_info_internal(user_query: str, city_name: Optional[str]) 
     
     return "\n".join(db_context_parts)
 
-# --- NOUVELLE FONCTION POUR L'API OPENWEATHERMAP ---
 def get_weather_data(city_name: str) -> str:
     """
     Appelle l'API OpenWeatherMap pour obtenir les données météo actuelles.
@@ -183,7 +258,7 @@ def get_weather_data(city_name: str) -> str:
         return "Désolé, une erreur est survenue lors du traitement des données météorologiques."
 
 
-# --- FONCTIONS D'INTERACTION AVEC LA BASE DE DONNÉES (LECTURE SEULE) ---
+# --- Fonctions d'Interaction avec la Base de Données (Lecture seule) ---
 
 def get_user_trips_summary_db(user_id: int) -> str:
     """Récupère un résumé des voyages planifiés de l'utilisateur."""
@@ -321,18 +396,20 @@ def get_general_response_chain():
         SystemMessage(content="""Tu es MarocGuide, un guide de voyage IA spécialisé dans le tourisme au Maroc.
         Réponds à l'utilisateur de manière concise et amicale en utilisant les informations fournies.
         Base-toi *uniquement* sur les 'Infos Locales', 'Infos Web' et 'Historique Précédent' si elles sont pertinentes.
-        Si la question est sur la planification de voyage, conseille l'utilisateur d'utiliser la section dédiée.
-        Si tu n'as pas l'information, dis-le clairement sans inventer.
-        Ne fais pas d'hallucinations et ne fabrique pas de faits.
+        If the question is about trip planning, advise the user to use the dedicated section.
+        If you don't have the information, state it clearly without inventing.
+        Do not hallucinate and do not fabricate facts.
         
-        Infos Locales (internes): {db_context}
-        Infos Web: {web_context}
-        Historique Précédent: {history_summary}
+        Local Info (internal): {db_context}
+        Web Info: {web_context}
+        Previous History: {history_summary}
         """),
         HumanMessage(content="Question: {question}")
     ])
     return prompt | llm_mistral | StrOutputParser()
 
+# --- get_multimodal_chain et get_activity_suggestion_chain sont conservées pour référence si besoin ---
+# Elles utilisent le modèle LLaVA via Ollama pour des descriptions générales.
 def get_multimodal_chain():
     prompt = PromptTemplate(
         template="""You are an expert image analysis assistant.
@@ -361,10 +438,10 @@ def get_multimodal_chain():
         ]
         
         try:
-            response = llm_llava.invoke(messages)
+            response = llm_llava_description.invoke(messages)
             return response.content if hasattr(response, 'content') else str(response)
         except Exception as e:
-            logger.error(f"Erreur lors de l'appel à LLaVA: {e}")
+            logger.error(f"Erreur lors de l'appel à LLaVA: {e}", exc_info=True)
             return "Désolé, je n'ai pas pu analyser l'image."
 
     return RunnableLambda(_run_llava) | StrOutputParser()
@@ -387,12 +464,74 @@ def get_activity_suggestion_chain():
     return prompt | llm_mistral | StrOutputParser()
 
 
-# --- Fonction principale de traitement des requêtes utilisateur ---
+# --- FONCTION DE COMPARAISON D'IMAGE PAR SIMILARITÉ VISUELLE (Cœur du RAG visuel) ---
+def find_similar_place_by_image(image_base64: str) -> str:
+    # Vérifie si les composants d'identification d'image sont chargés au démarrage de l'appli
+    if inception_feature_extractor_model is None or faiss_image_index is None or maroc_lieux_data is None:
+        logger.error("Composants d'identification d'image (InceptionV3/FAISS) non initialisés.")
+        return "Désolé, la fonctionnalité d'identification d'image est actuellement indisponible. Veuillez contacter l'administrateur."
+
+    try:
+        # Décode l'image Base64 en un objet PIL Image
+        image_bytes = base64.b64decode(image_base64)
+        image = PILImage.open(BytesIO(image_bytes)).convert("RGB")
+
+        # Prétraiter l'image pour InceptionV3
+        # Redimensionne l'image à la taille attendue par InceptionV3 (299x299)
+        img_array = keras_image_preprocessing.img_to_array(image.resize((299, 299)))
+        # Ajoute une dimension de batch (TensorFlow s'attend à [batch_size, height, width, channels])
+        img_array_expanded = np.expand_dims(img_array, axis=0) 
+        # Applique le prétraitement spécifique à InceptionV3 (normalisation des pixels)
+        img_preprocessed = preprocess_input(img_array_expanded) 
+        
+        # Obtenir les features (embeddings) du modèle InceptionV3
+        # verbose=0 pour ne pas afficher la barre de progression de Keras
+        query_embedding = inception_feature_extractor_model.predict(img_preprocessed, verbose=0).flatten().astype(np.float32)
+        
+        # Recherche dans l'index FAISS des images
+        k = 3 # Nombre de résultats similaires à récupérer
+        # np.expand_dims car faiss.search s'attend à un tableau 2D pour la requête (batch_size, embedding_dim)
+        distances, indices = faiss_image_index.search(np.expand_dims(query_embedding, axis=0), k)
+
+        if len(indices[0]) == 0:
+            return "Aucun lieu similaire trouvé dans ma base de données d'images."
+
+        results_details = []
+        for i, idx in enumerate(indices[0]):
+            lieu_id = faiss_image_ids[idx] # Récupère l'ID du lieu associé à l'embedding
+            lieu_info = maroc_lieux_data.get(lieu_id) # Récupère les infos complètes du lieu par ID
+
+            if lieu_info:
+                results_details.append(
+                    f"- Nom: **{lieu_info['name']}**, Ville: **{lieu_info['city']}**.\n"
+                    f"  Description: {lieu_info['description'][:150]}... (Similarité: {distances[0][i]:.2f})"
+                )
+            else:
+                results_details.append(f"- Lieu inconnu (ID: {lieu_id}, Similarité: {distances[0][i]:.2f})")
+        
+        # Analyse des résultats pour une identification concluante
+        first_match_info = maroc_lieux_data.get(faiss_image_ids[indices[0][0]])
+        # Définir un seuil de distance (plus la distance L2 est petite, plus c'est similaire).
+        # Le seuil de 5.0 (et la différence avec le 2nd meilleur score) doit être ajusté
+        # en fonction de vos tests et de la qualité des embeddings. Une distance plus PETITE = plus SIMILAIRE.
+        # Le seuil de 5.0 est une valeur indicative pour la distance L2 de InceptionV3.
+        # Le deuxième terme (distances[0][1] - distances[0][0] > 2.0) vérifie si le meilleur match est significativement meilleur que le second.
+        if first_match_info and distances[0][0] < 5.0 and (len(distances[0]) == 1 or (distances[0][1] - distances[0][0]) > 2.0): 
+            return (f"J'ai identifié ce lieu sur votre image comme étant : **{first_match_info['name']}** à **{first_match_info['city']}**.\n"
+                    f"Description : {first_match_info['description']}")
+        else:
+            return "Je n'ai pas pu identifier le lieu de manière concluante. Voici des lieux similaires trouvés dans ma base de données :\n" + "\n".join(results_details)
+
+    except Exception as e:
+        logger.error(f"Erreur grave lors de la comparaison d'image: {e}", exc_info=True)
+        return f"Désolé, une erreur interne est survenue lors de l'identification du lieu à partir de l'image. Erreur: {e}"
+
+# --- Fonction principale de traitement des requêtes utilisateur (process_user_query) ---
 def process_user_query(user_message: str, user_id: int, image_base64: Optional[str] = None, gps_coords: Optional[str] = None) -> str:
     logger.info(f"Traitement de la requête pour l'utilisateur {user_id}: Message='{user_message[:50]}...', Image_present={bool(image_base64)}, GPS_present={bool(gps_coords)}")
 
     # Récupérer l'historique complet pour la contextualisation
-    recent_history = ChatMessage.objects.filter(user_id=user_id).order_by('-timestamp')[:10] # 10 derniers messages
+    recent_history = ChatMessage.objects.filter(user_id=user_id).order_by('-timestamp')[:10]
     formatted_history = []
     for msg in reversed(recent_history):
         role = "User" if msg.is_from_user else "AI"
@@ -406,7 +545,7 @@ def process_user_query(user_message: str, user_id: int, image_base64: Optional[s
             history_summary = summarizer_chain.invoke({"chat_history_string": chat_history_string})
             logger.debug(f"Résumé historique: {history_summary}")
         except Exception as e:
-            logger.warning(f"Impossible de résumer l'historique: {e}. Fallback à l'historique complet.")
+            logger.warning(f"Impossible de résumer l'historique: {e}. Fallback à l'historique complet.", exc_info=True)
             history_summary = "Historique précédent: " + chat_history_string
 
 
@@ -419,41 +558,39 @@ def process_user_query(user_message: str, user_id: int, image_base64: Optional[s
         entities = EntityExtraction() # Créer une instance vide pour l'interface
         logger.debug("Intention forcée à multimodal_query, entités textuelles vides.")
     else:
-        intent = intent_chain.invoke({"message": user_message}).strip().lower()
-        entities = entity_extraction_chain.invoke({"message": user_message})
-        logger.debug(f"Intention détectée: {intent}, Entités extraites: {entities}")
+        try:
+            intent = intent_chain.invoke({"message": user_message}).strip().lower()
+            entities = entity_extraction_chain.invoke({"message": user_message})
+            logger.debug(f"Intention détectée: {intent}, Entités extraites: {entities}")
+        except Exception as e:
+            logger.error(f"Erreur lors de la détection d'intention/extraction d'entités: {e}. Fallback à 'other'.", exc_info=True)
+            intent = "other"
+            entities = EntityExtraction() # Assurer que les entités sont un objet vide
 
-    # Extraire les entités de manière sûre avec .get()
-    city = entities.get('city')
-    info_type = entities.get('info_type')
-    trip_identifier = entities.get('trip_identifier')
-    day_number = entities.get('day_number')
+
+    # Extraire les entités de manière sûre avec getattr
+    city = getattr(entities, 'city', None)
+    budget = getattr(entities, 'budget', None)
+    travel_style = getattr(entities, 'travel_style', None)
+    start_date = getattr(entities, 'start_date', None)
+    end_date = getattr(entities, 'end_date', None)
+    object_in_image = getattr(entities, 'object_in_image', None)
+    gps_coords_extracted = getattr(entities, 'gps_coords', None)
+    trip_identifier = getattr(entities, 'trip_identifier', None)
+    day_number = getattr(entities, 'day_number', None)
+    info_type = getattr(entities, 'info_type', None)
 
     # 2. Traitement basé sur l'intention (ordre de priorité des fonctionnalités)
 
-    # PRIORITY 1: Requête Multimodale avec Image
+    # PRIORITY 1: Requête Multimodale avec Image (Comparaison Visuelle Directe via InceptionV3/FAISS)
     if intent == "multimodal_query" and image_base64:
-        logger.info("Exécution de la chaîne multimodale pour l'analyse d'image.")
+        logger.info("Exécution de l'identification d'image par similarité visuelle.")
         
-        llava_chain = get_multimodal_chain()
-        image_analysis_result = llava_chain.invoke({
-            "image_base64": image_base64,
-            "user_message_text": user_message
-        })
-        logger.info(f"Résultat de l'analyse d'image LLaVA: {image_analysis_result[:200]}...")
-
-        if not gps_coords:
-            reply = f"J'ai analysé votre image :\n\n{image_analysis_result}\n\nPour des suggestions d'activités basées sur la localisation, veuillez partager vos coordonnées GPS."
-        else:
-            activity_suggestion_chain = get_activity_suggestion_chain()
-            final_gps_coords = gps_coords
-            
-            suggestions = activity_suggestion_chain.invoke({
-                "image_analysis": image_analysis_result,
-                "gps_coords": final_gps_coords
-            })
-            reply = f"Voici ce que j'ai compris de votre image et de votre position :\n\n{image_analysis_result}\n\nVoici quelques suggestions d'activités basées sur cela :\n{suggestions}"
-        return reply
+        # Appel de la fonction de comparaison d'image
+        identification_reply = find_similar_place_by_image(image_base64)
+        
+        # Retourne la réponse d'identification
+        return identification_reply
 
     # PRIORITY 2: Consultation des voyages planifiés
     elif intent == "consult_trip":
@@ -526,3 +663,4 @@ def process_user_query(user_message: str, user_id: int, image_base64: Optional[s
             "web_context": "", 
             "history_summary": history_summary
         })
+   
