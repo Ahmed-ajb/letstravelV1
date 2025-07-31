@@ -8,7 +8,7 @@ from datetime import datetime
 import pandas as pd
 from io import BytesIO
 import base64
-from PIL import Image as PILImage # Renommer pour éviter conflit avec Image Field
+from PIL import Image as PILImage 
 
 # Importations Langchain / Ollama
 from langchain_community.llms import Ollama
@@ -32,7 +32,6 @@ from django.db.models import Q
 import faiss
 import numpy as np
 import tensorflow as tf
-# Keras est maintenant intégré à TensorFlow 2.x
 from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input 
 from tensorflow.keras.models import Model 
 from tensorflow.keras.preprocessing import image as keras_image_preprocessing 
@@ -54,11 +53,21 @@ llm_llava_description = Ollama(model=MODEL_LLAVA_DESCRIPTION_GENERAL, temperatur
 
 # --- CONFIGURATION POUR LA COMPARAISON D'IMAGES (InceptionV3/FAISS) ---
 # ADAPTEZ CE CHEMIN ABSOLU pour qu'il corresponde à l'emplacement réel de votre dossier 'rag_data'
-# Ce script (chatbot_logic.py) est dans 'votre_projet_django/planner/', donc 'rag_data' est un dossier à côté.
 DATA_RAG_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rag_data')
-FAISS_IMAGE_INDEX_FILE = os.path.join(DATA_RAG_FOLDER, "faiss_image_index_inception.bin") # L'index FAISS des images
-FAISS_IMAGE_IDS_FILE = os.path.join(DATA_RAG_FOLDER, "faiss_image_ids_inception.json") # Les IDs associés aux embeddings
-MAROC_LIEUX_CORPUS_FILE = os.path.join(DATA_RAG_FOLDER, "maroc_lieux_corpus.json") # Votre base de descriptions textuelles de lieux
+FAISS_IMAGE_INDEX_FILE = os.path.join(DATA_RAG_FOLDER, "faiss_image_index_inception.bin") 
+FAISS_IMAGE_IDS_FILE = os.path.join(DATA_RAG_FOLDER, "faiss_image_ids_inception.json") 
+MAROC_LIEUX_CORPUS_FILE = os.path.join(DATA_RAG_FOLDER, "maroc_lieux_corpus.json")
+
+# Chemin de base pour les images qui seront servies par Django (relative à STATIC_URL).
+# Assurez-vous que votre settings.py est configuré pour servir
+# 'votre_projet_django/planner/rag_data/images/' COMME FICHIERS STATIQUES.
+# Exemple dans settings.py:
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+#     os.path.join(BASE_DIR, 'planner', 'rag_data', 'images'), # AJOUTEZ CETTE LIGNE
+# ]
+STATIC_IMAGES_SERVED_PATH = "planner/rag_data/images/" # C'est le chemin qui sera ajouté à STATIC_URL
 
 
 # --- Chargement des Composants de Comparaison d'Images (une seule fois au démarrage de Django) ---
@@ -67,51 +76,56 @@ global inception_feature_extractor_model, faiss_image_index, faiss_image_ids, ma
 inception_feature_extractor_model = None
 faiss_image_index = None
 faiss_image_ids = []
-maroc_lieux_data = {} # Dictionnaire pour un accès rapide aux lieux par ID
+maroc_lieux_data = {} 
 
 def initialize_image_comparison_components():
     global inception_feature_extractor_model, faiss_image_index, faiss_image_ids, maroc_lieux_data
     try:
-        # 1. Charger le modèle InceptionV3 pour l'extraction de features
         logger.info("Chargement du modèle InceptionV3 pour l'extraction de features...")
-        # Inclure_top=False pour ne pas charger la dernière couche de classification
         base_model_inception = InceptionV3(weights='imagenet', include_top=False)
         
-        # CORRECTION ICI : Utiliser GlobalAveragePooling2D pour obtenir le vecteur de features.
-        # La sortie de base_model_inception.output est un feature map (e.g., 8x8x2048).
-        # GlobalAveragePooling2D le réduit à un vecteur 1D (2048).
         x = base_model_inception.output 
-        output = tf.keras.layers.GlobalAveragePooling2D()(x) # APPLIQUÉ LA CORRECTION
+        output = tf.keras.layers.GlobalAveragePooling2D()(x) 
         inception_feature_extractor_model = Model(inputs=base_model_inception.input, outputs=output) 
-        inception_feature_extractor_model.trainable = False # Le modèle n'est pas entraîné ici, juste utilisé pour l'inférence
+        inception_feature_extractor_model.trainable = False 
         
         logger.info("Modèle InceptionV3 chargé.")
 
-        # 2. Charger l'index FAISS des images
+        if not os.path.exists(FAISS_IMAGE_INDEX_FILE):
+            raise FileNotFoundError(f"Fichier d'index FAISS manquant: {FAISS_IMAGE_INDEX_FILE}")
         faiss_image_index = faiss.read_index(FAISS_IMAGE_INDEX_FILE)
         logger.info(f"Index FAISS des images chargé depuis : {FAISS_IMAGE_INDEX_FILE}")
 
-        # 3. Charger les IDs d'images associés à l'index FAISS
+        if not os.path.exists(FAISS_IMAGE_IDS_FILE):
+            raise FileNotFoundError(f"Fichier des IDs FAISS manquant: {FAISS_IMAGE_IDS_FILE}")
         with open(FAISS_IMAGE_IDS_FILE, "r", encoding="utf-8") as f:
             faiss_image_ids = json.load(f)
         logger.info(f"IDs d'images FAISS chargés depuis : {FAISS_IMAGE_IDS_FILE}")
 
-        # 4. Charger la base de données textuelle des lieux (pour les descriptions complètes)
+        if not os.path.exists(MAROC_LIEUX_CORPUS_FILE):
+            raise FileNotFoundError(f"Fichier de corpus de lieux manquant: {MAROC_LIEUX_CORPUS_FILE}")
         with open(MAROC_LIEUX_CORPUS_FILE, "r", encoding="utf-8") as f:
             corpus_list = json.load(f)
-            maroc_lieux_data = {doc['id']: doc for doc in corpus_list} # Facilite la recherche par ID
+            maroc_lieux_data = {doc['id']: doc for doc in corpus_list} 
         logger.info(f"Base de données de lieux chargée depuis : {MAROC_LIEUX_CORPUS_FILE}")
 
         logger.info("Composants de comparaison d'images (InceptionV3/FAISS) chargés avec succès.")
+    except FileNotFoundError as fnfe:
+        logger.error(f"Erreur (FileNotFoundError) lors du chargement des composants de comparaison d'images: {fnfe}", exc_info=True)
+        logger.error("Veuillez vous assurer que tous les fichiers de données FAISS (.bin, .json) et le corpus de lieux sont présents aux chemins spécifiés.")
+        inception_feature_extractor_model = None
+        faiss_image_index = None
+        faiss_image_ids = []
+        maroc_lieux_data = {}
+        logger.error("La fonctionnalité d'identification d'image par similarité visuelle sera désactivée.")
     except Exception as e:
-        logger.error(f"Erreur lors du chargement des composants de comparaison d'images: {e}", exc_info=True)
+        logger.error(f"Erreur GÉNÉRALE lors du chargement des composants de comparaison d'images: {e}", exc_info=True)
         inception_feature_extractor_model = None
         faiss_image_index = None
         faiss_image_ids = []
         maroc_lieux_data = {}
         logger.error("La fonctionnalité d'identification d'image par similarité visuelle sera désactivée.")
 
-# Appeler la fonction d'initialisation au démarrage de l'application Django
 initialize_image_comparison_components()
 
 
@@ -496,31 +510,75 @@ def find_similar_place_by_image(image_base64: str) -> str:
         if len(indices[0]) == 0:
             return "Aucun lieu similaire trouvé dans ma base de données d'images."
 
-        results_details = []
-        for i, idx in enumerate(indices[0]):
-            lieu_id = faiss_image_ids[idx] # Récupère l'ID du lieu associé à l'embedding
-            lieu_info = maroc_lieux_data.get(lieu_id) # Récupère les infos complètes du lieu par ID
-
-            if lieu_info:
-                results_details.append(
-                    f"- Nom: **{lieu_info['name']}**, Ville: **{lieu_info['city']}**.\n"
-                    f"  Description: {lieu_info['description'][:150]}... (Similarité: {distances[0][i]:.2f})"
-                )
-            else:
-                results_details.append(f"- Lieu inconnu (ID: {lieu_id}, Similarité: {distances[0][i]:.2f})")
+        # Initialisation pour éviter NameError si aucun match n'est jugé "concluant" par les seuils initiaux
+        identified_lieu_info = None 
         
-        # Analyse des résultats pour une identification concluante
-        first_match_info = maroc_lieux_data.get(faiss_image_ids[indices[0][0]])
-        # Définir un seuil de distance (plus la distance L2 est petite, plus c'est similaire).
-        # Le seuil de 5.0 (et la différence avec le 2nd meilleur score) doit être ajusté
-        # en fonction de vos tests et de la qualité des embeddings. Une distance plus PETITE = plus SIMILAIRE.
-        # Le seuil de 5.0 est une valeur indicative pour la distance L2 de InceptionV3.
-        # Le deuxième terme (distances[0][1] - distances[0][0] > 2.0) vérifie si le meilleur match est significativement meilleur que le second.
-        if first_match_info and distances[0][0] < 5.0 and (len(distances[0]) == 1 or (distances[0][1] - distances[0][0]) > 2.0): 
-            return (f"J'ai identifié ce lieu sur votre image comme étant : **{first_match_info['name']}** à **{first_match_info['city']}**.\n"
-                    f"Description : {first_match_info['description']}")
+        # Le lieu le plus similaire trouvé par FAISS
+        best_match_id = faiss_image_ids[indices[0][0]]
+        best_match_distance = distances[0][0]
+        best_match_info = maroc_lieux_data.get(best_match_id) # Informations complètes du lieu le plus similaire
+
+        # --- SEUILS DE CONFIANCE (À AJUSTER APRÈS TESTS AVEC VOS DONNÉES) ---
+        # Plus la distance L2 est PETITE, plus la similarité est GRANDE.
+        SEUIL_CONFIANCE_HAUTE = 100.0  # Exemple: Si distance < 100, très confiant
+        SEUIL_CONFIANCE_MOYENNE = 150.0 # Exemple: Si distance < 150, assez confiant
+        
+        # Le deuxième terme (différence avec le 2nd meilleur score) peut être utilisé si vous avez besoin
+        # d'une grande distinction entre le 1er et le 2ème match pour être sûr.
+        # SEUIL_DIFFERENCE_AVEC_SECOND_MATCH = 20.0 # Exemple: Le 1er doit être 20 unités meilleur que le 2ème
+
+        confidence_message = ""
+        if best_match_info: # Si un lieu a été trouvé
+            if best_match_distance < SEUIL_CONFIANCE_HAUTE:
+                confidence_message = "J'ai identifié ce lieu avec une grande confiance :"
+            elif best_match_distance < SEUIL_CONFIANCE_MOYENNE:
+                confidence_message = "J'ai trouvé un lieu très similaire à celui de votre image :"
+            else: # Si la distance est au-delà du seuil moyen, l'identification est faible
+                confidence_message = "Je n'ai pas pu identifier le lieu de manière concluante, mais voici le lieu le plus similaire que j'ai trouvé :"
+            
+            identified_lieu_info = best_match_info # On utilise toujours le meilleur match trouvé.
+        else: # Cas où best_match_info est None (devrait pas arriver si len(indices[0]) > 0)
+            return "Aucun lieu correspondant n'a pu être récupéré de la base de données malgré une recherche FAISS."
+
+
+        reply_parts = []
+
+        if identified_lieu_info: # Si nous avons des informations sur le lieu le plus similaire
+            place_name = identified_lieu_info['name']
+            place_city = identified_lieu_info['city']
+            place_description = identified_lieu_info['description']
+            place_image_path = identified_lieu_info.get('representative_image_path') # Récupérer le chemin d'image
+
+            # --- Ajout de l'image de l'utilisateur d'abord ---
+            # Si l'image téléchargée par l'utilisateur doit aussi apparaître
+            user_uploaded_image_html = f'<img src="data:image/jpeg;base64,{image_base64}" alt="Votre image" style="max-width:250px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ccc;"><br>'
+            reply_parts.append(f"Votre image a été reçue :")
+            reply_parts.append(user_uploaded_image_html)
+
+
+            image_url_html = ""
+            if place_image_path:
+                # Construire l'URL statique de l'image pour le frontend
+                # Cela dépend de comment Django sert vos static files.
+                # 'STATIC_IMAGES_SERVED_PATH' doit correspondre au chemin que Django sert pour ce dossier.
+                static_image_full_path = f"/{STATIC_IMAGES_SERVED_PATH}{place_image_path}" # Commence par / pour URL absolue
+                image_url_html = f'<img src="{static_image_full_path}" alt="Image de {place_name}" style="max-width:250px; border-radius: 8px; margin-top: 10px;"><br>'
+            
+            reply_parts.append(f"{confidence_message} **{place_name}** à **{place_city}**.")
+            if image_url_html:
+                reply_parts.append(image_url_html) # Ajouter l'image du lieu de la base
+            reply_parts.append(f"Description : {place_description}")
+            
+            # Obtenir des activités/infos pour la ville du lieu identifié
+            # user_query est vide ici si seulement une image est fournie, donc on passe place_name comme query context.
+            activities_info = retrieve_touristic_info_internal(place_name, place_city)
+
+            if activities_info and "Aucune information spécifique" not in activities_info:
+                reply_parts.append(f"\nVoici aussi quelques informations utiles sur {place_city} ou des activités connexes :\n{activities_info}")
+            
+            return "\n\n".join(reply_parts)
         else:
-            return "Je n'ai pas pu identifier le lieu de manière concluante. Voici des lieux similaires trouvés dans ma base de données :\n" + "\n".join(results_details)
+            return "Désolé, je n'ai pas trouvé d'informations détaillées pour le lieu identifié dans ma base de connaissances."
 
     except Exception as e:
         logger.error(f"Erreur grave lors de la comparaison d'image: {e}", exc_info=True)
@@ -530,7 +588,6 @@ def find_similar_place_by_image(image_base64: str) -> str:
 def process_user_query(user_message: str, user_id: int, image_base64: Optional[str] = None, gps_coords: Optional[str] = None) -> str:
     logger.info(f"Traitement de la requête pour l'utilisateur {user_id}: Message='{user_message[:50]}...', Image_present={bool(image_base64)}, GPS_present={bool(gps_coords)}")
 
-    # Récupérer l'historique complet pour la contextualisation
     recent_history = ChatMessage.objects.filter(user_id=user_id).order_by('-timestamp')[:10]
     formatted_history = []
     for msg in reversed(recent_history):
@@ -551,11 +608,12 @@ def process_user_query(user_message: str, user_id: int, image_base64: Optional[s
 
     # 1. Déterminer l'intention principale et extraire les entités
     intent_chain = get_intention_chain()
+    # ------ LIGNE CORRIGÉE ------
     entity_extraction_chain = get_entity_extraction_chain()
 
     if image_base64 and not user_message.strip():
         intent = "multimodal_query"
-        entities = EntityExtraction() # Créer une instance vide pour l'interface
+        entities = EntityExtraction() 
         logger.debug("Intention forcée à multimodal_query, entités textuelles vides.")
     else:
         try:
@@ -565,7 +623,7 @@ def process_user_query(user_message: str, user_id: int, image_base64: Optional[s
         except Exception as e:
             logger.error(f"Erreur lors de la détection d'intention/extraction d'entités: {e}. Fallback à 'other'.", exc_info=True)
             intent = "other"
-            entities = EntityExtraction() # Assurer que les entités sont un objet vide
+            entities = EntityExtraction() 
 
 
     # Extraire les entités de manière sûre avec getattr
@@ -586,10 +644,8 @@ def process_user_query(user_message: str, user_id: int, image_base64: Optional[s
     if intent == "multimodal_query" and image_base64:
         logger.info("Exécution de l'identification d'image par similarité visuelle.")
         
-        # Appel de la fonction de comparaison d'image
         identification_reply = find_similar_place_by_image(image_base64)
         
-        # Retourne la réponse d'identification
         return identification_reply
 
     # PRIORITY 2: Consultation des voyages planifiés
@@ -606,23 +662,20 @@ def process_user_query(user_message: str, user_id: int, image_base64: Optional[s
         
         response_content = ""
         
-        # Gérer la météo en premier si info_type est "weather"
         if info_type == "weather":
-            target_city = city if city else "Fès" # Ville par défaut si non spécifiée
-            weather_info = get_weather_data(target_city) # Utilise la nouvelle fonction météo
+            target_city = city if city else "Fès" 
+            weather_info = get_weather_data(target_city) 
             response_content += f"{weather_info}\n\n"
-            # Si le message contient aussi des mots clés d'actualités, continuer vers tavily
             if "actualités" in user_message.lower() or "nouvelles" in user_message.lower():
-                pass # Continue pour la recherche web après la météo
+                pass 
             else:
-                return response_content.strip() # Retourne juste la météo si pas d'autres demandes explicites
+                return response_content.strip() 
 
 
-        # Gérer les actualités ou d'autres recherches web si info_type est "news" ou si la météo n'était pas la seule demande
         if info_type == "news" or ("actualités" in user_message.lower() or "nouvelles" in user_message.lower()):
             query_for_web = user_message
             if "actualités" in query_for_web.lower() and not city:
-                 query_for_web = f"actualités Maroc" # Actualités du Maroc par défaut
+                 query_for_web = f"actualités Maroc" 
             
             try:
                 web_search_results = tavily_tool.invoke({"query": query_for_web})
@@ -635,13 +688,11 @@ def process_user_query(user_message: str, user_id: int, image_base64: Optional[s
                 logger.error(f"Erreur lors de la recherche web pour actualités: {e}", exc_info=True)
                 response_content += "Désolé, une erreur est survenue lors de la recherche d'actualités.\n\n"
         
-        # Gérer les recommandations d'activités/hôtels basée sur les données internes
-        # Ceci sera appelé si ce n'est PAS une requête météo/actualités PUR
-        if not info_type in ["weather", "news"] or (info_type is None and not response_content): # Si l'info_type est générique ou non spécifié, ou si aucune réponse n'a encore été générée
+        if not info_type in ["weather", "news"] or (info_type is None and not response_content): 
             info_result_db = retrieve_touristic_info_internal(user_message, city)
             if "Aucune information" not in info_result_db:
                 response_content += f"Voici quelques informations basées sur nos données internes :\n{info_result_db}\n\n"
-            elif not response_content: # Si aucune réponse n'a encore été générée par météo/actualités
+            elif not response_content: 
                 response_content = "Désolé, je n'ai pas trouvé d'informations pertinentes pour cette requête ni en interne ni sur le web."
         
         return response_content.strip() if response_content else "Désolé, je n'ai pas trouvé d'informations pertinentes pour cette requête."
@@ -663,4 +714,3 @@ def process_user_query(user_message: str, user_id: int, image_base64: Optional[s
             "web_context": "", 
             "history_summary": history_summary
         })
-   
