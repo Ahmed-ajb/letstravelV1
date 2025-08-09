@@ -1,3 +1,4 @@
+
 import json
 import pandas as pd
 import numpy as np
@@ -130,17 +131,19 @@ def _process_serpapi_places_results(results_json, item_type, city_name):
         latitude, longitude = gps_coords.get("latitude"), gps_coords.get("longitude")
         if not latitude or not longitude: continue
         rating = item.get("rating")
+        price_value = parse_price_string(item.get("price", ""))
+        
         data = {
             "nom": name, "latitude": latitude, "longitude": longitude, "coordonnees": (latitude, longitude),
             "ville_normalisee": city_name, "booking_link": item.get("link") or item.get("website"),
             "description": item.get("description") or item.get("address"), "rating": (rating * 2 if rating else 7.0)
         }
         if "hotel" in item_type:
-            data.update({"type": "hotel", "duree_estimee": "24h", "budget_estime": parse_price_string(item.get("price")) or 150.0})
+            data.update({"type": "hotel", "duree_estimee": "24h", "budget_estime": price_value or 150.0})
         else:
             price_range = item.get("price", "")
             budget_map = {"$": 20, "$$": 50, "$$$": 100, "$$$$": 200}
-            data.update({"duree_estimee": "1.5h", "budget_estime": budget_map.get(price_range, 50.0)})
+            data.update({"duree_estimee": "1.5h", "budget_estime": price_value or budget_map.get(price_range, 50.0)})
             category = item.get("type", "")
             if "Restaurant" in category: data["type"] = "Gastronomique"
             elif "Cafe" in category: data["type"] = "Gastronomique/Café"
@@ -173,6 +176,8 @@ def load_and_preprocess_data(use_realtime_api=False, target_cities_for_api=None)
             static_hotels_df = pd.DataFrame(hotels_list)
             if not static_hotels_df.empty:
                 if 'name' in static_hotels_df.columns: static_hotels_df.rename(columns={'name': 'nom'}, inplace=True)
+                # Correction pour clé de prix : on la nomme 'budget_estime' pour être cohérent
+                if 'price_per_night' in static_hotels_df.columns: static_hotels_df.rename(columns={'price_per_night': 'budget_estime'}, inplace=True)
                 cities = sorted(static_activities_df["ville_normalisee"].dropna().unique()) if not static_activities_df.empty else []
                 static_hotels_df['ville_normalisee'] = static_hotels_df['location'].apply(lambda x: extract_city_from_hotel_location(x, cities, CITY_NAME_MAPPING))
             _CACHED_STATIC_DATA = {'activities_df': static_activities_df, 'hotels_df': static_hotels_df, 'city_coords_map_global': MANUAL_CITY_COORDINATES}
@@ -194,7 +199,7 @@ def load_and_preprocess_data(use_realtime_api=False, target_cities_for_api=None)
                 _CACHED_API_DATA[city] = {'date': date.today(), 'data': (hotels_df, rc_df)}
             if not hotels_df.empty: api_hotels_dfs.append(hotels_df)
             if not rc_df.empty: api_rc_dfs.append(rc_df)
-        if api_hotels_dfs: final_hotels_df = pd.concat(api_hotels_dfs, ignore_index=True)
+        if api_hotels_dfs: final_hotels_df = pd.concat([final_hotels_df] + api_hotels_dfs, ignore_index=True).drop_duplicates(subset=['nom', 'ville_normalisee'])
         if api_rc_dfs: api_rc_df_combined = pd.concat(api_rc_dfs, ignore_index=True)
 
     for df in [final_activities_df, final_hotels_df, api_rc_df_combined]:
@@ -202,6 +207,7 @@ def load_and_preprocess_data(use_realtime_api=False, target_cities_for_api=None)
             df['coordonnees'] = df.apply(lambda r: (r.get('latitude'), r.get('longitude')) if pd.notna(r.get('latitude')) else None, axis=1)
             df.dropna(subset=['coordonnees'], inplace=True)
     return final_activities_df, final_hotels_df, api_rc_df_combined, _CACHED_STATIC_DATA['city_coords_map_global']
+
 
 # --- Fonctions de Calcul d'Itinéraire ---
 def parse_duration_to_hours(duration_str):
@@ -282,6 +288,11 @@ def recommend_for_city_django(city_name, hotels_df_global, activities_df_global,
     city_hotels = hotels_df_global[(hotels_df_global["ville_normalisee"] == city_name) & (hotels_df_global["rating"] >= min_hotel_rating)]
     recommendations["top_5_hotels"] = city_hotels.sort_values(by="rating", ascending=False).head(5).to_dict('records')
     
+    # --- MODIFICATION CRUCIALE ---
+    # On ajoute une clé "hotel" contenant le top 5, pour que le générateur de PDF puisse la trouver.
+    # C'est la même liste que top_5_hotels, mais cela assure la compatibilité.
+    recommendations["hotel"] = recommendations["top_5_hotels"]
+
     top_restaurants, top_cafes = [], []
     if not api_restaurants_cafes_df_global.empty:
         city_rc = api_restaurants_cafes_df_global[api_restaurants_cafes_df_global["ville_normalisee"] == city_name]
@@ -308,21 +319,28 @@ def recommend_for_city_django(city_name, hotels_df_global, activities_df_global,
     
     intensity_hours = {'relaxed': 4.0, 'moderate': 6.0, 'intense': 8.0}.get(activity_intensity, 6.0)
     daily_plans, total_spent, used_indices = [], 0, set()
+    
+    # On sépare le budget alloué pour les restaurants/cafés du reste
+    budget_for_activities_only = budget_activities_for_stay_in_city * 0.7 
+    budget_for_food = budget_activities_for_stay_in_city * 0.3
+    
     used_restaurants, used_cafes = [], []
 
     for day_num in range(num_days_in_city):
         points_to_visit_today, day_hours = [], 0.0
         
-        if day_num == 0 and start_point_coords_for_day_1:
-            points_to_visit_today.append({"nom": "Votre Point de Départ", "type": "Point de départ", "coordonnees": start_point_coords_for_day_1, "duree_estimee": "0h"})
-        elif recommendations.get("top_5_hotels"):
-            points_to_visit_today.append(recommendations["top_5_hotels"][0])
+        # Le point de départ est l'hôtel recommandé
+        if recommendations.get("hotel"):
+            points_to_visit_today.append(recommendations["hotel"][0])
+        elif day_num == 0 and start_point_coords_for_day_1:
+            points_to_visit_today.append({"nom": "Votre Point de Départ", "type": "Point de départ", "coordonnees": start_point_coords_for_day_1, "duree_estimee": "0h", "budget_estime": 0})
+        
         
         selected_activities = []
         for index, activity in candidate_activities.iterrows():
             if index in used_indices: continue
             duration, cost = activity['duration_hours'], activity['budget_estime'] * num_persons
-            if day_hours + duration <= intensity_hours and total_spent + cost <= budget_activities_for_stay_in_city:
+            if day_hours + duration <= intensity_hours and total_spent + cost <= budget_for_activities_only:
                 selected_activities.append(activity.to_dict())
                 day_hours += duration
                 total_spent += cost
@@ -331,14 +349,10 @@ def recommend_for_city_django(city_name, hotels_df_global, activities_df_global,
         
         if top_restaurants and len(used_restaurants) < len(top_restaurants):
             restaurant = top_restaurants[len(used_restaurants)]
-            points_to_visit_today.append(restaurant)
-            used_restaurants.append(restaurant)
-        if top_cafes and len(used_cafes) < len(top_cafes):
-            cafe = top_cafes[len(used_cafes)]
-            points_to_visit_today.append(cafe)
-            used_cafes.append(cafe)
-        if recommendations.get("top_5_hotels"):
-            points_to_visit_today.extend(recommendations["top_5_hotels"][1:])
+            if total_spent + (restaurant.get('budget_estime', 50) * num_persons) <= budget_activities_for_stay_in_city:
+                points_to_visit_today.append(restaurant)
+                used_restaurants.append(restaurant)
+                total_spent += restaurant.get('budget_estime', 50) * num_persons
 
         optimized_plan = optimize_daily_path(points_to_visit_today)
         daily_plans.append(optimized_plan if len(optimized_plan) > 1 else (optimized_plan + default_day_plan))
@@ -346,13 +360,13 @@ def recommend_for_city_django(city_name, hotels_df_global, activities_df_global,
     recommendations['activites_par_jour_optimisees'] = daily_plans
     recommendations['budget_activites_depense'] = total_spent
     
-    if use_astar_for_planning:
-        all_driving, all_walking = [], []
+    if use_astar_for_planning and OSMNX_AVAILABLE:
+        drive_segs_per_day, walk_segs_per_day = [], []
         for plan in daily_plans:
-            all_driving.extend(calculate_daily_routes_osmnx(plan, city_name, 'drive'))
-            all_walking.extend(calculate_daily_routes_osmnx(plan, city_name, 'walk'))
-        recommendations['itineraire_voiture_segments_par_jour'] = all_driving
-        recommendations['itineraire_pieton_segments_par_jour'] = all_walking
+            drive_segs_per_day.append(calculate_daily_routes_osmnx(plan, city_name, 'drive'))
+            walk_segs_per_day.append(calculate_daily_routes_osmnx(plan, city_name, 'walk'))
+        recommendations['itineraire_voiture_segments_par_jour'] = drive_segs_per_day
+        recommendations['itineraire_pieton_segments_par_jour'] = walk_segs_per_day
     else:
         recommendations['itineraire_voiture_segments_par_jour'], recommendations['itineraire_pieton_segments_par_jour'] = [], []
     
@@ -387,16 +401,24 @@ def plan_trip_django(target_cities_list, total_budget_str, num_days_str, num_per
     budget_for_activities = total_budget * 0.5
 
     trip_plan_final = []
+    budget_per_city = budget_for_activities / len(actual_cities_to_visit) if actual_cities_to_visit else 0
+    
     for i, city in enumerate(actual_cities_to_visit):
         start_coords_day1 = (start_point_coords['latitude'], start_point_coords['longitude']) if i == 0 and start_point_coords else None
         city_rec = recommend_for_city_django(
             city, hotels_df_global, activities_df_global, api_restaurants_cafes_df_global,
-            budget_for_activities, min_rating, activity_preferences_str.split(','),
+            budget_per_city, min_rating, activity_preferences_str.split(','),
             activity_intensity, persons, days_per_city[i], use_astar_for_planning, start_coords_day1
         )
         trip_plan_final.append(city_rec)
 
-    params = {"Villes demandées": ", ".join(target_cities_list), "Ordre de visite suggéré": ", ".join(ordered_cities), "Durée du voyage": f"{num_days} jours"}
+    params = {
+        "Villes demandées": ", ".join(target_cities_list), 
+        "Ordre de visite suggéré": ", ".join(ordered_cities), 
+        "Durée du voyage": f"{num_days} jours",
+        "Nombre de personnes": str(persons),
+        "Budget total indicatif": f"{total_budget:.0f} MAD",
+    }
     
     folium_map_html = generate_trip_map_folium_v2(trip_plan_final, ordered_cities, city_coords_map_global, start_point_coords, start_point_name)
     
@@ -481,10 +503,12 @@ def generate_trip_map_folium_v2(trip_plan_result, ordered_cities_list, city_coor
         folium.PolyLine(inter_city_coords, color='#8B0000', weight=2.5, opacity=0.8, dash_array='10, 5', tooltip="Trajet Inter-Villes").add_to(m)
 
     for plan in trip_plan_result:
-        for seg in plan.get('itineraire_voiture_segments_par_jour', []):
-            folium.PolyLine(seg, color='#007BFF', weight=4, opacity=0.8, tooltip="Itinéraire voiture").add_to(fg_driving)
-        for seg in plan.get('itineraire_pieton_segments_par_jour', []):
-            folium.PolyLine(seg, color='#28A745', weight=4, opacity=0.8, tooltip="Itinéraire piéton").add_to(fg_walking)
+        for seg_list in plan.get('itineraire_voiture_segments_par_jour', []):
+            for seg in seg_list:
+                folium.PolyLine(seg, color='#007BFF', weight=4, opacity=0.8, tooltip="Itinéraire voiture").add_to(fg_driving)
+        for seg_list in plan.get('itineraire_pieton_segments_par_jour', []):
+            for seg in seg_list:
+                folium.PolyLine(seg, color='#28A745', weight=4, opacity=0.8, tooltip="Itinéraire piéton").add_to(fg_walking)
             
     folium.LayerControl(collapsed=False).add_to(m)
     m.fit_bounds(m.get_bounds(), padding=(20, 20))

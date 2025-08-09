@@ -1,3 +1,5 @@
+--- START OF FILE plan_trip.html ---
+
 {% extends "planner/base.html" %}
 {% load static %}
 
@@ -158,37 +160,32 @@
 
                         {% for daily_points_list in city_plan.activites_par_jour_optimisees %}
                             <details class="daily-itinerary-details">
-                                <summary>🚗 Itinéraire Jour {{ forloop.counter }} dans {{ city_plan.ville|default:"cette ville" }}</summary>
+                                <summary>🚗 Itinéraire d'Activités pour le Jour {{ forloop.counter }}</summary>
                                 <div class="details-content">
-                                    {% if daily_points_list %}
-                                        <ul class="itinerary-list">
-                                            {% for point in daily_points_list %}
-                                            <li class="itinerary-point">
-                                                <strong>{{ forloop.counter }}. {{ point.nom|default:"Point d'intérêt" }}</strong>
-
-                                                {% if point.type == "hotel" %}
-                                                    <span class="item-type-badge">(🏨 Hôtel)</span>
-                                                    {% if point.budget_estime is not None %}
-                                                        <br><small>Prix: {{ point.budget_estime|floatformat:0 }} MAD</small>
-                                                    {% endif %}
-                                                {% else %}
+                                    <ul class="itinerary-list">
+                                        {# --- MODIFICATION : Boucle pour n'afficher que les vraies activités --- #}
+                                        {% for point in daily_points_list %}
+                                            {% if point.type != "hotel" and "Gastronomique" not in point.type and point.type != "Point de départ" %}
+                                                <li class="itinerary-point">
+                                                    <strong>{{ forloop.counter }}. {{ point.nom|default:"Point d'intérêt" }}</strong>
+                                                    
                                                     <span class="item-type-badge">(🎯 {{ point.type|default:"Activité" }})</span>
+                                                    
                                                     {% if point.budget_estime is not None %}
                                                         <br><small>Budget: {{ point.budget_estime|floatformat:0 }} MAD</small>
                                                     {% endif %}
+                                                    
                                                     {% if point.duree_estimee %}
                                                         <small>{% if point.budget_estime is not None %} | {% endif %}Durée: {{ point.duree_estimee }}</small>
                                                     {% endif %}
-                                                {% endif %}
-                                                {% if point.description %}
-                                                    <p style="font-size:0.9em; color:var(--text-medium); margin-top:5px; padding-left:15px; border-left: 2px solid var(--border-light);"><em>{{ point.description|truncatewords:25 }}</em></p>
-                                                {% endif %}
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% else %}
-                                        <p>Aucune activité planifiée pour ce jour spécifique.</p>
-                                    {% endif %}
+                                    
+                                                    {% if point.description %}
+                                                        <p style="font-size:0.9em; color:var(--text-medium); margin-top:5px; padding-left:15px; border-left: 2px solid var(--border-light);"><em>{{ point.description|truncatewords:25 }}</em></p>
+                                                    {% endif %}
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
                                 </div>
                             </details>
                         {% empty %}
@@ -280,4 +277,4 @@
             }
         });
     </script>
-{% endblock %}```
+{% endblock %}
